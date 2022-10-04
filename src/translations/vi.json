@@ -1,0 +1,64 @@
+{
+    "homeheader": {
+        "movie": "PHIM",
+        "NOW-SHOWING": "PHIM ĐANG CHIẾU",
+        "COMING-SOON": "PHIM SẮP CHIẾU",
+        "THEATERS": "RẠP ON CINEMA",
+        "ALL-CINEMAS": "TẤT CẢ CÁC RẠP",
+        "SPECIAL-CINEMAS": "RẠP ĐẶC BIỆT",
+        "3D-CINEMAS": "RẠP 3D",
+        "MEMBERSHIP": "THÀNH VIÊN",
+        "ACCOUNT": "TÀI KHOẢN",
+        "MEMBER-BENEFITS": "QUYỀN LỢI",
+        "CINEMA-CHANNEL": "KÊNH CINEMA",
+        "NEWS": "TIN TỨC",
+        "PROMOTION": "KHUYẾN MÃI",
+        "support": "Hỗ trợ",
+        "welcome": "Xin chào"
+    },
+    "option": {
+        "theaters": "RẠP ON CINEMA",
+        "now-showing": "PHIM ĐANG CHIẾU",
+        "contact": "LIÊN HỆ ON CINEMA",
+        "news-offers": "TIN MỚI & ƯU ĐÃI",
+        "register": "ĐĂNG KÝ NGAY"
+    },
+    "menu": {
+        "admin": {
+            "manage-user": "Người dùng",
+            "manage-admin": "Quản lý Admin",
+            "manage-staff": "Quản lý nhân viên",
+            "manage-membership": "Quản lý thành viên",
+            "crud": "Crud User",
+            "crud-redux": "Crud Redux",
+            "movie": "Phim",
+            "manage-movie": "Quản lý phim",
+            "manage-showtime": "Quản lý suất chiếu",
+            "ticket": "Vé",
+            "manage-ticket": "Quản lý vé",
+            "theater": "Rạp",
+            "manage-theater": "Quản lý rạp",
+            "manage-room": "Quản lý phòng chiếu",
+            "food": "Thức ăn",
+            "manage-food": "Quản lý thức ăn",
+            "discount": "Khuyến mãi",
+            "manage-discount": "Quản lý khuyến mãi"
+        },
+        "movie": {
+            "title": "QUẢN LÝ PHIM",
+            "add": "Thêm phim mới",
+            "name": "Tên phim",
+            "date": "Ngày KC",
+            "time": "Thời lượng",
+            "age": "Giới hạn tuổi",
+            "language": "Ngôn ngữ",
+            "abstract": "Tóm tắt",
+            "TL": "Thể loại",
+            "national": "Quốc gia",
+            "director": "Đạo diễn",
+            "cast": "Diễn viên",
+            "poster": "Poster",
+            "btn": "Thêm"
+        }
+    }
+}

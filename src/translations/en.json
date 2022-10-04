@@ -1,0 +1,64 @@
+{
+    "homeheader": {
+        "movie": "MOVIES",
+        "NOW-SHOWING": "NOW SHOWING",
+        "COMING-SOON": "COMMING SOON",
+        "THEATERS": "THEATERS",
+        "ALL-CINEMAS": "ALL CINEMAS",
+        "SPECIAL-CINEMAS": "SPECIAL CINEMAS",
+        "3D-CINEMAS": "3D CINEMAS",
+        "MEMBERSHIP": "MEMBERSHIP",
+        "ACCOUNT": "ACCOUNT",
+        "MEMBER-BENEFITS": "MEMBER BENEFITS",
+        "CINEMA-CHANNEL": "CINEMA CHANNEL",
+        "NEWS": "NEWS",
+        "PROMOTION": "PROMOTION",
+        "support": "Support",
+        "welcome": "Welcome"
+    },
+    "option": {
+        "theaters": "ON CINEMA",
+        "now-showing": "NOW SHOWING",
+        "contact": "CONTACT ON CINEMA",
+        "news-offers": "NEWS & OFFERS",
+        "register": "REGISTER NOW"
+    },
+    "menu": {
+        "admin": {
+            "manage-user": "Users",
+            "manage-admin": "Manage Admins",
+            "manage-staff": "Manage Staffs",
+            "manage-membership": "Manage Membership",
+            "crud": "Crud User",
+            "crud-redux": "Crud Redux",
+            "movie": "Movie",
+            "manage-movie": "Manage Movies",
+            "manage-showtime": "Manage Showtimes",
+            "ticket": "Tickets",
+            "manage-ticket": "Manage Tickets",
+            "theater": "theaters",
+            "manage-theater": "Manage Theaters",
+            "manage-room": "Manage Cinema Room",
+            "food": "Food",
+            "manage-food": "Manage Food",
+            "discount": "Event",
+            "manage-discount": "Manage Event"
+        },
+        "movie": {
+            "title": "MANAGE MOVIE",
+            "add": "Add a movie",
+            "name": "Movie's name",
+            "date": "Release date",
+            "time": "Running Time",
+            "age": "Rated",
+            "language": "Language",
+            "abstract": "Asbtract",
+            "TL": "Genre",
+            "national": "Nation",
+            "director": "Director",
+            "cast": "Cast",
+            "poster": "Poster",
+            "btn": "Add"
+        }
+    }
+}

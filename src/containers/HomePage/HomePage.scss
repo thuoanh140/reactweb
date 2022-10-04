@@ -1,0 +1,161 @@
+.slick-prev {
+
+    // position: relative !important;
+    left: -17px !important;
+    z-index: 1000 !important;
+    height: 55px !important;
+    width: 50px !important;
+    background: #fff !important;
+    border: 2px solid #d7d7d7 !important;
+
+    &:hover {
+        background: #eceaea !important;
+    }
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-family: FontAwesome !important;
+    color: red !important;
+}
+
+.slick-next {
+    right: -17px !important;
+    z-index: 1000 !important;
+    height: 55px !important;
+    width: 50px !important;
+    background: #fff !important;
+    border: 2px solid #d7d7d7 !important;
+
+    &:hover {
+        background: #eceaea !important;
+    }
+}
+
+.section-share {
+    margin-bottom: 80px;
+    background: url('../../assets/section.jpg');
+
+    // &.section-movie {
+    //     // background: rgb(246, 246, 243);
+    // }
+
+    .section-body {
+        // border: 1px solid black;
+
+        .section-customize {
+            cursor: pointer;
+
+            .bg-image1 {
+                height: 400px;
+                width: 280px;
+                // background: url('../../assets/movie/avatar_2.jpg');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #eee;
+
+            }
+
+
+
+            .bg-image5 {
+                height: 400px;
+                width: 280px;
+                background: url('../../assets/movie/minion.jpg');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #eee;
+            }
+
+            .bg-image3 {
+                height: 400px;
+                width: 280px;
+                background: url('../../assets/movie/thor_4.jfif');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #eee;
+            }
+
+            .bg-image2 {
+                height: 400px;
+                width: 280px;
+                background: url('../../assets/movie/black_widow.jfif');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #eee;
+            }
+
+            .bg-image4 {
+                height: 400px;
+                width: 280px;
+                background: url('../../assets/movie/captain_america.jpg');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #eee;
+            }
+
+            .bg-image6 {
+                height: 400px;
+                width: 280px;
+                background: url('../../assets/movie/GOTG-poster_2.jpg');
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: #eee;
+            }
+
+            // &.section-movie {
+
+            // }
+        }
+
+        // .img-customize {
+        //     height: 370px;
+        //     margin: 0 20px;
+        //     border: 1px solid green;
+
+        //     img {
+        //         height: 370px;
+        //         width: 280px;
+        //     }
+        // }
+
+
+    }
+}
+
+.section-share {
+    height: 500px;
+
+    // border: 1px solid red;
+
+    .section-container {
+        margin: 0 50px;
+
+        .section-header {
+            height: 100px;
+            // border: 1px solid orange;
+
+            span {
+                font-size: 70px;
+                display: block;
+                text-align: center;
+                font-family: "Comic Sans MS", "Lucida Sans Unicode", sans-serif;
+                color: orange;
+            }
+        }
+
+
+    }
+}
+
+.home-footer {
+    text-align: center;
+    padding-top: 8px;
+
+}
