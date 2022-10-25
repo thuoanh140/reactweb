@@ -8,7 +8,13 @@ const initialState = {
     nowShowing: [],
     province: [],
     theater: [],
-    cinemaRoom: []
+    cinemaRoom: [],
+    allShowtime: [],
+    movieFormat: [],
+    movieFormatById: [],
+    theaterById: [],
+    eventData: [],
+    foodData: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -74,6 +80,32 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
+        case actionTypes.FETCH_EVENT_SUCCESS:
+            state.eventData = action.dataEvent;
+            // console.log('check nation success: ', state)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_EVENT_FAILED:
+            state.eventData = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_FOOD_SUCCESS:
+            state.foodData = action.dataFood;
+            // console.log('check nation success: ', state)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_FOOD_FAILED:
+            state.foodData = [];
+            return {
+                ...state
+            }
+
         case actionTypes.FETCH_PROVINCE_SUCCESS:
             state.province = action.data;
             // console.log('check nation success: ', state)
@@ -103,6 +135,64 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.FETCH_CINEMA_ROOM_SUCCESS:
             state.cinemaRoom = action.data;
             // console.log('check nation success: ', state)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_CINEMA_ROOM_FAILED:
+            state.cinemaRoom = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_SHOWTIME_SUCCESS:
+            state.allShowtime = action.data;
+            // console.log('check nation success: ', state)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_SHOWTIME_FAILED:
+            state.allShowtime = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_MOVIE_FORMAT_SUCCESS:
+            state.movieFormat = action.data;
+            // console.log('check nation success: ', state)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_MOVIE_FORMAT_FAILED:
+            state.movieFormat = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_MOVIE_FORMAT_BY_ID_SUCCESS:
+            state.movieFormatById = action.data;
+            // console.log('check nation success: ', state)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_MOVIE_FORMAT_BY_ID_FAILED:
+            state.movieFormatById = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_THEATER_BY_ID_SUCCESS:
+            state.theaterById = action.data;
+            // console.log('check nation success: ', state)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_THEATER_BY_ID_FAILED:
+            state.theaterById = [];
             return {
                 ...state
             }

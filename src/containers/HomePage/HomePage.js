@@ -7,6 +7,7 @@ import HomeFooter from './HomeFooter';
 import './HomePage.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { withRouter } from 'react-router';
 
 class HomePage extends Component {
 
@@ -18,12 +19,14 @@ class HomePage extends Component {
             slidesToShow: 4,
             slidesToScroll: 1
         }
-
-
+        let isLoggedIn = this.props.isLoggedIn;
+        console.log('check isLogged homepage: ', isLoggedIn)
         return (
             <div>
                 <HomeHeader isShowBanner={true} />
-                <Movie settings={settings} />
+                <Movie settings={settings}
+                // isLoggedIn={isLoggedIn}
+                />
                 <Event settings={settings} />
                 <HomeFooter />
             </div>
@@ -43,4 +46,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomePage));

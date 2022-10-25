@@ -4,7 +4,12 @@ export const path = {
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
-    DETAIL_MOVIE: '/now-showing/:ten_phim'
+    DETAIL_MOVIE: '/now-showing/:ten_phim',
+    SEAT: '/booking-seat',
+    PAYMENT_METHODS: '/payment-methods',
+    LOGIN_MEMBERSHIP: '/login-membership',
+    FOOD: '/booking-food',
+    MY_TICKET: '/my-ticket'
 };
 
 export const LANGUAGES = {

@@ -21,6 +21,11 @@ import { CustomToastCloseButton } from '../components/CustomToast';
 import HomePage from './HomePage/HomePage.js'
 import CustomScrollbars from '../components/CustomScrollbars';
 import DetailMovie from './Membership/NowShowing/DetailMovie';
+import Seat from './Membership/NowShowing/Seat';
+import PaymentMethods from './Membership/NowShowing/PaymentMethods';
+import LoginCustomer from './Auth/LoginCustomer';
+import Food from './HomePage/Section/Food';
+import MyTickets from './Membership/NowShowing/MyTickets';
 
 class App extends Component {
 
@@ -58,6 +63,13 @@ class App extends Component {
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_MOVIE} component={DetailMovie} />
+                                    <Route path={path.SEAT} component={Seat} />
+                                    <Route path={path.FOOD} component={Food} />
+                                    <Route path={path.PAYMENT_METHODS} component={PaymentMethods} />
+                                    <Route path={path.LOGIN_MEMBERSHIP} component={LoginCustomer} />
+                                    <Route path={path.MY_TICKET} component={MyTickets} />
+
+
                                 </Switch>
                             </CustomScrollbars>
                         </div>

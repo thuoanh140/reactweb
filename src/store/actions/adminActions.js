@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { getGenreService, createNewMovieService, getNowShowingService, getAllMovie, getCinemaRoomService, getProvinceService, getTheaterService } from '../../services/userServices';
+import { getGenreService, createNewMovieService, getNowShowingService, getAllMovie, getCinemaRoomService, getProvinceService, getTheaterService, getShowtimeService, getMovieFormatService, getTheaterByIdService, getMovieFormatByIdService, createNewEventService, createNewFoodService, getEventService, createNewTicketService, createNewDetailTicketService, getFoodService, createNewBillFoodService } from '../../services/userServices';
 
 export const fetchGenreStart = () => {
     return async (dispatch, getState) => {
@@ -37,6 +37,42 @@ export const fetchProvinceStart = () => {
     }
 }
 
+export const fetchMovieFormatStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            
+            let res = await getMovieFormatService();
+            if (res && res.errCode === 0) {
+                // console.log('check get state', getState)
+                dispatch(fetchMovieFormatSuccess(res.data.reverse()))
+            } else {
+                dispatch(fetchMovieFormatFailed());
+            }
+        } catch (e) {
+            dispatch(fetchMovieFormatFailed());
+            console.log('fetch MovieFormat start error', e);
+        }
+    }
+}
+
+export const fetchMovieFormatByIdStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            
+            let res = await getMovieFormatByIdService();
+            if (res && res.errCode === 0) {
+                // console.log('check get state', getState)
+                dispatch(fetchMovieFormatByIdSuccess(res.data.reverse()))
+            } else {
+                dispatch(fetchMovieFormatByIdFailed());
+            }
+        } catch (e) {
+            dispatch(fetchMovieFormatByIdFailed());
+            console.log('fetch MovieFormat start error', e);
+        }
+    }
+}
+
 export const fetchTheaterStart = () => {
     return async (dispatch, getState) => {
         try {
@@ -49,6 +85,23 @@ export const fetchTheaterStart = () => {
             }
         } catch (e) {
             dispatch(fetchTheaterFailed());
+            console.log('fetch Theater start error', e);
+        }
+    }
+}
+
+export const fetchTheaterByIdStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getTheaterByIdService();
+            if (res && res.errCode === 0) {
+                // console.log('check get state', getState)
+                dispatch(fetchTheaterByIdSuccess(res.data.reverse()))
+            } else {
+                dispatch(fetchTheaterByIdFailed());
+            }
+        } catch (e) {
+            dispatch(fetchTheaterByIdFailed());
             console.log('fetch Theater start error', e);
         }
     }
@@ -71,13 +124,50 @@ export const fetchCinemaRoomStart = () => {
     }
 }
 
+export const fetchShowtimeStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getShowtimeService();
+            if (res && res.errCode === 0) {
+                // console.log('check get state', getState)
+                dispatch(fetchShowtimeSuccess(res.data.reverse()))
+            } else {
+                dispatch(fetchShowtimeFailed());
+            }
+        } catch (e) {
+            dispatch(fetchShowtimeFailed());
+            console.log('fetch Theater start error', e);
+        }
+    }
+}
+
 export const fetchProvinceSuccess = (provinceData) => ({
     type: actionTypes.FETCH_PROVINCE_SUCCESS,
     data: provinceData
 })
 
+export const fetchMovieFormatSuccess = (movieFormatData) => ({
+    type: actionTypes.FETCH_MOVIE_FORMAT_SUCCESS,
+    data: movieFormatData
+})
+
+export const fetchMovieFormatByIdSuccess = (movieFormatData) => ({
+    type: actionTypes.FETCH_MOVIE_FORMAT_BY_ID_SUCCESS,
+    data: movieFormatData
+})
+
+export const fetchShowtimeSuccess = (showtimeData) => ({
+    type: actionTypes.FETCH_SHOWTIME_SUCCESS,
+    data: showtimeData
+})
+
 export const fetchTheaterSuccess = (theaterData) => ({
     type: actionTypes.FETCH_THEATER_SUCCESS,
+    data: theaterData
+})
+
+export const fetchTheaterByIdSuccess = (theaterData) => ({
+    type: actionTypes.FETCH_THEATER_BY_ID_SUCCESS,
     data: theaterData
 })
 
@@ -90,8 +180,24 @@ export const fetchProvinceFailed = () => ({
     type: actionTypes.FETCH_PROVINCE_FAILED
 })
 
+export const fetchMovieFormatFailed = () => ({
+    type: actionTypes.FETCH_MOVIE_FORMAT_FAILED
+})
+
+export const fetchMovieFormatByIdFailed = () => ({
+    type: actionTypes.FETCH_MOVIE_FORMAT_BY_ID_FAILED
+})
+
+export const fetchShowtimeFailed = () => ({
+    type: actionTypes.FETCH_SHOWTIME_FAILED
+})
+
 export const fetchTheaterFailed = () => ({
     type: actionTypes.FETCH_THEATER_FAILED
+})
+
+export const fetchTheaterByIdFailed = () => ({
+    type: actionTypes.FETCH_THEATER_BY_ID_FAILED
 })
 
 export const fetchCinemaRoomFailed = () => ({
@@ -234,12 +340,141 @@ export const createNewMovie = (data) => {
     }
 }
 
+export const createNewFood = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createNewFoodService(data);
+            console.log('check create food redux', res)
+            if (res && res.errCode === 0) {
+                dispatch(createFoodSuccess(res.data))
+            } else {
+                dispatch(createFoodFailed());
+            }
+        } catch (e) {
+            dispatch(createFoodFailed());
+            console.log('fetch food start error', e);
+        }
+    }
+}
+
 export const createMovieSuccess = () => ({
     type: 'CREATE_MOVIE_SUCCESS'
 })
 
+export const createFoodSuccess = () => ({
+    type: 'CREATE_FOOD_SUCCESS'
+})
+
 export const createMovieFailed = () => ({
     type: 'CREATE_MOVIE_FAILED'
+})
+
+export const createFoodFailed = () => ({
+    type: 'CREATE_FOOD_FAILED'
+})
+
+export const createNewEvent = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createNewEventService(data);
+            console.log('check create event redux', res)
+            if (res && res.errCode === 0) {
+                // console.log('check get state', getState)
+                dispatch(createEventSuccess(res.data))
+            } else {
+                dispatch(createEventFailed());
+            }
+        } catch (e) {
+            dispatch(createEventFailed());
+            console.log('fetch Event start error', e);
+        }
+    }
+}
+
+export const createNewTicket = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createNewTicketService(data);
+            console.log('check create Ticket redux', res)
+            if (res && res.errCode === 0) {
+                // console.log('check get state', getState)
+                dispatch(createTicketSuccess(res.data))
+            } else {
+                dispatch(createTicketFailed());
+            }
+        } catch (e) {
+            dispatch(createTicketFailed());
+            console.log('fetch Ticket start error', e);
+        }
+    }
+}
+
+export const createNewBillFood = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createNewBillFoodService(data);
+            console.log('check create bill food redux', res)
+            if (res && res.errCode === 0) {
+                // console.log('check get state', getState)
+                dispatch(createBillFoodSuccess(res.data))
+            } else {
+                dispatch(createBillFoodFailed());
+            }
+        } catch (e) {
+            dispatch(createBillFoodFailed());
+            console.log('fetch BillFood start error', e);
+        }
+    }
+}
+
+export const createNewDetailTicket = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createNewDetailTicketService(data);
+            console.log('check createNewDetailTicketService redux', res)
+            if (res && res.errCode === 0) {
+                // console.log('check get state', getState)
+                dispatch(createDetailTicketSuccess(res.data))
+            } else {
+                dispatch(createDetailTicketFailed());
+            }
+        } catch (e) {
+            dispatch(createDetailTicketFailed());
+            console.log('fetch Detail Ticket start error', e);
+        }
+    }
+}
+
+export const createEventSuccess = () => ({
+    type: 'CREATE_EVENT_SUCCESS'
+})
+
+export const createTicketSuccess = () => ({
+    type: 'CREATE_TICKET_SUCCESS'
+})
+
+export const createBillFoodSuccess = () => ({
+    type: 'CREATE_BILL_FOOD_SUCCESS'
+})
+
+export const createDetailTicketSuccess = () => ({
+    type: 'CREATE_DETAIL_TICKET_SUCCESS'
+})
+
+export const createEventFailed = () => ({
+    type: 'CREATE_EVENT_FAILED'
+})
+
+export const createTicketFailed = () => ({
+    type: 'CREATE_TICKET_FAILED'
+})
+
+export const createBillFoodFailed = () => ({
+    type: 'CREATE_BILL_FOOD_FAILED'
+})
+
+export const createDetailTicketFailed = () => ({
+    type: 'CREATE_DETAIL_TICKET_FAILED'
 })
 
 export const fetchNowShowing = () => {
@@ -260,6 +495,52 @@ export const fetchNowShowing = () => {
             console.log('FETCH_NOW_SHOWING_FAILED: ', e)
             dispatch({
                 type: actionTypes.FETCH_NOW_SHOWING_FAILED
+            })
+        }
+    }
+}
+
+export const fetchFood = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getFoodService();
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_FOOD_SUCCESS,
+                    dataFood: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_FOOD_FAILED
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_FOOD_FAILED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_FOOD_FAILED
+            })
+        }
+    }
+}
+
+export const fetchEvent = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getEventService();
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_EVENT_SUCCESS,
+                    dataEvent: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_EVENT_FAILED
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_EVENT FAILED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_EVENT_FAILED
             })
         }
     }

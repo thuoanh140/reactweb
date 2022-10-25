@@ -4,6 +4,8 @@ import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
 import { LANGUAGES } from '../../utils';
 import { changLanguageApp } from '../../store/actions'
+import PaymentMethods from '../Membership/NowShowing/PaymentMethods';
+import { withRouter } from 'react-router';
 
 class HomeHeader extends Component {
     changLanguage = (language) => {
@@ -11,8 +13,16 @@ class HomeHeader extends Component {
         //fire redux event: actions
     }
 
+    handleOnClickMyTicket = () => {
+        this.props.history.push(`/my-ticket`);
+    }
+
     render() {
         let language = this.props.language;
+        let userInfo = this.props.userInfo;;
+        // let userId = this.props.userInfo.id;
+        console.log('check userinfor: ', userInfo)
+        // console.log('check userId: ', userId)
         return (
             <React.Fragment>
                 <div className='home-header-container'>
@@ -52,12 +62,25 @@ class HomeHeader extends Component {
                                 </div>
                             </div>
 
+                            <div className="dropdown">
+                                <button className="dropbtn"
+                                    onClick={() => this.handleOnClickMyTicket()}><b><FormattedMessage id="homeheader.myticket" /></b></button>
+                                {/* <div className="dropdown-content">
+                                    <a href="#"><b><FormattedMessage id="homeheader.NEWS" /></b></a>
+                                    <a href="#"><b><FormattedMessage id="homeheader.PROMOTION" /></b></a>
+                                </div> */}
+                            </div>
+
                         </div>
                         <div className='right-content'>
                             <div className='support'><i className='fas fa-question-circle'></i>
                                 <FormattedMessage id="homeheader.support" /></div>
                             <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}><span onClick={() => this.changLanguage(LANGUAGES.VI)}>VN</span></div>
                             <div className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'}><span onClick={() => this.changLanguage(LANGUAGES.EN)}>EN</span></div>
+                        </div>
+
+                        <div>
+                            <span className='welcome'><FormattedMessage id="homeheader.welcome" />, {userInfo && userInfo ? userInfo.ten_tk : ''}!</span>
                         </div>
 
                     </div>
@@ -86,6 +109,7 @@ class HomeHeader extends Component {
                                     <div className='icon-child'><i className="fas fa-users"></i></div>
                                     <div className='text-child'><FormattedMessage id="option.register" /></div>
                                 </div>
+
                             </div>
                         </div>
                         <div className='content-down'></div>
@@ -95,6 +119,9 @@ class HomeHeader extends Component {
 
 
                 </div>
+                {/* <div hidden>
+                    <PaymentMethods userId={userId} />
+                </div> */}
             </React.Fragment>
         );
     }
@@ -115,4 +142,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));

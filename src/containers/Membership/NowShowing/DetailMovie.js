@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailMovie.scss';
 import { getMovieNowShowingById } from '../../../services/userServices'
-
+import Showtime from './Showtime';
 
 class DetailMovie extends Component {
     constructor(props) {
@@ -32,6 +32,7 @@ class DetailMovie extends Component {
 
 
     render() {
+
         console.log('check state', this.state);
         let { detailMovie } = this.state;
         return (
@@ -83,7 +84,9 @@ class DetailMovie extends Component {
                         </div>
                     </div>
                     <div className='showtimes'>
-
+                        <Showtime
+                            showtimeIdFromParent={detailMovie && detailMovie.id ? detailMovie.id : -1}
+                        />
                     </div>
                     <div className='comment-movie'>
 

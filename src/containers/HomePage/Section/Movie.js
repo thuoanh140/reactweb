@@ -36,6 +36,8 @@ class Movie extends Component {
 
 
     render() {
+        let isLoggedIn = this.props.isLoggedIn;
+        console.log('check isLogged movie: ', isLoggedIn)
         let arrNowShowing = this.state.arrNowShowing;
         return (
             <div className='section-share section-movie'>

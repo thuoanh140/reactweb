@@ -5,6 +5,10 @@ import UserManage from '../containers/System/UserManage';
 import UserRedux from '../containers/System/Admin/UserRedux';
 import Header from '../containers/Header/Header';
 import ManageShowtimes from '../containers/System/Admin/ManageShowtimes';
+import CreateEvent from '../containers/System/Admin/CreateEvent';
+import Login from '../containers/Auth/Login';
+import LoginCustomer from '../containers/Auth/LoginCustomer';
+import CreateFood from '../containers/System/Admin/CreateFood';
 
 class System extends Component {
     render() {
@@ -19,6 +23,9 @@ class System extends Component {
                             <Route path="/system/user-manage" component={UserManage} />
                             <Route path="/system/manage-movie" component={UserRedux} />
                             <Route path="/system/manage-showtime" component={ManageShowtimes} />
+                            <Route path="/system/manage-event" component={CreateEvent} />
+                            <Route path="/system/manage-food" component={CreateFood} />
+
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>

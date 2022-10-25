@@ -1,6 +1,7 @@
 .detail-movie-container {
-    height: 500px;
-    border: 1px solid red;
+    height: 1000px;
+    // border: 1px solid red;
+    background: url('../../../assets/background.jpg');
 
     .intro-movie {
         display: flex;
@@ -9,7 +10,7 @@
 
         .content-left {
             width: 30%;
-            border: 1px solid green;
+            // border: 1px solid green;
             background: center center no-repeat;
             /* height: 400px; */
             margin: 10px 20px
@@ -17,10 +18,14 @@
 
         .content-right {
             width: 70%;
-            border: 1px solid gray;
+            // border: 1px solid gray;
             display: flex;
             flex-direction: column;
             padding-left: 10px;
+
+            span {
+                color: yellow;
+            }
 
             .up {
                 font-size: 30px;
@@ -32,5 +37,11 @@
                 font-size: 15px;
             }
         }
+    }
+
+    .showtimes {
+        margin: 0 100px;
+        height: 400px;
+        // border: 1px solid orange;
     }
 }

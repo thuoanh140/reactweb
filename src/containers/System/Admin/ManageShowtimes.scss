@@ -9,7 +9,26 @@
     }
 
     .pick-showtimes-container {
-        height: 150px;
-        border: 1px solid red;
+        margin: 20px 0;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+
+        button {
+            padding: 5px 15px;
+            border: 1px solid grey;
+        }
     }
+
+    .pickdate {}
+
+    .btn-showtime {
+        &.active {
+            background-color: orange;
+        }
+    }
+}
+
+.btn-save-showtime {
+    margin: 20px auto;
 }
