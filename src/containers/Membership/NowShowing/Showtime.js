@@ -149,8 +149,8 @@ class Showtime extends Component {
         let showtimeData = this.state;
         // const { isLoggedIn } = this.state;
         this.props.history.push({
-            // pathname: isLoggedIn ? "/booking-seat" : "/login-membership",
-            pathname: "/booking-seat",
+            pathname: this.props.isLoggedIn ? "/booking-seat" : "/login-membership",
+            // pathname: "/booking-seat",
             state: { showtimeData }
         });
 
@@ -187,7 +187,6 @@ class Showtime extends Component {
                                                 )
                                             })
                                         }
-
                                     </select>
                                 </div>
                                 <div className='all-avaiable-showtime'>
@@ -204,9 +203,6 @@ class Showtime extends Component {
                                             })
                                         }
                                     </div>
-
-
-
                                     <hr />
                                     <div className='movieFormat-name'>
                                         {allAvaiableTime && allAvaiableTime.length > 0 &&
@@ -230,6 +226,7 @@ class Showtime extends Component {
                                                     {allAvaiableTime.map((item, index) => {
                                                         return (
                                                             <button key={index}
+                                                            className={item.id === showtimeClick.id && 'time-content-btns--active'}
                                                                 // onChange={(item) => this.handleChangeSelectShowtime(item)}
                                                                 onClick={() => this.handleViewSeat(item)}>{item.showTime}</button>
                                                         )
@@ -239,7 +236,7 @@ class Showtime extends Component {
                                                 <div className='booking-showtime'>
                                                     <button
                                                         onClick={() => this.handleBookingSeat()}
-
+                                                        disabled={!this.state.showtimeClick?.id}
                                                     ><i className='far fa-hand-point-up'></i>Đặt vé</button>
                                                 </div>
 

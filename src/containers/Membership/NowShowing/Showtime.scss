@@ -22,8 +22,11 @@
         }
 
         .pickdate {
-            margin-left: 900px;
-            margin-top: -40px;
+            // margin-left: 900px;
+            // margin-top: -40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
         }
 
 
@@ -71,6 +74,10 @@
                     flex-wrap: wrap;
                     cursor: pointer;
 
+                    .time-content-btns--active {
+                        background-color: olive;
+                    }
+
 
 
                     button {
@@ -86,13 +93,13 @@
                         }
                     }
 
-                    button:active {
-                        background: olive;
-                    }
+                    // button:active {
+                    //     background: olive;
+                    // }
 
-                    button:focus {
-                        background: olive;
-                    }
+                    // button:focus {
+                    //     background: olive;
+                    // }
                 }
 
                 .not-showtime {
@@ -113,6 +120,11 @@
                         text-decoration: none;
                         display: inline-block;
                         font-size: 16px;
+
+                        &:disabled{
+                            background-color: rgba(#4CAF50, 0.7);
+                            cursor: not-allowed;
+                        }
                     }
                 }
             }

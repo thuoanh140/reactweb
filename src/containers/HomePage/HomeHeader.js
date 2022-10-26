@@ -77,11 +77,11 @@ class HomeHeader extends Component {
                                 <FormattedMessage id="homeheader.support" /></div>
                             <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}><span onClick={() => this.changLanguage(LANGUAGES.VI)}>VN</span></div>
                             <div className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'}><span onClick={() => this.changLanguage(LANGUAGES.EN)}>EN</span></div>
+                        <div>
+                            <span className='welcome'>{userInfo ?<><FormattedMessage id="homeheader.welcome" />, {userInfo && userInfo ? userInfo.ten_tk : ''}!</> : <a href="/login-membership">Đăng Nhập</a>}</span>
+                        </div>
                         </div>
 
-                        <div>
-                            <span className='welcome'><FormattedMessage id="homeheader.welcome" />, {userInfo && userInfo ? userInfo.ten_tk : ''}!</span>
-                        </div>
 
                     </div>
                 </div>
