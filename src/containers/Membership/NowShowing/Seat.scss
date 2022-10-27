@@ -65,12 +65,11 @@
                     background-color: #4c45d2;
                 }
 
-
-
-
+                &--disabled {
+                    background-color: #808080 !important;
+                    cursor: not-allowed;
+                }
             }
-
-
 
             .seat-vip {
                 display: flex;
@@ -92,7 +91,16 @@
                     &:hover {
                         background-color: #45c3d2;
                     }
+                    &.active {
+                        background-color: #4c45d2;
+                    }
+    
+                    &.seat-vip-child--disabled {
+                        background-color: rgba(120, 119, 33, 1) !important;
+                        cursor: not-allowed;
+                    }
                 }
+
 
             }
         }
@@ -278,6 +286,11 @@
                 text-decoration: none;
                 display: inline-block;
                 font-size: 16px;
+
+                &:disabled {
+                    cursor: not-allowed;
+                    background-color: rgba(#4CAF50, 0.9);
+                }
             }
         }
     }
