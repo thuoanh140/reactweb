@@ -29,7 +29,7 @@ class HomeHeader extends Component {
                     <div className='home-header-content'>
                         <div className='left-content'>
                             <i className='fas fa-bars'></i>
-                            <div className='header-logo'></div>
+                            <div className='header-logo' onClick={() => this.props.history?.push('/home')}></div>
                         </div>
                         <div className='center-content'>
                             <div className="dropdown">
@@ -78,7 +78,14 @@ class HomeHeader extends Component {
                             <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}><span onClick={() => this.changLanguage(LANGUAGES.VI)}>VN</span></div>
                             <div className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'}><span onClick={() => this.changLanguage(LANGUAGES.EN)}>EN</span></div>
                         <div>
-                            <span className='welcome'>{userInfo ?<><FormattedMessage id="homeheader.welcome" />, {userInfo && userInfo ? userInfo.ten_tk : ''}! <i class="fas fa-sign-out-alt sign-out-icon" onClick={this.props.processLogout}></i></> : <a href="/login-membership">Đăng Nhập</a>}</span>
+                            <span className='welcome'>
+                                {
+                                    userInfo ?
+                                        <>
+                                            <FormattedMessage id="homeheader.welcome" />, {userInfo && userInfo ? userInfo.ten_tk : ''}! 
+                                            <i class="fas fa-sign-out-alt sign-out-icon" onClick={this.props.processLogout}></i>
+                                        </> : 
+                                        <a href="/login-membership">Đăng Nhập</a>}</span>
                         </div>
                         </div>
 
