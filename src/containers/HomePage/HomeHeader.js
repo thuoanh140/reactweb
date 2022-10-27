@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
 import { LANGUAGES } from '../../utils';
-import { changLanguageApp } from '../../store/actions'
+import { changLanguageApp, processLogout } from '../../store/actions'
 import PaymentMethods from '../Membership/NowShowing/PaymentMethods';
 import { withRouter } from 'react-router';
 
@@ -78,7 +78,7 @@ class HomeHeader extends Component {
                             <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}><span onClick={() => this.changLanguage(LANGUAGES.VI)}>VN</span></div>
                             <div className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'}><span onClick={() => this.changLanguage(LANGUAGES.EN)}>EN</span></div>
                         <div>
-                            <span className='welcome'>{userInfo ?<><FormattedMessage id="homeheader.welcome" />, {userInfo && userInfo ? userInfo.ten_tk : ''}!</> : <a href="/login-membership">Đăng Nhập</a>}</span>
+                            <span className='welcome'>{userInfo ?<><FormattedMessage id="homeheader.welcome" />, {userInfo && userInfo ? userInfo.ten_tk : ''}! <i class="fas fa-sign-out-alt sign-out-icon" onClick={this.props.processLogout}></i></> : <a href="/login-membership">Đăng Nhập</a>}</span>
                         </div>
                         </div>
 
@@ -138,7 +138,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changLanguageAppRedux: (language) => dispatch(changLanguageApp(language))
+        changLanguageAppRedux: (language) => dispatch(changLanguageApp(language)),
+        processLogout: () => dispatch(processLogout())
     };
 };
 
