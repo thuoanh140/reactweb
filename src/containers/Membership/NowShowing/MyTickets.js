@@ -32,97 +32,43 @@ class MyTickets extends Component {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        setTimeout(() => this.getTicket(), 0)
+    }
 
-        setTimeout(async () => {
-            let userId = this.props.userInfo?.id_tv;
-            let accountId = this.props.userInfo?.id;
-            console.warn('check u:', this.props)
-            let res = await getTicketByIdTVService(userId);
-            if (res && res.errCode === 0) {
-                this.setState({
-                    allTicket: res.data ? res.data : [],
-                })
-            }
-            let ticket = res.data;
-            // let response = await getDetailTicketByIdTicketService(ticket[0].id);
-            // console.log('check response: ', response)
-            console.log('check ticket:', res);
-            console.log('check ticket abv:', ticket);
-            let detailTicket = [];
-            for (let i = 0; i < ticket.length; i++) {
-                // ticket_id.push(res.data[i].id);
-                // return ticket_id;
-                let response = await getDetailTicketByIdTicketService(ticket[i].id);
-                detailTicket.push(response)
-                // if (response && response.errCode === 0) {
-                //     this.setState({
-                //         allDetailTicket: response.data ? response.data : [],
-                //     })
-                // }
-                console.log('check response: ', response)
-                console.log('check i', ticket[i].id)
-
-            }
-            console.log('check detailTicket:', detailTicket)
+    async getTicket() {
+        let userId = this.props.userInfo?.id_tv;
+        let accountId = this.props.userInfo?.id;
+        let res = await getTicketByIdTVService(userId);
+        if (res && res.errCode === 0) {
             this.setState({
-                allDetailTicket: detailTicket
+                allTicket: res.data ? res.data : [],
             })
-            let resp = await getMemberByIdTKService(accountId);
-            if (resp && resp.errCode === 0) {
-                this.setState({
-                    memberInfo: resp.data ? resp.data : [],
-                })
-            }
-            console.log('check resp: ', resp)
+        }
+        let ticket = res.data;
+        // let response = await getDetailTicketByIdTicketService(ticket[0].id);
+        let detailTicket = [];
+        for (let i = 0; i < ticket.length; i++) {
+            // ticket_id.push(res.data[i].id);
+            // return ticket_id;
+            let response = await getDetailTicketByIdTicketService(ticket[i].id);
+            detailTicket.push(response)
+            // if (response && response.errCode === 0) {
+            //     this.setState({
+            //         allDetailTicket: response.data ? response.data : [],
+            //     })
+            // }
 
-
-        }, 0)
-
-
-        // let userId = this.props.userInfo.id_tv;
-        // let accountId = this.props.userInfo.id;
-        // console.log('check userId', userId)
-        // console.log('check accountId', accountId)
-        // let res = await getTicketByIdTVService(userId);
-        // if (res && res.errCode === 0) {
-        //     this.setState({
-        //         allTicket: res.data ? res.data : [],
-        //     })
-        // }
-        // let ticket = res.data;
-        // // let response = await getDetailTicketByIdTicketService(ticket[0].id);
-        // // console.log('check response: ', response)
-        // console.log('check ticket:', res);
-        // console.log('check ticket abv:', ticket);
-        // let detailTicket = [];
-        // for (let i = 0; i < ticket.length; i++) {
-        //     // ticket_id.push(res.data[i].id);
-        //     // return ticket_id;
-        //     let response = await getDetailTicketByIdTicketService(ticket[i].id);
-        //     detailTicket.push(response)
-        //     // if (response && response.errCode === 0) {
-        //     //     this.setState({
-        //     //         allDetailTicket: response.data ? response.data : [],
-        //     //     })
-        //     // }
-        //     console.log('check response: ', response)
-        //     console.log('check i', ticket[i].id)
-
-        // }
-        // console.log('check detailTicket:', detailTicket)
-        // this.setState({
-        //     allDetailTicket: detailTicket
-        // })
-
-        // let resp = await getMemberByIdTKService(accountId);
-        // if (resp && resp.errCode === 0) {
-        //     this.setState({
-        //         memberInfo: resp.data ? resp.data : [],
-        //     })
-        // }
-        // console.log('check resp: ', resp)
-
+        }
+        this.setState({
+            allDetailTicket: detailTicket
+        })
+        let resp = await getMemberByIdTKService(accountId);
+        if (resp && resp.errCode === 0) {
+            this.setState({
+                memberInfo: resp.data ? resp.data : [],
+            })
+        }
     }
 
     btnCancelTicket = async (ticket) => {
@@ -130,7 +76,10 @@ class MyTickets extends Component {
         let id = ticket.data[0].id;
         console.log('check id:', id)
         await cancelTicket(id);
-        window.location.reload(false);
+
+        await this.getTicket()
+
+        // window.location.reload(false);
         // let { allDetailTicket } = this.state;
         // let today = moment().format("DD/MM/YYYY");
         // // let futureTicket = allDetailTicket.filter(item => (moment(new Date(Number(item.data[0].ticketData.ngay_ban))).format("DD/MM/YYYY")) >= today)
