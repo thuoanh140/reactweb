@@ -25,6 +25,7 @@
     "react-number-format": "^4.6.4",
     "react-qty-picker": "^1.0.6",
     "react-quantity-picker": "^1.0.3",
+    "react-rating-stars-component": "^2.2.0",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",

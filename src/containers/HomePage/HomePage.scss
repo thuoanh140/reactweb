@@ -54,8 +54,15 @@
                 background-repeat: no-repeat;
                 background-size: cover;
                 background-color: #eee;
+                transition: transform .2s;
 
             }
+
+            .bg-image1:hover {
+                transform: scale(1.1);
+            }
+
+
 
 
 

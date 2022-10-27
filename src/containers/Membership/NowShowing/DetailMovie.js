@@ -4,6 +4,8 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailMovie.scss';
 import { getMovieNowShowingById } from '../../../services/userServices'
 import Showtime from './Showtime';
+import Rating from './Rating';
+
 
 class DetailMovie extends Component {
     constructor(props) {
@@ -89,7 +91,9 @@ class DetailMovie extends Component {
                         />
                     </div>
                     <div className='comment-movie'>
-
+                        <Rating
+                            showtimeIdFromParent={detailMovie && detailMovie.id ? detailMovie.id : -1}
+                        />
                     </div>
                 </div>
             </>

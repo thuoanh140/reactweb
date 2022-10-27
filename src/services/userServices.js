@@ -44,6 +44,10 @@ const createShowtimeService = (data) => {
     return axios.post('/api/create-showtime-detail', data)
 }
 
+const createRatingService = (data) => {
+    return axios.post('/api/create-new-rating', data)
+}
+
 const createPaymentCheckoutService = (data) => {
     return axios.post('/create_payment_url', data)
 }
@@ -186,6 +190,7 @@ export {
     getMovieByIdService, createNewTicketService, createNewDetailTicketService,
     getEmailService, createNewFoodService, getFoodService, getPaymentByIdService,
     createNewBillFoodService, createPaymentCheckoutService, getTicketByIdTVService,
-    getPayment, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService
+    getPayment, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService,
+    createRatingService
     // getNationService, getDirectorService, getCastService
 }
