@@ -235,7 +235,8 @@ class PaymentMethods extends Component {
         let selectedSeat = this.props.location.state.stateData.selectedSeat;
         let selectedFood = this.props.location.state.selectedFood;
         let ve = Number(selectedSeat.reduce((total, item) => total + Number(item.seatTypeData.gia_tien), 0))
-        let bap = Number(selectedFood.reduce((total, item) => total + Number(item.gia), 0))
+        // let bap = Number(selectedFood.reduce((total, item) => total + Number(item.gia), 0))
+        let bap = Number(selectedFood.reduce((total, item) => total + (Number(item.gia) * item.quantity), 0))
         let total = ve + bap;
         let { selectedPayment } = this.state;
         console.log('check selectedPayment  render:', selectedPayment)

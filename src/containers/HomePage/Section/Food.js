@@ -7,7 +7,7 @@ import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router';
 import { getFoodService } from '../../../services/userServices'
 import NumberFormat from 'react-number-format';
-import { QuantityPicker } from 'react-quantity-picker'
+import { QuantityPicker } from 'react-qty-picker';
 
 
 
@@ -91,11 +91,19 @@ class Food extends Component {
         // console.log('check datee: ', datee)
     }
 
-    // handleQuantity = (event) => {
-    //     this.setState({
-    //         sl: event
-    //     })
-    // }
+    handleQuantity = (event) => {
+        this.setState({
+            quantity: event
+        })
+        console.log('check event:', event)
+        let { food } = this.state;
+        let selectedFood = food.filter(item => item.isSelected === true);
+        selectedFood = selectedFood.map(item => {
+            item.quantity = event;
+            return item;
+        })
+
+    }
 
 
 
@@ -105,8 +113,9 @@ class Food extends Component {
         console.log('check isLogged Food: ', isLoggedIn)
         let arrFood = this.state.arrFood;
         console.log('check food: ', arrFood)
-
         console.log('check props:', this.props)
+        let quantity = this.state.quantity;
+        console.log('check quantity: ', quantity)
         let movieNamepick = this.props.location.state.movieName.ten_phim;
         let theaterName = this.props.location.state.stateData.showtimeClick.theaterData.ten_rap;
         let showtimepick = this.props.location.state.stateData.showtimeClick.showTime;
@@ -118,7 +127,7 @@ class Food extends Component {
         console.log('check selected food: ', selectedFood)
         // console.log('check props: ', state);
         let ve = Number(selectedSeat.reduce((total, item) => total + Number(item.seatTypeData.gia_tien), 0))
-        let bap = Number(selectedFood.reduce((total, item) => total + Number(item.gia), 0))
+        let bap = Number(selectedFood.reduce((total, item) => total + (Number(item.gia) * item.quantity), 0))
         let total = ve + bap;
         console.log('check total: ', total)
 
@@ -153,10 +162,10 @@ class Food extends Component {
                                                 <span>{item.gia}</span>
 
                                             </div>
-                                            {/* <div>
-                                                <QuantityPicker width='5rem' min={1}
+                                            <div>
+                                                <QuantityPicker smooth
                                                     onChange={(event) => this.handleQuantity(event)} />
-                                            </div> */}
+                                            </div>
 
                                         </div>
 
@@ -192,9 +201,11 @@ class Food extends Component {
                                                     suffix={'VND'}
                                                 /></span>
 
-                                            </div>
-                                            <div className='text-center trailer'>
 
+                                            </div>
+                                            <div>
+                                                <QuantityPicker smooth
+                                                    onChange={(event) => this.handleQuantity(event)} />
                                             </div>
 
                                         </div>
@@ -210,6 +221,7 @@ class Food extends Component {
                 <div className='price'>
 
                     <div className='content-left'>
+
                         <div>
                             <span>Tên phim: {movieNamepick}</span>
                         </div>

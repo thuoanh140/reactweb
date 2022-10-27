@@ -148,6 +148,10 @@ const getSeatByCinemaRoomIdVIPService = (inputId) => {
     return axios.get(`/api/get-seat-by-cinemaRoomIdVIP?id_phong_chieu=${inputId}`)
 }
 
+const getMemberByIdTKService = (inputId) => {
+    return axios.get(`/api/get-member-by-IdTK?id_tk=${inputId}`)
+}
+
 const getMovieFormatByIdService = (movieId, provinceId, date) => {
     return axios.get(`/api/get-movie-format-by-Id?movieId=${movieId}&provinceId=${provinceId}&date=${date}`)
 }
@@ -182,6 +186,6 @@ export {
     getMovieByIdService, createNewTicketService, createNewDetailTicketService,
     getEmailService, createNewFoodService, getFoodService, getPaymentByIdService,
     createNewBillFoodService, createPaymentCheckoutService, getTicketByIdTVService,
-    getPayment, getDetailTicketByIdTicketService, cancelTicket
+    getPayment, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService
     // getNationService, getDirectorService, getCastService
 }

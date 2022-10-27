@@ -1,0 +1,55 @@
+.myticket-container {
+    display: flex;
+    height: 800px;
+    // background: url('../../../assets/background.jpg');
+
+
+    .content-left {
+        width: 65%;
+
+        .history-ticket {
+            margin-top: 40px;
+            margin-bottom: 70px;
+        }
+
+        .future-ticket {
+            margin-top: 40px;
+        }
+    }
+
+    .content-right {
+        width: 35%;
+        // border: 1px solid red;
+        margin-left: 10px;
+
+        .member-action {
+
+            .action-container {
+                display: flex;
+                gap: 10px;
+                margin-top: 20px;
+
+
+                .action {
+                    // border: 2px solid red;
+                    border-radius: 3px;
+                    width: 30%;
+                    text-align: center;
+                    background-color: aqua;
+                }
+            }
+
+
+        }
+
+        .member-info {
+            margin-top: 40px;
+
+            span {
+                font-size: 13px;
+                font-weight: 400;
+                margin-right: 20px;
+            }
+        }
+    }
+}
