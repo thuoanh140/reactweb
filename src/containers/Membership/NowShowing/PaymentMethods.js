@@ -254,9 +254,9 @@ class PaymentMethods extends Component {
                                     return (
 
                                         <div key={index} className="column">
-                                            <input type="radio" value={item.id} name="radio-group"
+                                            <input type="radio" id={item.id} value={item.id} name="radio-group"
                                                 onChange={this.onRadiochange} />
-                                            <label>{item.ten_pttt}</label>
+                                            <label for={item.id}>{item.ten_pttt}</label>
                                         </div>
 
 
