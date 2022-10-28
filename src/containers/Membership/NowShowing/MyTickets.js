@@ -11,6 +11,7 @@ import { getTicketByIdTVService, getDetailTicketByIdTicketService, cancelTicket,
 import { createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import HomeFooter from '../../HomePage/HomeFooter';
 
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
@@ -315,6 +316,7 @@ class MyTickets extends Component {
 
                     </div>
                 </div>
+                <HomeFooter />
             </>
         );
     }

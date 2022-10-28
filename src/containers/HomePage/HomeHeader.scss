@@ -188,7 +188,7 @@
                     margin: 0 auto;
 
                     i {
-                        color: rgb(7, 228, 51);
+                        color: #FFE4E1;
                         font-size: 35px;
                     }
 
@@ -198,10 +198,10 @@
                     font-size: 17px;
                     font-weight: 600;
                     cursor: pointer;
-                    color: rgb(251, 231, 18);
+                    color: #FFE4E1;
 
                     &:hover {
-                        color: rgb(7, 228, 51);
+                        color: rgb(251, 231, 18);
                     }
                 }
             }

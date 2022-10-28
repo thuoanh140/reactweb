@@ -8,7 +8,8 @@ import Select from 'react-select';
 import { LANGUAGES } from '../../../utils';
 import { withRouter } from "react-router";
 import ReactStars from "react-rating-stars-component";
-import { createRatingService } from '../../../services/userServices';
+import StarRating from "react-star-ratings";
+import { createRatingService, getRatingByMovieIdService } from '../../../services/userServices';
 
 
 
@@ -17,21 +18,51 @@ class Rating extends Component {
         super(props);
         this.state = {
             noi_dung: '',
-            diem_dg: ''
+            diem_dg: 0,
+            allRating: []
 
         }
     }
 
     async componentDidMount() {
 
+        // let movieId = this.props?.showtimeIdFromParent;
+        // console.log('check movieID didmount:', movieId)
+        // let respon = await getRatingByMovieIdService(movieId);
+        // if (respon && respon.errCode === 0) {
+        //     this.setState({
+        //         allRating: respon.data ? respon.data : [],
 
+        //     })
+        // }
+        // console.log('check allrating: ', respon)
+        // setTimeout(() => this.getRating(), 0)
+
+    }
+
+    async getRating() {
+        let movieId = this.props?.showtimeIdFromParent;
+        console.log('check movie Id getRating', movieId)
+        let respon = await getRatingByMovieIdService(movieId);
+        if (respon && respon.errCode === 0) {
+            this.setState({
+                allRating: respon.data ? respon.data : [],
+
+            })
+        }
+        console.log('check allrating: ', respon)
     }
 
 
 
 
 
+
+
     async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.showtimeIdFromParent !== this.props.showtimeIdFromParent) {
+            this.getRating()
+        }
 
     }
     ratingChanged = (newRating) => {
@@ -51,7 +82,7 @@ class Rating extends Component {
         })
     }
 
-    handleSaveRating = () => {
+    handleSaveRating = async () => {
         if (this.props.showtimeIdFromParent && this.props.showtimeIdFromParent !== -1) {
             let ngay_dg = moment().format("YYYY-MM-DD");
             let id_phim = this.props.showtimeIdFromParent;
@@ -68,15 +99,20 @@ class Rating extends Component {
                 noi_dung: ''
             })
         }
+        await this.getRating()
     }
 
 
     render() {
-        let { noi_dung } = this.state;
+        let movieId = this.props.showtimeIdFromParent;
+        let { noi_dung, allRating, diem_dg } = this.state;
         console.log('check props rating', this.props);
         let userId = this.props.userInfo?.id_tv;
         console.log('check idTv:', userId)
-
+        console.log('check allRating', allRating)
+        console.log('check diem_dg:', diem_dg)
+        console.log('check movieId', movieId)
+        let totalRating = this.props.totalRating;
         return (
             <>
                 <div className='rating-container'>
@@ -84,13 +120,34 @@ class Rating extends Component {
                         <div className='add-rating'>
                             <span>Thêm đánh giá:</span>
                         </div>
-                        <ReactStars
+                        <StarRating
+
                             rating={this.state.diem_dg}
+                            count={5}
+                            // onChange={this.ratingChanged}
+                            changeRating={this.ratingChanged}
+                            size={17}
+                            starHoverColor={'#effa16'}
+                            starRatedColor={'#effa16'}
+                        />
+                        {/* <ReactStars
+                            rating={diem_dg}
                             count={5}
                             onChange={this.ratingChanged}
                             size={24}
                             activeColor="#ffd700"
-                        />
+
+                        /> */}
+                        {/* <ReactStars
+                            count={5}
+                            onChange={this.ratingChanged}
+                            size={24}
+                            isHalf={true}
+                            emptyIcon={<i className="far fa-star"></i>}
+                            // halfIcon={<i className="fa fa-star-half-alt"></i>}
+                            fullIcon={<i className="fa fa-star"></i>}
+                            activeColor="#ffd700"
+                        /> */}
                         <div>
                             <div className='row'>
                                 <span>Thêm bình luận của bạn:</span>
@@ -105,6 +162,51 @@ class Rating extends Component {
                             <button type="button" class="btn btn-primary"
                                 onClick={() => this.handleSaveRating()}>Thêm bình luận</button>
                         </div>
+                    </div>
+                    <div className='other-rating'>
+                        {allRating && allRating.length > 0 &&
+                            allRating.map((item, index) => {
+                                return (
+                                    <div key={index} className='other-rating-info'>
+                                        <div className='name-report'>
+                                            <div className='member-name'><span>{item.memberData.ten_tv}</span></div>
+                                            <button className='btn btn-primary'>Report <i className="fas fa-flag"></i></button>
+                                        </div><br />
+                                        <div className='date'> <span>{moment(item.ngay_dg).format("DD-MM-YYYY")}</span></div><br />
+                                        <div className='rating'><ReactStars
+                                            count={5}
+                                            value={item.diem_dg}
+                                            size={17}
+                                            activeColor="#ffd700"
+
+                                        /></div><br />
+                                        <div className='comment'><span>{item.noi_dung}</span></div>
+                                    </div>
+                                )
+                            })
+                        }
+                        {/* {totalRating && totalRating.length > 0 &&
+                            totalRating.map((item, index) => {
+                                return (
+                                    <div key={index} className='other-rating-info'>
+                                        <div className='name-report'>
+                                            <div className='member-name'><span>{item.memberData.ten_tv}</span></div>
+                                            <button className='btn btn-primary'>Report <i className="fas fa-flag"></i></button>
+                                        </div><br />
+                                        <div className='date'> <span>{moment(item.ngay_dg).format("DD-MM-YYYY")}</span></div><br />
+                                        <div className='rating'><ReactStars
+                                            count={5}
+                                            value={item.diem_dg}
+                                            size={17}
+                                            activeColor="#ffd700"
+                                            edit={false}
+
+                                        /></div><br />
+                                        <div className='comment'><span>{item.noi_dung}</span></div>
+                                    </div>
+                                )
+                            })
+                        } */}
                     </div>
                 </div>
             </>

@@ -7,7 +7,8 @@ import * as actions from '../../../store/actions';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import axios from '../../../axios'
-import { getPayment, getPaymentMethodsService, getEmailService, getPaymentByIdService, createPaymentCheckoutService } from '../../../services/userServices'
+import { getPayment, getPaymentMethodsService, getEmailService, getPaymentByIdService, createPaymentCheckoutService } from '../../../services/userServices';
+import HomeFooter from '../../HomePage/HomeFooter';
 
 
 
@@ -310,6 +311,7 @@ class PaymentMethods extends Component {
                         </div>
                     </div>
                 </div>
+                <HomeFooter />
             </>
         );
     }

@@ -1,5 +1,5 @@
 .detail-movie-container {
-    height: 1000px;
+    height: 2000px;
     // border: 1px solid red;
     background: url('../../../assets/background.jpg');
 
@@ -30,6 +30,24 @@
             .up {
                 font-size: 30px;
                 font-weight: 100;
+
+
+                .rating-total {
+                    display: flex;
+
+
+                    .star {}
+
+
+                    .number-rating {
+
+                        span {
+
+                            font-size: 10px;
+                        }
+                    }
+
+                }
             }
 
             .down {

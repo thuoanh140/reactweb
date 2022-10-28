@@ -7,6 +7,7 @@ import Showtime from './Showtime';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import { getSeatByCinemaRoomIdService, getSeatByCinemaRoomIdVIPService, getMovieByIdService } from '../../../services/userServices';
+import HomeFooter from '../../HomePage/HomeFooter';
 
 class Seat extends Component {
 
@@ -170,7 +171,7 @@ class Seat extends Component {
                                             <button key={index}
                                                 className={`seat-normal-child ${item.isSelected && 'active'} ${item.da_chon && 'seat-normal-child--disabled'}`}
                                                 onClick={() => !item.da_chon && this.handleClickBtnSeat(item)}
-                                            >{item.da_chon ? 'X' :item.ten_ghe}</button>
+                                            >{item.da_chon ? 'X' : item.ten_ghe}</button>
                                         )
                                     })
                                 }
@@ -180,7 +181,7 @@ class Seat extends Component {
                                 {allSeatVIP && allSeatVIP.length > 0 &&
                                     allSeatVIP.map((item, index) => {
                                         return (
-                                            <button key={index} className={`${item.isSelected && 'active'} ${item.da_chon && 'seat-vip-child--disabled'}`}>{item.da_chon ? 'X' :item.ten_ghe}</button>
+                                            <button key={index} className={`${item.isSelected && 'active'} ${item.da_chon && 'seat-vip-child--disabled'}`}>{item.da_chon ? 'X' : item.ten_ghe}</button>
                                         )
                                     })
                                 }
@@ -285,12 +286,13 @@ class Seat extends Component {
                         </div>
                         <div className='checkout-btn'>
                             <button
-                                disabled={!this.state.seat.filter(item=>item.isSelected)?.length}
+                                disabled={!this.state.seat.filter(item => item.isSelected)?.length}
                                 onClick={() => this.handleClickCheckoutBtn()}
                             >Tiếp theo</button>
                         </div>
                     </div>
                 </div>
+                <HomeFooter />
             </>
         );
     }
