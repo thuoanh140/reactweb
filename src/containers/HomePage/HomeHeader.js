@@ -96,27 +96,11 @@ class HomeHeader extends Component {
                     <div className='home-header-banner'>
                         <div className='content-up'>
                             <div className='option'>
-                                <div className='option-child'>
-                                    <div className='icon-child'><i className="fas fa-warehouse"></i></div>
-                                    <div className='text-child'><FormattedMessage id="option.theaters" /></div>
-                                </div>
-                                <div className='option-child'>
-                                    <div className='icon-child'><i className="fas fa-film"></i></div>
-                                    <div className='text-child'><FormattedMessage id="option.now-showing" /></div>
-                                </div>
-                                <div className='option-child'>
-                                    <div className='icon-child'><i className="fas fa-phone"></i></div>
-                                    <div className='text-child'><FormattedMessage id="option.contact" /></div>
-                                </div>
-                                <div className='option-child'>
-                                    <div className='icon-child'><i className="fas fa-newspaper"></i></div>
-                                    <div className='text-child'><FormattedMessage id="option.news-offers" /></div>
-                                </div>
-                                <div className='option-child'>
-                                    <div className='icon-child'><i className="fas fa-users"></i></div>
-                                    <div className='text-child'><FormattedMessage id="option.register" /></div>
-                                </div>
-
+                                <OptionChild icon={'warehouse'} id="theaters" />
+                                <OptionChild icon={'film'} id="now-showing" />
+                                <OptionChild icon={'phone'} id='contact' />
+                                <OptionChild icon={'newspaper'} id='news-offers' />
+                                <OptionChild icon={'users'} id='register' />
                             </div>
                         </div>
                         <div className='content-down'></div>
@@ -132,7 +116,15 @@ class HomeHeader extends Component {
             </React.Fragment>
         );
     }
+}
 
+const OptionChild = ({icon, id}) => {
+    return (
+        <div className='option-child'>
+            <div className='icon-child'><i className={`fas fa-${icon}`}></i></div>
+            <div className='text-child'><FormattedMessage id={`option.${id}`} /></div>
+        </div>
+    )
 }
 
 const mapStateToProps = state => {

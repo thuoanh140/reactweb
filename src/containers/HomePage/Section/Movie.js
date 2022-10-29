@@ -57,10 +57,11 @@ class Movie extends Component {
                                     }
                                     return (
                                         <div className='section-customize' key={index} onClick={() => this.handleViewDetailMovie(item)}>
-                                            <div className='bg-image1'
-                                                style={{ backgroundImage: `url(${imageBase64})` }}
-
-                                            ></div>
+                                            <div className='bg-image--wrapper'>
+                                                <div className='bg-image1'
+                                                    style={{ backgroundImage: `url(${imageBase64})` }}
+                                                ></div>
+                                            </div>
                                             <div className='text-center'><b>{item.ten_phim}</b></div>
                                             <div className='text-center trailer'>
 

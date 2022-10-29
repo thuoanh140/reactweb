@@ -45,6 +45,15 @@
 
         .section-customize {
             cursor: pointer;
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+
+            .bg-image--wrapper {
+                height: 400px;
+                width: 280px;
+                overflow: hidden;
+            }
 
             .bg-image1 {
                 height: 400px;
