@@ -15,7 +15,6 @@ class Seat extends Component {
         super(props);
         this.state = {
             allSeat: [],
-            allSeatVIP: [],
             seat: [],
             movieName: [],
             // showtimeClick: {}
@@ -63,16 +62,16 @@ class Seat extends Component {
         }
 
 
-        if (this.props.location && this.props.location.state && this.props.location.state.showtimeData && this.props.location.state.showtimeData.showtimeClick && this.props.location.state.showtimeData.showtimeClick.cinemaRoomId) {
-            let cinemaRoomId = this.props.location.state.showtimeData.showtimeClick.cinemaRoomId;
-            let res = await getSeatByCinemaRoomIdVIPService(cinemaRoomId);
-            if (res && res.errCode === 0) {
-                this.setState({
-                    allSeatVIP: res.data ? res.data : [],
-                })
-            }
-            console.log('check allseatVIP: ', res)
-        }
+        // if (this.props.location && this.props.location.state && this.props.location.state.showtimeData && this.props.location.state.showtimeData.showtimeClick && this.props.location.state.showtimeData.showtimeClick.cinemaRoomId) {
+        //     let cinemaRoomId = this.props.location.state.showtimeData.showtimeClick.cinemaRoomId;
+        //     let res = await getSeatByCinemaRoomIdVIPService(cinemaRoomId);
+        //     if (res && res.errCode === 0) {
+        //         this.setState({
+        //             allSeatVIP: res.data ? res.data : [],
+        //         })
+        //     }
+        //     console.log('check allseatVIP: ', res)
+        // }
 
         let data = this.state.allSeat;
         if (data && data.length > 0) {
@@ -136,7 +135,7 @@ class Seat extends Component {
 
     render() {
         // let { showtime } = this.props;
-        let { allSeat, allSeatVIP, seat, movieName } = this.state;
+        let { seat, movieName } = this.state;
         let movieNamepick = this.state.movieName.ten_phim;
         let theaterName = this.props.location.state.showtimeData.showtimeClick.theaterData.ten_rap;
         console.log('ten rap: ', theaterName);
@@ -147,6 +146,7 @@ class Seat extends Component {
         // console.log('check props: ', state);
         console.log('check isSelected: ', seat)
         let total = selectedSeat.reduce((total, item) => total + Number(item.seatTypeData.gia_tien), 0);
+        console.log('check props seat:', this.props)
         return (
             <>
                 <HomeHeader isShowBanner={false} />
@@ -177,7 +177,7 @@ class Seat extends Component {
                                 }
                             </div>
 
-                            <div className='seat-vip'>
+                            {/* <div className='seat-vip'>
                                 {allSeatVIP && allSeatVIP.length > 0 &&
                                     allSeatVIP.map((item, index) => {
                                         return (
@@ -185,7 +185,7 @@ class Seat extends Component {
                                         )
                                     })
                                 }
-                            </div>
+                            </div> */}
                         </div>
                         <div className='note'>
                             <div className='normal'>
