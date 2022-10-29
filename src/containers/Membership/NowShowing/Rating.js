@@ -19,8 +19,9 @@ class Rating extends Component {
         this.state = {
             noi_dung: '',
             diem_dg: 0,
-            allRating: []
-
+            allRating: [],
+            numberPerPage: 3,
+            currentPage: 1
         }
     }
 
@@ -159,26 +160,37 @@ class Rating extends Component {
                     </div>
                     <div className='other-rating container'>
                         {allRating && allRating.length > 0 &&
-                            allRating.map((item, index) => {
+                            allRating.slice(0, this.state.numberPerPage * this.state.currentPage).map((item, index) => {
                                 return (
-                                    <div key={index} className='other-rating-info'>
-                                        <div className='name-report'>
-                                            <div className='member-name'><span>{item.memberData.ten_tv}</span></div>
-                                            <button className='btn btn-primary'>Report <i className="fas fa-flag"></i></button>
-                                        </div><br />
-                                        <div className='date'> <span>{moment(item.ngay_dg).format("DD-MM-YYYY")}</span></div><br />
-                                        <div className='rating'><ReactStars
-                                            count={5}
-                                            value={item.diem_dg}
-                                            size={17}
-                                            activeColor="#ffd700"
-                                            edit={false}
-                                        /></div><br />
-                                        <div className='comment'><span>{item.noi_dung}</span></div>
-                                    </div>
+                                    <CommentItem 
+                                        key={index}
+                                        ten_tv={item.memberData.ten_tv} 
+                                        ngay_dg={item.ngay_dg} 
+                                        diem_dg={item.diem_dg} 
+                                        noi_dung={item.noi_dung}
+                                    />
                                 )
                             })
                         }
+
+                        <div className='container flex py-2 flex-center'>
+                            <div className='row'>
+                                <div className='col-6 d-flex justify-content-center'>
+                                    {
+                                        allRating.length > this.state.numberPerPage * this.state.currentPage && (
+                                            <button 
+                                                className='btn btn-success btn-sm font-weight-bold' 
+                                                onClick={() => this.setState({
+                                                    currentPage: this.state.currentPage + 1
+                                                })}
+                                            >
+                                                Xem thêm <i class="fas fa-angle-double-down"></i>
+                                            </button>
+                                        )
+                                    }
+                                </div>
+                            </div>
+                        </div>
                         {/* {totalRating && totalRating.length > 0 &&
                             totalRating.map((item, index) => {
                                 return (
@@ -205,6 +217,41 @@ class Rating extends Component {
                 </div>
             </>
         );
+    }
+}
+
+class CommentItem extends Component 
+{
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        const { ten_tv, ngay_dg, diem_dg, noi_dung } = this.props
+        return (
+                <div className='other-rating-info'>
+                    <div className='name-report'>
+                        <div className='member-name'>
+                            <span>{ten_tv}</span>
+                        </div>
+                            <button className='btn btn-primary'>Report <i className="fas fa-flag"></i></button>
+                        </div>
+                        <div className='date mt-2'>
+                            <span>{moment(ngay_dg).format("DD-MM-YYYY")}</span>
+                        </div>
+                        <div className='rating mt-2'>
+                            <ReactStars
+                                count={5}
+                                value={diem_dg}
+                                size={17}
+                                activeColor="#ffd700"
+                                edit={false}
+                            />
+                        </div>
+                        <div className='comment mt-2'>
+                            <span>{noi_dung}</span>
+                        </div>
+                </div>
+        )
     }
 }
 
