@@ -157,7 +157,7 @@ class Rating extends Component {
                                 onClick={() => this.handleSaveRating()}>Thêm bình luận</button>
                         </div>
                     </div>
-                    <div className='other-rating'>
+                    <div className='other-rating container'>
                         {allRating && allRating.length > 0 &&
                             allRating.map((item, index) => {
                                 return (
@@ -172,7 +172,7 @@ class Rating extends Component {
                                             value={item.diem_dg}
                                             size={17}
                                             activeColor="#ffd700"
-
+                                            edit={false}
                                         /></div><br />
                                         <div className='comment'><span>{item.noi_dung}</span></div>
                                     </div>
