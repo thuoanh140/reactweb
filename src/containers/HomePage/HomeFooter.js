@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import './HomeFooter.scss'
 import { FormattedMessage } from 'react-intl';
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
 
+import './HomeFooter.scss'
 
 class HomeFooter extends Component {
 

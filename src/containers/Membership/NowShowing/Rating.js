@@ -53,12 +53,6 @@ class Rating extends Component {
         console.log('check allrating: ', respon)
     }
 
-
-
-
-
-
-
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.showtimeIdFromParent !== this.props.showtimeIdFromParent) {
             this.getRating()
@@ -116,7 +110,7 @@ class Rating extends Component {
         return (
             <>
                 <div className='rating-container'>
-                    <div className='add-rating-container'>
+                    <div className='add-rating-container container'>
                         <div className='add-rating'>
                             <span>Thêm đánh giá:</span>
                         </div>
@@ -158,8 +152,8 @@ class Rating extends Component {
                                     ></textarea>
                                 </div>
 
-                            </div><br />
-                            <button type="button" class="btn btn-primary"
+                            </div>
+                            <button type="button" class="btn btn-primary my-2"
                                 onClick={() => this.handleSaveRating()}>Thêm bình luận</button>
                         </div>
                     </div>
