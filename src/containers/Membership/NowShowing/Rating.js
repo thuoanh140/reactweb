@@ -87,7 +87,7 @@ class Rating extends Component {
             let ngay_dg = moment().format("YYYY-MM-DD");
             let id_phim = this.props.showtimeIdFromParent;
             let id_tv = this.props.userInfo?.id_tv;
-            let res = createRatingService({
+            let res = await createRatingService({
                 id_tv: id_tv,
                 id_phim: id_phim,
                 ngay_dg: ngay_dg,
