@@ -52,24 +52,34 @@
                     min-width: 120px;
                     border-radius: 3px;
 
+                    &.seat-normal-child {
+                        &--disabled {
+                            background-color: #808080 !important;
+                            cursor: not-allowed;
+                        }
+                    }
+        
+                    &.seat-vip-child {
+                        background-color: rgb(241, 238, 43);
+        
+                        &--disabled {
+                            background-color: rgba(120, 119, 33, 1) !important;
+                            cursor: not-allowed;
+                        }
+                    }
+
+                    &.active {
+                        background-color: #4c45d2;
+                    }
+
                     &:hover {
                         background-color: #45c3d2;
                     }
 
-
                 }
             }
 
-            .seat-normal-child {
-                &.active {
-                    background-color: #4c45d2;
-                }
-
-                &--disabled {
-                    background-color: #808080 !important;
-                    cursor: not-allowed;
-                }
-            }
+            
 
             .seat-vip {
                 display: flex;
@@ -95,10 +105,7 @@
                         background-color: #4c45d2;
                     }
     
-                    &.seat-vip-child--disabled {
-                        background-color: rgba(120, 119, 33, 1) !important;
-                        cursor: not-allowed;
-                    }
+                   
                 }
 
 

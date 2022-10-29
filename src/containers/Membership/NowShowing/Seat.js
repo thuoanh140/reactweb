@@ -25,16 +25,6 @@ class Seat extends Component {
 
     async componentDidMount() {
 
-        console.log('checkkkk:', this.props);
-        // let cinemaRoomId = this.props.location.state.cinemaRoomId;
-        // let res = await getSeatByCinemaRoomIdService(cinemaRoomId);
-        // if (res && res.errCode === 0) {
-        //     this.setState({
-        //         allSeat: res.data ? res.data : [],
-        //     })
-        // }
-        // console.log('check allseat: ', res)
-
         if (this.props.location && this.props.location.state && this.props.location.state.showtimeData && this.props.location.state.showtimeData.showtimeClick && this.props.location.state.showtimeData.showtimeClick.movieId) {
             let movieId = this.props.location.state.showtimeData.showtimeClick.movieId;
             let respon = await getMovieByIdService(movieId);
@@ -44,11 +34,7 @@ class Seat extends Component {
 
                 })
             }
-            console.log('check movieName: ', respon)
         }
-
-
-
 
         if (this.props.location && this.props.location.state && this.props.location.state.showtimeData && this.props.location.state.showtimeData.showtimeClick && this.props.location.state.showtimeData.showtimeClick.cinemaRoomId) {
             let cinemaRoomId = this.props.location.state.showtimeData.showtimeClick.cinemaRoomId;
@@ -59,27 +45,10 @@ class Seat extends Component {
 
                 })
             }
-            console.log('check allseat: ', response)
         }
-
-
-        // if (this.props.location && this.props.location.state && this.props.location.state.showtimeData && this.props.location.state.showtimeData.showtimeClick && this.props.location.state.showtimeData.showtimeClick.cinemaRoomId) {
-        //     let cinemaRoomId = this.props.location.state.showtimeData.showtimeClick.cinemaRoomId;
-        //     let res = await getSeatByCinemaRoomIdVIPService(cinemaRoomId);
-        //     if (res && res.errCode === 0) {
-        //         this.setState({
-        //             allSeatVIP: res.data ? res.data : [],
-        //         })
-        //     }
-        //     console.log('check allseatVIP: ', res)
-        // }
 
         let data = this.state.allSeat;
         if (data && data.length > 0) {
-            // data.map(item => {
-            //     item.isSelected = false;
-            //     return item;
-            // })
 
             data = data.map(item => ({ ...item, isSelected: false }))
             this.setState({
@@ -114,17 +83,6 @@ class Seat extends Component {
         }
 
     }
-
-    // handleClickCheckoutBtn = () => {
-    //     let stateData = this.props.location.state.showtimeData;
-    //     let showtimeClick = this.props.location.state.showtimeData.showtimeClick.date;
-    //     let { seat, movieName } = this.state;
-    //     let selectedSeat = seat.filter(item => item.isSelected === true);
-    //     this.props.history.push({
-    //         pathname: "/payment-methods",
-    //         state: { stateData, selectedSeat, movieName }
-    //     }
-    //     );
 
     handleClickCheckoutBtn = () => {
         let stateData = this.props.location.state.showtimeData;
@@ -182,24 +140,19 @@ class Seat extends Component {
                                 {seat && seat.length > 0 &&
                                     seat.map((item, index) => {
                                         return (
-                                            <button key={index}
-                                                className={`seat-normal-child ${item.isSelected && 'active'} ${item.da_chon && 'seat-normal-child--disabled'}`}
-                                                onClick={() => !item.da_chon && this.handleClickBtnSeat(item)}
-                                            >{item.da_chon ? 'X' : item.ten_ghe}</button>
+                                            <SeatButton 
+                                                key={index}
+                                                isSelected={item.isSelected}
+                                                da_chon={item.da_chon}
+                                                ten_ghe={item.ten_ghe}
+                                                loai_ghe={item.id_loai_ghe}
+                                                onClick={() => !item.da_chon && this.handleClickBtnSeat(item)} 
+                                            />
                                         )
                                     })
                                 }
                             </div>
 
-                            {/* <div className='seat-vip'>
-                                {allSeatVIP && allSeatVIP.length > 0 &&
-                                    allSeatVIP.map((item, index) => {
-                                        return (
-                                            <button key={index} className={`${item.isSelected && 'active'} ${item.da_chon && 'seat-vip-child--disabled'}`}>{item.da_chon ? 'X' : item.ten_ghe}</button>
-                                        )
-                                    })
-                                }
-                            </div> */}
                         </div>
                         <div className='note'>
                             <div className='normal'>
@@ -241,8 +194,6 @@ class Seat extends Component {
                             </div>
                             <div className='content-right'>
                                 <div>
-
-
                                     <div>
                                         <span>Ghế: </span>
                                         {selectedSeat && selectedSeat.length > 0 &&
@@ -284,16 +235,8 @@ class Seat extends Component {
                                         thousandSeparator={true}
                                         suffix={'VND'}
                                     />
-                                        {/* {selectedSeat.reduce((total, item) => total + Number(item.seatTypeData.gia_tien), 0)} */}
                                     </span>
-                                    {/* <span>Thành tiền:</span>
-                                    {selectedSeat && selectedSeat.length > 0 &&
-                                        selectedSeat.map((item, index) => {
-                                            return (
-                                                <span>{item.seatTypeData.gia_tien}*{selectedSeat.length}</span>
-                                            )
-                                        })
-                                    } */}
+                                  
                                 </div>
                             </div>
 
@@ -309,6 +252,27 @@ class Seat extends Component {
                 <HomeFooter />
             </>
         );
+    }
+}
+
+class SeatButton extends Component 
+{
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        const {isSelected, da_chon, onClick, ten_ghe, loai_ghe} = this.props
+
+        return (
+                <button
+                    className={`seat-${loai_ghe === '1' ? 'normal' : 'vip'}-child ${isSelected && 'active'} ${da_chon && 'seat-normal-child--disabled'}`}
+                    onClick={onClick}
+                >
+                    {da_chon ? 'X' : ten_ghe}
+                </button>
+        )
+        
     }
 }
 
