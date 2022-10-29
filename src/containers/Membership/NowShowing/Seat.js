@@ -6,7 +6,7 @@ import './Seat.scss'
 import Showtime from './Showtime';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
-import { getSeatByCinemaRoomIdService, getSeatByCinemaRoomIdVIPService, getMovieByIdService } from '../../../services/userServices';
+import { getSeatByCinemaRoomIdService, getIdSeatByIdShowtimeService, getMovieByIdService } from '../../../services/userServices';
 import HomeFooter from '../../HomePage/HomeFooter';
 
 class Seat extends Component {
@@ -17,6 +17,7 @@ class Seat extends Component {
             allSeat: [],
             seat: [],
             movieName: [],
+            banSeat: []
             // showtimeClick: {}
 
         }
@@ -85,6 +86,19 @@ class Seat extends Component {
                 seat: data
             })
         }
+
+        if (this.props.location.state.showtimeData.showtimeClick?.id) {
+            let idShowtime = this.props.location.state.showtimeData.showtimeClick?.id;
+            console.log('check idShowtime', idShowtime)
+            let res = await getIdSeatByIdShowtimeService(idShowtime);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    banSeat: res.data ? res.data : [],
+
+                })
+            }
+            console.log('check banSeat', res)
+        }
     }
 
     handleClickBtnSeat = (inputSeat) => {
@@ -135,7 +149,7 @@ class Seat extends Component {
 
     render() {
         // let { showtime } = this.props;
-        let { seat, movieName } = this.state;
+        let { seat, movieName, banSeat } = this.state;
         let movieNamepick = this.state.movieName.ten_phim;
         let theaterName = this.props.location.state.showtimeData.showtimeClick.theaterData.ten_rap;
         console.log('ten rap: ', theaterName);

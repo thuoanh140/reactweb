@@ -160,6 +160,10 @@ const getRatingByMovieIdService = (inputId) => {
     return axios.get(`/api/get-rating-by-IdMovie?id_phim=${inputId}`)
 }
 
+const getIdSeatByIdShowtimeService = (inputId) => {
+    return axios.get(`/api/get-idSeat-by-idShowtime?id_suat_chieu=${inputId}`)
+}
+
 const getMovieFormatByIdService = (movieId, provinceId, date) => {
     return axios.get(`/api/get-movie-format-by-Id?movieId=${movieId}&provinceId=${provinceId}&date=${date}`)
 }
@@ -195,6 +199,6 @@ export {
     getEmailService, createNewFoodService, getFoodService, getPaymentByIdService,
     createNewBillFoodService, createPaymentCheckoutService, getTicketByIdTVService,
     getPayment, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService,
-    createRatingService, getRatingByMovieIdService
+    createRatingService, getRatingByMovieIdService, getIdSeatByIdShowtimeService
     // getNationService, getDirectorService, getCastService
 }
