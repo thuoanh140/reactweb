@@ -143,7 +143,7 @@ class Seat extends Component {
                                             <SeatButton 
                                                 key={index}
                                                 isSelected={item.isSelected}
-                                                da_chon={item.da_chon}
+                                                da_chon={banSeat.some(banItem => item.id === banItem.id_ghe)}
                                                 ten_ghe={item.ten_ghe}
                                                 loai_ghe={item.id_loai_ghe}
                                                 onClick={() => !item.da_chon && this.handleClickBtnSeat(item)} 
@@ -264,9 +264,10 @@ class SeatButton extends Component
     render() {
         const {isSelected, da_chon, onClick, ten_ghe, loai_ghe} = this.props
 
+        const typeOfSeat = loai_ghe === '1' ? 'normal' : 'vip';
         return (
                 <button
-                    className={`seat-${loai_ghe === '1' ? 'normal' : 'vip'}-child ${isSelected && 'active'} ${da_chon && 'seat-normal-child--disabled'}`}
+                    className={`seat-${typeOfSeat}-child ${isSelected && 'active'} ${da_chon && `seat-${typeOfSeat}-child--disabled`}`}
                     onClick={onClick}
                 >
                     {da_chon ? 'X' : ten_ghe}
