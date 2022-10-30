@@ -41,11 +41,11 @@ class SearchData extends Component {
                     <div className='row'>
                         <div className='col-4'>
                             <span>Mã vé</span>
-                            <Select />
+                            <input className="form-control" />
                         </div>
                         <div className='col-4'>
                             <span>Mã thành viên</span>
-                            <Select />
+                            <input className="form-control" />
                         </div>
                         <div className='col-4'>
                             <span>Ngày chiếu</span>
