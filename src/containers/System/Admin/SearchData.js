@@ -69,9 +69,9 @@ class SearchData extends Component {
         })
     }
 
-    handleSearchData() {
+    handleSearchData(data) {
         // console.log(this.props);
-        this.props?.onSearch?.(this.state.selectedValue)
+        this.props?.onSearch?.(data || this.state.selectedValue)
     }
 
     render() {
@@ -110,8 +110,9 @@ class SearchData extends Component {
                             <Select options={movieOptions} onChange={value => this.handleChangeValue('movieId', value.value)}/>
                         </div>
                     </div>
-                    <div className='row justify-content-center'>
+                    <div className='row justify-content-center gap-2'>
                         <button className='col-3 btn btn-primary search' onClick={() => this.handleSearchData()}>Tìm kiếm</button>
+                        <button className='col-2 btn btn-danger search' onClick={() => this.handleSearchData({})}>Đặt lại</button>
                     </div>
                 </div>
             </div>
