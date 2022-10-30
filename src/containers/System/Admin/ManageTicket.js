@@ -5,6 +5,7 @@ import './ManageTicket.scss';
 import { getAllTicketService, deleteTicketService, cancelTicket, searchTicketService } from '../../../services/userServices'
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
+import SearchData from './SearchData';
 
 
 class ManageTicket extends Component {
@@ -70,6 +71,7 @@ class ManageTicket extends Component {
         return (
             <div className='managhe-ticket-container'>
                 <div className='title text-center'>QUẢN LÝ VÉ BÁN</div>
+                <SearchData />
                 <div className='users-table mt-3 mx-1'>
                     <table id="customers">
                         <tbody>
