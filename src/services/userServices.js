@@ -62,6 +62,14 @@ const deleteStaffService = (staffId) => {
     });
 }
 
+const deleteTicketService = (ticketId) => {
+    return axios.delete('/api/delete-ticket', {
+        data: {
+            id: ticketId
+        }
+    });
+}
+
 const editStaffService = (inputData) => {
     return axios.put('/api/edit-staff', inputData)
 }
@@ -144,6 +152,10 @@ const getFoodService = () => {
     return axios.get(`/api/get-food`)
 }
 
+const getAllTicketService = () => {
+    return axios.get(`/api/get-all-ticket`)
+}
+
 const getSeatByCinemaRoomIdService = (inputId) => {
     return axios.get(`/api/get-seat-by-cinemaRoomId?id_phong_chieu=${inputId}`)
 }
@@ -162,6 +174,12 @@ const getRatingByMovieIdService = (inputId) => {
 
 const getIdSeatByIdShowtimeService = (inputId) => {
     return axios.get(`/api/get-idSeat-by-idShowtime?id_suat_chieu=${inputId}`)
+}
+
+const searchTicketService = (condition) => {
+    return axios.get(`/api/search-ticket`, {
+        params: condition
+    })
 }
 
 const getMovieFormatByIdService = (movieId, provinceId, date) => {
@@ -199,6 +217,7 @@ export {
     getEmailService, createNewFoodService, getFoodService, getPaymentByIdService,
     createNewBillFoodService, createPaymentCheckoutService, getTicketByIdTVService,
     getPayment, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService,
-    createRatingService, getRatingByMovieIdService, getIdSeatByIdShowtimeService
+    createRatingService, getRatingByMovieIdService, getIdSeatByIdShowtimeService,
+    getAllTicketService, deleteTicketService, searchTicketService
     // getNationService, getDirectorService, getCastService
 }

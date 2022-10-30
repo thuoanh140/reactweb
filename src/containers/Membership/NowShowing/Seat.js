@@ -140,13 +140,13 @@ class Seat extends Component {
                                 {seat && seat.length > 0 &&
                                     seat.map((item, index) => {
                                         return (
-                                            <SeatButton 
+                                            <SeatButton
                                                 key={index}
                                                 isSelected={item.isSelected}
                                                 da_chon={banSeat.some(banItem => item.id === banItem.id_ghe)}
                                                 ten_ghe={item.ten_ghe}
                                                 loai_ghe={item.id_loai_ghe}
-                                                onClick={() => !item.da_chon && this.handleClickBtnSeat(item)} 
+                                                onClick={() => this.handleClickBtnSeat(item)}
                                             />
                                         )
                                     })
@@ -236,7 +236,7 @@ class Seat extends Component {
                                         suffix={'VND'}
                                     />
                                     </span>
-                                  
+
                                 </div>
                             </div>
 
@@ -255,25 +255,24 @@ class Seat extends Component {
     }
 }
 
-class SeatButton extends Component 
-{
+class SeatButton extends Component {
     constructor(props) {
         super(props)
     }
 
     render() {
-        const {isSelected, da_chon, onClick, ten_ghe, loai_ghe} = this.props
+        const { isSelected, da_chon, onClick, ten_ghe, loai_ghe } = this.props
 
         const typeOfSeat = loai_ghe === '1' ? 'normal' : 'vip';
         return (
-                <button
-                    className={`seat-${typeOfSeat}-child ${isSelected && 'active'} ${da_chon && `seat-${typeOfSeat}-child--disabled`}`}
-                    onClick={onClick}
-                >
-                    {da_chon ? 'X' : ten_ghe}
-                </button>
+            <button
+                className={`seat-${typeOfSeat}-child ${isSelected && 'active'} ${da_chon && `seat-${typeOfSeat}-child--disabled`}`}
+                onClick={!da_chon && onClick}
+            >
+                {da_chon ? 'X' : ten_ghe}
+            </button>
         )
-        
+
     }
 }
 
