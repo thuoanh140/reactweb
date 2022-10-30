@@ -14,7 +14,8 @@ class ManageTicket extends Component {
         super(props);
         this.state = {
             allTicket: [],
-            result: []
+            result: [],
+            ticketFilterList: []
         }
     }
 
@@ -22,8 +23,6 @@ class ManageTicket extends Component {
         await this.getAllTicket();
         var condition = {
             id: "85",
-
-
         };
         let response = await searchTicketService(condition);
         if (response && response.errCode === 0) {
@@ -40,7 +39,8 @@ class ManageTicket extends Component {
         let response = await getAllTicketService();
         if (response && response.errCode === 0) {
             this.setState({
-                allTicket: response.data ? response.data : []
+                allTicket: response.data ? response.data : [],
+                ticketFilterList: response.data ? response.data : []
             })
         }
     }
@@ -62,16 +62,35 @@ class ManageTicket extends Component {
         }
     }
 
+    handleFilterTicket(filtersQuery) {
+        // duyệt mảng nè 
+        const newTicketList = this.state.allTicket.filter(item => {
+            // tạo 1 obj info cho dễ tìm so sánh nè
+            const ticketInfo = {
+                id: item.id,
+                id_tv: item.ticketData?.id_tv,
+                ngay_ban: item.ticketData?.ngay_ban,
+                ten_rap: item.seatId?.cinemaRoomData?.rapData?.ten_rap,
+                movieId: item.suatChieuId?.movieId
+            }
 
+            return Object.keys(filtersQuery) // lấy mảng key nè
+                    .filter(item => !!filtersQuery[item]) // bỏ các giá trị null với undefined nè nha
+                    .every(key => filtersQuery[key] == ticketInfo[key]) // every trả về true nếu tất cả thành phần trong mảng đều true
+        })
 
-
+        // set state để rerender nè
+        this.setState({
+            ticketFilterList: newTicketList
+        })
+    }
 
     render() {
-        let { allTicket } = this.state;
+        let { ticketFilterList } = this.state;
         return (
             <div className='managhe-ticket-container'>
                 <div className='title text-center'>QUẢN LÝ VÉ BÁN</div>
-                <SearchData />
+                <SearchData onSearch={(data) => this.handleFilterTicket(data)}/>
                 <div className='users-table mt-3 mx-1'>
                     <table id="customers">
                         <tbody>
@@ -91,7 +110,7 @@ class ManageTicket extends Component {
                                 <th>Hành động</th>
                             </tr>
 
-                            {allTicket && allTicket.map((item, index) => {
+                            {ticketFilterList && ticketFilterList.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{item.id}</td>
