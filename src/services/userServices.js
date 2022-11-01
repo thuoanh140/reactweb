@@ -44,6 +44,10 @@ const createShowtimeService = (data) => {
     return axios.post('/api/create-showtime-detail', data)
 }
 
+const registerNowService = (data) => {
+    return axios.post('/api/register-now', data)
+}
+
 const createRatingService = (data) => {
     return axios.post('/api/create-new-rating', data)
 }
@@ -72,6 +76,10 @@ const deleteTicketService = (ticketId) => {
 
 const editStaffService = (inputData) => {
     return axios.put('/api/edit-staff', inputData)
+}
+
+const editMemberService = (inputData) => {
+    return axios.put('/api/edit-member', inputData)
 }
 
 const getGenreService = (inputId) => {
@@ -218,6 +226,7 @@ export {
     createNewBillFoodService, createPaymentCheckoutService, getTicketByIdTVService,
     getPayment, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService,
     createRatingService, getRatingByMovieIdService, getIdSeatByIdShowtimeService,
-    getAllTicketService, deleteTicketService, searchTicketService
+    getAllTicketService, deleteTicketService, searchTicketService, registerNowService,
+    editMemberService
     // getNationService, getDirectorService, getCastService
 }

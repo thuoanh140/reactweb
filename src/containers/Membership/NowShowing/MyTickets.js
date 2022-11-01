@@ -7,11 +7,12 @@ import * as actions from '../../../store/actions';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import { withRouter } from 'react-router';
-import { getTicketByIdTVService, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService } from '../../../services/userServices'
+import { getTicketByIdTVService, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService, editMemberService } from '../../../services/userServices'
 import { createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import HomeFooter from '../../HomePage/HomeFooter';
+import ModalUpdateMember from './ModalUpdateMember';
 
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
@@ -28,7 +29,9 @@ class MyTickets extends Component {
             allTicket: [],
             allDetailTicket: [],
             futureTicket: [],
-            memberInfo: []
+            memberInfo: [],
+            isOpenModalEditMember: false,
+            memberEdit: {}
 
         }
     }
@@ -70,6 +73,39 @@ class MyTickets extends Component {
                 memberInfo: resp.data ? resp.data : [],
             })
         }
+    }
+
+    toggleMemberEditModal = () => {
+        this.setState({
+            isOpenModalEditMember: !this.state.isOpenModalEditMember,
+        })
+    }
+
+    handleEditMember = (member) => {
+        console.log('check edit staff', member);
+        this.setState({
+            isOpenModalEditMember: true,
+            memberEdit: member
+        })
+    }
+
+    doEditMember = async (member) => {
+
+        console.log('click save staff: ', member);
+        let res = await editMemberService(member);
+        // try {
+        //     let res = await editStaffService(staff);
+        //     if (res && res.errCode === 0) {
+        //         this.setState({
+        //             isOpenModalEditStaff: false
+        //         })
+        //         await this.getAllStaffFromReact();
+        //     } else {
+        //         alert(res.errCode);
+        //     }
+        // } catch (e) {
+        //     console.log(e);
+        // }
     }
 
     btnCancelTicket = async (ticket) => {
@@ -246,6 +282,16 @@ class MyTickets extends Component {
                 </table> */}
                     </div>
                     <div className='content-right'>
+                        {
+                            this.state.isOpenModalEditMember &&
+                            <ModalUpdateMember
+                                isOpen={this.state.isOpenModalEditMember}
+                                toggleFromParent={this.toggleMemberEditModal}
+                                currentStaff={this.state.memberEdit}
+                                editStaff={this.doEditMember}
+
+                            />
+                        }
                         <div className='title'>
                             <span>Thông tin chung</span>
                         </div >
@@ -310,7 +356,7 @@ class MyTickets extends Component {
                             {/* <span>Loại thành viên: {memberInfo.loai_tv.ten_loai_tv}</span> */}
                             <span>Số điện thoại: {memberInfo.sdt}</span><br />
                             <span>Email: {memberInfo.email}</span><br />
-                            <button type="button" class="btn btn-outline-secondary">Thay đổi</button>
+                            <button type="button" class="btn btn-outline-secondary" onClick={() => this.handleEditMember(memberInfo)}>Thay đổi</button>
                         </div>
 
 
