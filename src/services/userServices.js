@@ -164,6 +164,10 @@ const getAllTicketService = () => {
     return axios.get(`/api/get-all-ticket`)
 }
 
+const getLimitTicketService = (params) => {
+    return axios.get(`/api/get-ticket-limit`, {params})
+}
+
 const getSeatByCinemaRoomIdService = (inputId) => {
     return axios.get(`/api/get-seat-by-cinemaRoomId?id_phong_chieu=${inputId}`)
 }
@@ -227,6 +231,6 @@ export {
     getPayment, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService,
     createRatingService, getRatingByMovieIdService, getIdSeatByIdShowtimeService,
     getAllTicketService, deleteTicketService, searchTicketService, registerNowService,
-    editMemberService
+    editMemberService, getLimitTicketService
     // getNationService, getDirectorService, getCastService
 }

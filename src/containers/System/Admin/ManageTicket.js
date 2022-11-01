@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './ManageTicket.scss';
-import { getAllTicketService, deleteTicketService, cancelTicket, searchTicketService } from '../../../services/userServices'
+import { getAllTicketService, getLimitTicketService, deleteTicketService, cancelTicket, searchTicketService } from '../../../services/userServices'
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import SearchData from './SearchData';
+import Pagination from '../../../components/pagination';
 
 
 class ManageTicket extends Component {
@@ -15,7 +16,10 @@ class ManageTicket extends Component {
         this.state = {
             allTicket: [],
             result: [],
-            ticketFilterList: []
+            ticketFilterList: [],
+            page: 1,
+            limit: 20,
+            total: 10
         }
     }
 
@@ -35,12 +39,16 @@ class ManageTicket extends Component {
 
     }
 
-    getAllTicket = async () => {
-        let response = await getAllTicketService();
+    getAllTicket = async (page) => {
+        let response = await getLimitTicketService({
+            limit: this.state.limit,
+            page
+        });
         if (response && response.errCode === 0) {
             this.setState({
-                allTicket: response.data ? response.data : [],
-                ticketFilterList: response.data ? response.data : []
+                allTicket: response.data?.rows || [],
+                ticketFilterList: response.data?.rows || [],
+                total: response.data?.count || 0
             })
         }
     }
@@ -60,6 +68,14 @@ class ManageTicket extends Component {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    async handleChangePage(page) {
+        console.log(this.getAllTicket);
+        await this.getAllTicket(page);
+        this.setState({
+            page
+        })
     }
 
     handleFilterTicket(filtersQuery) {
@@ -140,6 +156,9 @@ class ManageTicket extends Component {
                             }
                         </tbody>
                     </table>
+                    <div className='row p-2'>
+                        <Pagination onChangePage={(page) => this.handleChangePage(page)} limit={this.state.limit} total={this.state.total} page={this.state.page} />
+                    </div>
                 </div>
             </div>
         );
