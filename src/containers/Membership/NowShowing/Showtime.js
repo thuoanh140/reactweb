@@ -9,6 +9,7 @@ import { getShowtimeByDate } from '../../../services/userServices';
 import { LANGUAGES } from '../../../utils';
 import { withRouter } from "react-router";
 import Seat from './Seat';
+import { toast } from 'react-toastify';
 
 
 class Showtime extends Component {
@@ -148,14 +149,16 @@ class Showtime extends Component {
     handleBookingSeat = () => {
         let showtimeData = this.state;
         // const { isLoggedIn } = this.state;
-        this.props.history.push({
-            pathname: this.props.isLoggedIn ? "/booking-seat" : "/login-membership",
-            // pathname: "/booking-seat",
-            state: { showtimeData }
-        });
-
-        // console.log("check isLoggedIn: ", isLoggedIn)
-        console.log("check showtimeData: ", showtimeData)
+        if(this.state.showtimeClick?.id){
+            this.props.history.push({
+                pathname: this.props.isLoggedIn ? "/booking-seat" : "/login-membership",
+                // pathname: "/booking-seat",
+                state: { showtimeData }
+            });
+        }
+        else {
+            toast.warn("Vui lòng chọn xuất chiếu")
+        }
     }
 
 
@@ -236,7 +239,6 @@ class Showtime extends Component {
                                                 <div className='booking-showtime'>
                                                     <button
                                                         onClick={() => this.handleBookingSeat()}
-                                                        disabled={!this.state.showtimeClick?.id}
                                                     ><i className='far fa-hand-point-up'></i>Đặt vé</button>
                                                 </div>
 

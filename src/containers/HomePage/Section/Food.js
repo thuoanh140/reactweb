@@ -18,7 +18,7 @@ class Food extends Component {
         this.state = {
             arrFood: [],
             food: [],
-            quantity: ''
+            quantity: '',
         }
     }
 
@@ -91,11 +91,11 @@ class Food extends Component {
         // console.log('check datee: ', datee)
     }
 
-    handleQuantity = (event) => {
+    handleQuantity = (event, item) => {
         this.setState({
             quantity: event
         })
-        console.log('check event:', event)
+        console.log('check event:', event, item)
         let { food } = this.state;
         let selectedFood = food.filter(item => item.isSelected === true);
         selectedFood = selectedFood.map(item => {
@@ -156,15 +156,15 @@ class Food extends Component {
                                                 style={{ backgroundImage: `url(${imageBase64})` }}
 
                                             ></div>
-                                            <div className={item.isSelected === true ? 'text-center active' : 'text-center'}
+                                            <div className={item.isSelected === true ? 'text-center food-title active' : 'text-center food-title'}
                                                 onClick={() => this.handleClickFood(item)}>
                                                 <span>{item.ten_ta}</span><br></br>
                                                 <span>{item.gia}</span>
 
                                             </div>
-                                            <div>
+                                            <div className='row justify-content-center align-items-center'>
                                                 <QuantityPicker smooth
-                                                    onChange={(event) => this.handleQuantity(event)} />
+                                                    onChange={(event) => this.handleQuantity(event, item)} />
                                             </div>
 
                                         </div>
@@ -191,21 +191,23 @@ class Food extends Component {
                                                 style={{ backgroundImage: `url(${imageBase64})` }}
 
                                             ></div>
-                                            <div className={item.isSelected === true ? 'text-center active' : 'text-center'}
+                                            <div className={item.isSelected === true ? 'text-center food-title active' : 'text-center food-title'}
                                                 onClick={() => this.handleClickFood(item)}>
                                                 <span>{item.ten_ta}</span><br></br>
-                                                <span><NumberFormat
+                                                <span>
+                                                    <NumberFormat
                                                     value={item.gia}
                                                     displayType={'text'}
                                                     thousandSeparator={true}
                                                     suffix={'VND'}
-                                                /></span>
+                                                />
+                                                </span>
 
 
                                             </div>
-                                            <div>
+                                            <div className='row justify-content-center align-items-center'>
                                                 <QuantityPicker smooth
-                                                    onChange={(event) => this.handleQuantity(event)} />
+                                                    onChange={(event) => this.handleQuantity(event, item)} />
                                             </div>
 
                                         </div>

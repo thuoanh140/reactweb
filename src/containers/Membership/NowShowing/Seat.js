@@ -8,6 +8,7 @@ import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import { getSeatByCinemaRoomIdService, getIdSeatByIdShowtimeService, getMovieByIdService } from '../../../services/userServices';
 import HomeFooter from '../../HomePage/HomeFooter';
+import { toast } from 'react-toastify';
 
 class Seat extends Component {
 
@@ -89,14 +90,17 @@ class Seat extends Component {
         let showtimeClick = this.props.location.state.showtimeData.showtimeClick.date;
         let { seat, movieName } = this.state;
         let selectedSeat = seat.filter(item => item.isSelected === true);
-        this.props.history.push({
-            pathname: "/booking-food",
-            state: { stateData, selectedSeat, movieName }
+        if(selectedSeat.length > 0){
+            this.props.history.push({
+                pathname: "/booking-food",
+                state: { stateData, selectedSeat, movieName }
+                }
+            );
         }
-        );
+        else {
+            toast.warn("Vui lòng chọn ghế!")
+        }
 
-        console.log('check stateData', stateData)
-        console.log('check showtimeClick', showtimeClick)
         let myDate = Number(showtimeClick)
         let date = new Date(myDate)
         console.log('check date: ', date)
@@ -243,7 +247,6 @@ class Seat extends Component {
                         </div>
                         <div className='checkout-btn'>
                             <button
-                                disabled={!this.state.seat.filter(item => item.isSelected)?.length}
                                 onClick={() => this.handleClickCheckoutBtn()}
                             >Tiếp theo</button>
                         </div>

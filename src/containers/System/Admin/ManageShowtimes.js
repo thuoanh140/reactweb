@@ -9,6 +9,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { dateFormat } from '../../../utils';
 import { createShowtimeService } from '../../../services/userServices'
+import { toast } from 'react-toastify';
 
 
 
@@ -272,6 +273,12 @@ class ManageShowtimes extends Component {
                 movieId: selectedMovie.value,
                 formatedDate: formatedDate
             });
+            if(res.errCode === 0){
+                toast.success("Thêm xuất chiếu thành công")
+            }
+            else{
+                toast.warn("Thêm xuất chiếu thất bại!")
+            }
             console.log('check res: ', res);
             console.log('check result: ', result);
         }
