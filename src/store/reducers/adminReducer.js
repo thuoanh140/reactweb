@@ -14,7 +14,8 @@ const initialState = {
     movieFormatById: [],
     theaterById: [],
     eventData: [],
-    foodData: []
+    foodData: [],
+    reportData: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -62,6 +63,19 @@ const adminReducer = (state = initialState, action) => {
 
         case actionTypes.FETCH_ALL_MOVIE_FAILED:
             state.movies = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_REPORT_SUCCESS:
+            state.reportData = action.data;
+            // console.log('check director success: ', state)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_REPORT_FAILED:
+            state.reportData = [];
             return {
                 ...state
             }

@@ -10,6 +10,7 @@ import Login from '../containers/Auth/Login';
 import LoginCustomer from '../containers/Auth/LoginCustomer';
 import CreateFood from '../containers/System/Admin/CreateFood';
 import ManageTicket from '../containers/System/Admin/ManageTicket';
+import ManageReport from '../containers/System/Admin/ManageReport';
 
 class System extends Component {
     render() {
@@ -27,7 +28,7 @@ class System extends Component {
                             <Route path="/system/manage-event" component={CreateEvent} />
                             <Route path="/system/manage-food" component={CreateFood} />
                             <Route path="/system/manage-ticket" component={ManageTicket} />
-
+                            <Route path="/system/manage-report" component={ManageReport} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>

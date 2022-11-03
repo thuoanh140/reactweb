@@ -9,7 +9,9 @@ import { LANGUAGES } from '../../../utils';
 import { withRouter } from "react-router";
 import ReactStars from "react-rating-stars-component";
 import StarRating from "react-star-ratings";
-import { createRatingService, getRatingByMovieIdService } from '../../../services/userServices';
+import { createRatingService, getRatingByMovieIdService, createReportService } from '../../../services/userServices';
+import { emitter } from '../../../utils/emitter'
+import ModalReportRating from './ModalReportRating';
 
 
 
@@ -21,7 +23,8 @@ class Rating extends Component {
             diem_dg: 0,
             allRating: [],
             numberPerPage: 3,
-            currentPage: 1
+            currentPage: 1,
+
         }
     }
 
@@ -40,6 +43,8 @@ class Rating extends Component {
         // setTimeout(() => this.getRating(), 0)
 
     }
+
+
 
     async getRating() {
         let movieId = this.props?.showtimeIdFromParent;
@@ -98,6 +103,8 @@ class Rating extends Component {
     }
 
 
+
+
     render() {
         let movieId = this.props.showtimeIdFromParent;
         let { noi_dung, allRating, diem_dg } = this.state;
@@ -111,6 +118,7 @@ class Rating extends Component {
         return (
             <>
                 <div className='rating-container'>
+
                     <div className='add-rating-container container'>
                         <div className='add-rating'>
                             <span>Thêm đánh giá:</span>
@@ -162,12 +170,15 @@ class Rating extends Component {
                         {allRating && allRating.length > 0 &&
                             allRating.slice(0, this.state.numberPerPage * this.state.currentPage).map((item, index) => {
                                 return (
-                                    <CommentItem 
+                                    <CommentItem
                                         key={index}
-                                        ten_tv={item.memberData.ten_tv} 
-                                        ngay_dg={item.ngay_dg} 
-                                        diem_dg={item.diem_dg} 
+                                        id={item.id}
+                                        ten_tv={item.memberData.ten_tv}
+                                        ngay_dg={item.ngay_dg}
+                                        diem_dg={item.diem_dg}
                                         noi_dung={item.noi_dung}
+                                        rating={item}
+                                        userId={this.props.userInfo?.id_tv}
                                     />
                                 )
                             })
@@ -178,8 +189,8 @@ class Rating extends Component {
                                 <div className='col-6 d-flex justify-content-center'>
                                     {
                                         allRating.length > this.state.numberPerPage * this.state.currentPage && (
-                                            <button 
-                                                className='btn btn-success btn-sm font-weight-bold' 
+                                            <button
+                                                className='btn btn-success btn-sm font-weight-bold'
                                                 onClick={() => this.setState({
                                                     currentPage: this.state.currentPage + 1
                                                 })}
@@ -220,37 +231,88 @@ class Rating extends Component {
     }
 }
 
-class CommentItem extends Component 
-{
+class CommentItem extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            isOpenModalReportRating: false,
+            reportContent: {}
+        }
+    }
+
+
+
+    toggleReportRatingModal = () => {
+        this.setState({
+            isOpenModalReportRating: !this.state.isOpenModalReportRating,
+        })
+    }
+
+    createNewReport = async (data) => {
+        try {
+            let response = await createReportService(data);
+            console.log('response report', response)
+            if (response && response.errCode !== 0) {
+                alert(response.Message);
+            } else {
+                // await this.getAllStaffFromReact();
+                this.setState({
+                    isOpenModalReportRating: false
+                })
+                emitter.emit('EVENT_CLEAR_MODAL_DATA')
+                alert('Báo xấu bình luận thành công!')
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
+
+    handleClickReport = (report) => {
+        console.log('check report', report);
+        this.setState({
+            isOpenModalReportRating: true,
+            reportContent: report
+        })
     }
     render() {
-        const { ten_tv, ngay_dg, diem_dg, noi_dung } = this.props
+        const { id, ten_tv, ngay_dg, diem_dg, noi_dung, rating, userId } = this.props;
+
+        console.log('check rating info:', rating)
         return (
-                <div className='other-rating-info'>
-                    <div className='name-report'>
-                        <div className='member-name'>
-                            <span>{ten_tv}</span>
-                        </div>
-                            <button className='btn btn-primary'>Report <i className="fas fa-flag"></i></button>
-                        </div>
-                        <div className='date mt-2'>
-                            <span>{moment(ngay_dg).format("DD-MM-YYYY")}</span>
-                        </div>
-                        <div className='rating mt-2'>
-                            <ReactStars
-                                count={5}
-                                value={diem_dg}
-                                size={17}
-                                activeColor="#ffd700"
-                                edit={false}
-                            />
-                        </div>
-                        <div className='comment mt-2'>
-                            <span>{noi_dung}</span>
-                        </div>
+            <div className='other-rating-info'>
+                {this.state.isOpenModalReportRating &&
+                    <ModalReportRating
+                        isOpen={this.state.isOpenModalReportRating}
+                        toggleFromParent={this.toggleReportRatingModal}
+                        createNewReport={this.createNewReport}
+                        report={this.state.reportContent}
+                        userId={userId}
+                        ten_tv={ten_tv}
+                    />}
+                <div className='name-report'>
+                    <div className='member-name'>
+                        <span>{ten_tv}</span>
+                    </div>
+                    <button className='btn btn-primary' onClick={() => this.handleClickReport(rating)}>Report <i className="fas fa-flag"></i></button>
                 </div>
+                <div className='date mt-2'>
+                    <span>{moment(ngay_dg).format("DD-MM-YYYY")}</span>
+                </div>
+                <div className='rating mt-2'>
+                    <ReactStars
+                        count={5}
+                        value={diem_dg}
+                        size={17}
+                        activeColor="#ffd700"
+                        edit={false}
+                    />
+                </div>
+                <div className='comment mt-2'>
+                    <span>{noi_dung}</span>
+                </div>
+            </div>
         )
     }
 }

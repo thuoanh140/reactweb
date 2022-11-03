@@ -43,7 +43,9 @@
             "food": "Food",
             "manage-food": "Manage Food",
             "discount": "Event",
-            "manage-discount": "Manage Event"
+            "manage-discount": "Manage Event",
+            "report": "Report",
+            "manage-report": "Manage Report"
         },
         "movie": {
             "title": "MANAGE MOVIE",

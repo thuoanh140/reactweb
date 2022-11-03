@@ -18,7 +18,7 @@ class ManageTicket extends Component {
             result: [],
             ticketFilterList: [],
             page: 1,
-            limit: 20,
+            limit: 5,
             total: 10
         }
     }
@@ -91,8 +91,8 @@ class ManageTicket extends Component {
             }
 
             return Object.keys(filtersQuery) // lấy mảng key nè
-                    .filter(item => !!filtersQuery[item]) // bỏ các giá trị null với undefined nè nha
-                    .every(key => filtersQuery[key] == ticketInfo[key]) // every trả về true nếu tất cả thành phần trong mảng đều true
+                .filter(item => !!filtersQuery[item]) // bỏ các giá trị null với undefined nè nha
+                .every(key => filtersQuery[key] == ticketInfo[key]) // every trả về true nếu tất cả thành phần trong mảng đều true
         })
 
         // set state để rerender nè
@@ -106,7 +106,7 @@ class ManageTicket extends Component {
         return (
             <div className='managhe-ticket-container'>
                 <div className='title text-center'>QUẢN LÝ VÉ BÁN</div>
-                <SearchData onSearch={(data) => this.handleFilterTicket(data)}/>
+                <SearchData onSearch={(data) => this.handleFilterTicket(data)} />
                 <div className='users-table mt-3 mx-1'>
                     <table id="customers">
                         <tbody>

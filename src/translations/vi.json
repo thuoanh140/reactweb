@@ -43,7 +43,9 @@
             "food": "Thức ăn",
             "manage-food": "Quản lý thức ăn",
             "discount": "Khuyến mãi",
-            "manage-discount": "Quản lý khuyến mãi"
+            "manage-discount": "Quản lý khuyến mãi",
+            "report": "Báo xấu",
+            "manage-report": "Quản lý báo xấu"
         },
         "movie": {
             "title": "QUẢN LÝ PHIM",

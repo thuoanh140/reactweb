@@ -129,4 +129,18 @@ export const adminMenu = [
 
         ]
     },
+    { //Quản lý báo xấu
+        name: 'menu.admin.report',
+        menus: [
+            {
+                name: 'menu.admin.manage-report', link: '/system/manage-report'
+                // subMenus: [
+                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+                // ]
+            }
+
+        ]
+    },
 ];

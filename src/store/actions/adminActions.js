@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { getGenreService, createNewMovieService, getNowShowingService, getAllMovie, getCinemaRoomService, getProvinceService, getTheaterService, getShowtimeService, getMovieFormatService, getTheaterByIdService, getMovieFormatByIdService, createNewEventService, createNewFoodService, getEventService, createNewTicketService, createNewDetailTicketService, getFoodService, createNewBillFoodService } from '../../services/userServices';
+import {getAllReportService, getGenreService, createNewMovieService, getNowShowingService, getAllMovie, getCinemaRoomService, getProvinceService, getTheaterService, getShowtimeService, getMovieFormatService, getTheaterByIdService, getMovieFormatByIdService, createNewEventService, createNewFoodService, getEventService, createNewTicketService, createNewDetailTicketService, getFoodService, createNewBillFoodService } from '../../services/userServices';
 
 export const fetchGenreStart = () => {
     return async (dispatch, getState) => {
@@ -33,6 +33,24 @@ export const fetchProvinceStart = () => {
         } catch (e) {
             dispatch(fetchProvinceFailed());
             console.log('fetch Province start error', e);
+        }
+    }
+}
+
+export const fetchReportStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            
+            let res = await getAllReportService();
+            if (res && res.errCode === 0) {
+                // console.log('check get state', getState)
+                dispatch(fetchReportSuccess(res.data))
+            } else {
+                dispatch(fetchReportFailed());
+            }
+        } catch (e) {
+            dispatch(fetchReportFailed());
+            console.log('fetch Report start error', e);
         }
     }
 }
@@ -145,6 +163,10 @@ export const fetchProvinceSuccess = (provinceData) => ({
     type: actionTypes.FETCH_PROVINCE_SUCCESS,
     data: provinceData
 })
+export const fetchReportSuccess = (reportData) => ({
+    type: actionTypes.FETCH_REPORT_SUCCESS,
+    data: reportData
+})
 
 export const fetchMovieFormatSuccess = (movieFormatData) => ({
     type: actionTypes.FETCH_MOVIE_FORMAT_SUCCESS,
@@ -178,6 +200,10 @@ export const fetchCinemaRoomSuccess = (cinemaRoomData) => ({
 
 export const fetchProvinceFailed = () => ({
     type: actionTypes.FETCH_PROVINCE_FAILED
+})
+
+export const fetchReportFailed = () => ({
+    type: actionTypes.FETCH_REPORT_FAILED
 })
 
 export const fetchMovieFormatFailed = () => ({

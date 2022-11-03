@@ -52,6 +52,10 @@ const createRatingService = (data) => {
     return axios.post('/api/create-new-rating', data)
 }
 
+const createReportService = (data) => {
+    return axios.post('/api/report-rating', data)
+}
+
 const createPaymentCheckoutService = (data) => {
     return axios.post('/create_payment_url', data)
 }
@@ -70,6 +74,22 @@ const deleteTicketService = (ticketId) => {
     return axios.delete('/api/delete-ticket', {
         data: {
             id: ticketId
+        }
+    });
+}
+
+const deleteRatingService = (ratingId) => {
+    return axios.delete('/api/delete-rating', {
+        data: {
+            id: ratingId
+        }
+    });
+}
+
+const deleteReportService = (reportId) => {
+    return axios.delete('/api/delete-report', {
+        data: {
+            id: reportId
         }
     });
 }
@@ -164,8 +184,12 @@ const getAllTicketService = () => {
     return axios.get(`/api/get-all-ticket`)
 }
 
+const getAllReportService = () => {
+    return axios.get(`/api/get-report`)
+}
+
 const getLimitTicketService = (params) => {
-    return axios.get(`/api/get-ticket-limit`, {params})
+    return axios.get(`/api/get-ticket-limit`, { params })
 }
 
 const getSeatByCinemaRoomIdService = (inputId) => {
@@ -231,6 +255,7 @@ export {
     getPayment, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService,
     createRatingService, getRatingByMovieIdService, getIdSeatByIdShowtimeService,
     getAllTicketService, deleteTicketService, searchTicketService, registerNowService,
-    editMemberService, getLimitTicketService
+    editMemberService, getLimitTicketService, createReportService, getAllReportService,
+    deleteRatingService, deleteReportService
     // getNationService, getDirectorService, getCastService
 }
