@@ -2,6 +2,8 @@
   "name": "cinema-react-app",
   "version": "0.1.0",
   "private": true,
+  "main": "public/electron.js",
+  "homepage": "./",
   "dependencies": {
     "@formatjs/intl-pluralrules": "^3.5.6",
     "@formatjs/intl-relativetimeformat": "^7.3.6",
@@ -51,8 +53,30 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build-app": "react-scripts build && electron-builder --dir --win --x64",
+    "electron": "npm run build && electron .",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "build": {
+    "appId": "on-cinema",
+    "productName": "On-Cinema-App",
+    "win": {
+      "icon": "build/icon.png"
+    },
+    "mac": {
+      "icon": "build/icon.png"
+    },
+    "files": [
+      "./build//*",
+      "./dist//*",
+      "./node_modules//*",
+      "./public//*",
+      "*.js"
+    ],
+    "directories": {
+      "buildResources": "public"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -68,5 +92,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^21.2.1",
+    "electron-builder": "^23.6.0"
   }
 }

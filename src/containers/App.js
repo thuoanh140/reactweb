@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch,HashRouter } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
@@ -50,7 +50,7 @@ class App extends Component {
     render() {
         return (
             <Fragment>
-                <Router history={history}>
+                <HashRouter history={history}>
                     <div className="main-container">
 
 
@@ -81,7 +81,7 @@ class App extends Component {
                             closeButton={<CustomToastCloseButton />}
                         />
                     </div>
-                </Router>
+                </HashRouter>
             </Fragment>
         )
     }
