@@ -89,7 +89,7 @@ class HomeHeader extends Component {
                             <div className="dropdown">
                                 <button className="dropbtn"><b><FormattedMessage id="homeheader.movie" /></b></button>
                                 <div className="dropdown-content">
-                                    <a href="#"><b><FormattedMessage id="homeheader.NOW-SHOWING" /></b></a>
+                                    <a href="#now-showing"><b><FormattedMessage id="homeheader.NOW-SHOWING" /></b></a>
                                     <a href="#"><b><FormattedMessage id="homeheader.COMING-SOON" /></b></a>
                                 </div>
                             </div>

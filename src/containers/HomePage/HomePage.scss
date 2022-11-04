@@ -33,8 +33,9 @@
 }
 
 .section-share {
-    margin-bottom: 80px;
-    background: url('../../assets/section.jpg');
+    // margin-bottom: 80px;
+    background-color: #f5deb3;
+    // background: url('../../assets/section.jpg');
 
     // &.section-movie {
     //     // background: rgb(246, 246, 243);
@@ -97,7 +98,9 @@
 }
 
 .section-share {
-    height: 500px;
+    box-sizing: content-box;
+    padding-bottom: 80px;
+    // height: 500px;
 
     // border: 1px solid red;
 
@@ -109,7 +112,8 @@
             // border: 1px solid orange;
 
             span {
-                font-size: 70px;
+                font-weight: 600;
+                font-size: 64px;
                 display: block;
                 text-align: center;
                 // font-family: "Comic Sans MS", "Lucida Sans Unicode", sans-serif;

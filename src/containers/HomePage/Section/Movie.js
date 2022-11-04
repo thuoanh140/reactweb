@@ -40,7 +40,7 @@ class Movie extends Component {
         console.log('check isLogged movie: ', isLoggedIn)
         let arrNowShowing = this.state.arrNowShowing;
         return (
-            <div className='section-share section-movie'>
+            <div className='section-share section-movie' id='now-showing'>
                 <div className='section-container'>
                     <div className='section-header'>
                         <span>MOVIE SELECTION</span>

@@ -22,7 +22,7 @@ class HomePage extends Component {
         let isLoggedIn = this.props.isLoggedIn;
         console.log('check isLogged homepage: ', isLoggedIn)
         return (
-            <div>
+            <div style={{'scrollBehavior': 'smooth'}}>
                 <HomeHeader isShowBanner={true} />
                 <Movie settings={settings}
                 // isLoggedIn={isLoggedIn}
