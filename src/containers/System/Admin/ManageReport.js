@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions'
 import './TableManageMovie.scss';
+import { toast } from 'react-toastify';
 // import { getAllStaff, createNewStaffService, deleteStaffService, editStaffService } from '../../services/userServices'
 import { deleteRatingService, getAllReportService, deleteReportService } from '../../../services/userServices'
 
@@ -42,10 +43,15 @@ class ManageReport extends Component {
 
     handleDeleteRating = async (rating) => {
         console.log('check onclick rating', rating)
-        await deleteReportService(rating.id_dg);
-        await deleteRatingService(rating.id_dg);
+        let res = await deleteReportService(rating.id_dg);
+        let response = await deleteRatingService(rating.id_dg);
 
-        alert('Xóa bình luận thành công!');
+        if (res.errCode === 0 && response.errCode === 0) {
+            toast.success("Xóa bình luận thành công")
+        }
+        else {
+            toast.warn("Xóa bình luận thất bại!")
+        }
         await this.getAllReport()
     }
 

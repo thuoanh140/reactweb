@@ -12,6 +12,7 @@ import StarRating from "react-star-ratings";
 import { createRatingService, getRatingByMovieIdService, createReportService } from '../../../services/userServices';
 import { emitter } from '../../../utils/emitter'
 import ModalReportRating from './ModalReportRating';
+import { toast } from 'react-toastify';
 
 
 
@@ -260,7 +261,7 @@ class CommentItem extends Component {
                     isOpenModalReportRating: false
                 })
                 emitter.emit('EVENT_CLEAR_MODAL_DATA')
-                alert('Báo xấu bình luận thành công!')
+                toast.success('Báo xấu bình luận thành công!')
             }
         } catch (e) {
             console.log(e);

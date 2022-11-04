@@ -90,11 +90,11 @@ class Seat extends Component {
         let showtimeClick = this.props.location.state.showtimeData.showtimeClick.date;
         let { seat, movieName } = this.state;
         let selectedSeat = seat.filter(item => item.isSelected === true);
-        if(selectedSeat.length > 0){
+        if (selectedSeat.length > 0) {
             this.props.history.push({
                 pathname: "/booking-food",
                 state: { stateData, selectedSeat, movieName }
-                }
+            }
             );
         }
         else {
@@ -111,6 +111,7 @@ class Seat extends Component {
 
     render() {
         // let { showtime } = this.props;
+        console.log('check props:', this.props)
         let { seat, movieName, banSeat } = this.state;
         let movieNamepick = this.state.movieName.ten_phim;
         let theaterName = this.props.location.state.showtimeData.showtimeClick.theaterData.ten_rap;

@@ -8,7 +8,7 @@ import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
 import _ from 'lodash';
 import { dateFormat } from '../../../utils';
-import { createShowtimeService } from '../../../services/userServices'
+import { createShowtimeService, getTheaterService, getCinemaRoomService } from '../../../services/userServices'
 import { toast } from 'react-toastify';
 
 
@@ -33,9 +33,11 @@ class ManageShowtimes extends Component {
     }
 
     componentDidMount() {
+        let { selectedProvince } = this.state;
+
         this.props.fetchAllProvince();
-        this.props.fetchAllTheater();
-        this.props.fetchAllCinemaRoom();
+        // this.props.fetchAllTheater(selectedProvince.value);
+        // this.props.fetchAllCinemaRoom();
         this.props.fetchAllShowtime();
         this.props.fetchMovieRedux();
         this.props.fetchAllMovieFormat();
@@ -49,19 +51,19 @@ class ManageShowtimes extends Component {
             })
         }
 
-        if (prevProps.allTheater !== this.props.allTheater) {
-            let dataSelect = this.buildDataInputSelectTheater(this.props.allTheater);
-            this.setState({
-                listTheater: dataSelect
-            })
-        }
+        // if (this.state.allTheater) {
+        //     let dataSelect = this.buildDataInputSelectTheater(this.state.allTheater);
+        //     this.setState({
+        //         listTheater: dataSelect
+        //     })
+        // }
 
-        if (prevProps.allCinemaRoom !== this.props.allCinemaRoom) {
-            let dataSelect = this.buildDataInputSelectCinemaRoom(this.props.allCinemaRoom);
-            this.setState({
-                listCinemaRoom: dataSelect
-            })
-        }
+        // if (prevProps.allCinemaRoom !== this.props.allCinemaRoom) {
+        //     let dataSelect = this.buildDataInputSelectCinemaRoom(this.props.allCinemaRoom);
+        //     this.setState({
+        //         listCinemaRoom: dataSelect
+        //     })
+        // }
 
         if (prevProps.allMovie !== this.props.allMovie) {
             let dataSelect = this.buildDataInputSelectMovie(this.props.allMovie);
@@ -172,6 +174,24 @@ class ManageShowtimes extends Component {
         this.setState({
             selectedProvince: selectedOption
         })
+        let tinh_tpId = selectedOption.value;
+        console.log('check province', tinh_tpId)
+        let res = await getTheaterService(tinh_tpId);
+        if (res && res.errCode === 0) {
+            this.setState({
+                allTheater: res.data ? res.data : [],
+
+            })
+        }
+        console.log('check theater', res.data)
+        let theaterData = res.data;
+        console.log('check theaterData', theaterData)
+
+        let dataSelect = this.buildDataInputSelectTheater(theaterData);
+        this.setState({
+            listTheater: dataSelect
+        })
+
     }
 
     handleChangeSelectMovie = async (selectedOption) => {
@@ -189,6 +209,23 @@ class ManageShowtimes extends Component {
     handleChangeSelectTheater = async (selectedOption) => {
         this.setState({
             selectedTheater: selectedOption
+        })
+        let rapId = selectedOption.value;
+        console.log('check theater', rapId)
+        let res = await getCinemaRoomService(rapId);
+        if (res && res.errCode === 0) {
+            this.setState({
+                allCinemaroom: res.data ? res.data : [],
+
+            })
+        }
+        console.log('check theater', res.data)
+        let cinemaRoomData = res.data;
+        console.log('check theaterData', cinemaRoomData)
+
+        let dataSelect = this.buildDataInputSelectCinemaRoom(cinemaRoomData);
+        this.setState({
+            listCinemaRoom: dataSelect
         })
     }
 
@@ -273,10 +310,10 @@ class ManageShowtimes extends Component {
                 movieId: selectedMovie.value,
                 formatedDate: formatedDate
             });
-            if(res.errCode === 0){
+            if (res.errCode === 0) {
                 toast.success("Thêm xuất chiếu thành công")
             }
-            else{
+            else {
                 toast.warn("Thêm xuất chiếu thất bại!")
             }
             console.log('check res: ', res);
@@ -287,7 +324,7 @@ class ManageShowtimes extends Component {
 
     render() {
         // console.log('danh sach tinh/tp', this.props.allProvince);
-        // console.log('danh sach rap', this.props.allTheater);
+        console.log('danh sach rap', this.state.listTheater);
         // console.log('danh sach phong chieu', this.props.allCinemaRoom);
 
         let { showtime } = this.state;
@@ -386,8 +423,8 @@ const mapStateToProps = state => {
         isLoggedIn: state.user.isLoggedIn,
         language: state.admin.language,
         allProvince: state.admin.province,
-        allTheater: state.admin.theater,
-        allCinemaRoom: state.admin.cinemaRoom,
+        // allTheater: state.admin.theater,
+        // allCinemaRoom: state.admin.cinemaRoom,
         allShowtime: state.admin.allShowtime,
         allMovie: state.admin.movies,
         allMovieFormat: state.admin.movieFormat
@@ -397,8 +434,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllProvince: () => dispatch(actions.fetchProvinceStart()),
-        fetchAllTheater: () => dispatch(actions.fetchTheaterStart()),
-        fetchAllCinemaRoom: () => dispatch(actions.fetchCinemaRoomStart()),
+        // fetchAllTheater: (inputId) => dispatch(actions.fetchTheaterStart(inputId)),
+        // fetchAllCinemaRoom: () => dispatch(actions.fetchCinemaRoomStart()),
         fetchAllShowtime: () => dispatch(actions.fetchShowtimeStart()),
         fetchMovieRedux: () => dispatch(actions.fetchAllMovieStart()),
         fetchAllMovieFormat: () => dispatch(actions.fetchMovieFormatStart()),

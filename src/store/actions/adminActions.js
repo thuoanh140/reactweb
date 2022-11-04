@@ -108,10 +108,10 @@ export const fetchTheaterStart = () => {
     }
 }
 
-export const fetchTheaterByIdStart = () => {
+export const fetchTheaterByIdStart = (inputId) => {
     return async (dispatch, getState) => {
         try {
-            let res = await getTheaterByIdService();
+            let res = await getTheaterByIdService(inputId);
             if (res && res.errCode === 0) {
                 // console.log('check get state', getState)
                 dispatch(fetchTheaterByIdSuccess(res.data.reverse()))
@@ -148,7 +148,7 @@ export const fetchShowtimeStart = () => {
             let res = await getShowtimeService();
             if (res && res.errCode === 0) {
                 // console.log('check get state', getState)
-                dispatch(fetchShowtimeSuccess(res.data.reverse()))
+                dispatch(fetchShowtimeSuccess(res.data))
             } else {
                 dispatch(fetchShowtimeFailed());
             }

@@ -89,7 +89,7 @@ const deleteRatingService = (ratingId) => {
 const deleteReportService = (reportId) => {
     return axios.delete('/api/delete-report', {
         data: {
-            id: reportId
+            id_dg: reportId
         }
     });
 }
@@ -115,7 +115,7 @@ const getProvinceService = (inputId) => {
 }
 
 const getTheaterService = (inputId) => {
-    return axios.get(`/api/get-theater?id=${inputId}`)
+    return axios.get(`/api/get-theater?tinh_tpId=${inputId}`)
 }
 
 const getPaymentMethodsService = (inputId) => {
@@ -123,7 +123,7 @@ const getPaymentMethodsService = (inputId) => {
 }
 
 const getTheaterByIdService = (inputId) => {
-    return axios.get(`/api/get-theater-by-Id?id=${inputId}`)
+    return axios.get(`/api/get-theater-by-Id?idd=${inputId}`)
 }
 
 const getMovieByIdService = (inputId) => {
@@ -143,7 +143,7 @@ const getPaymentByIdService = (inputId) => {
 }
 
 const getCinemaRoomService = (inputId) => {
-    return axios.get(`/api/get-cinema-room?id=${inputId}`)
+    return axios.get(`/api/get-cinema-room?rapId=${inputId}`)
 }
 
 const getShowtimeService = (inputId) => {

@@ -9,6 +9,7 @@ import NumberFormat from 'react-number-format';
 import axios from '../../../axios'
 import { getPayment, getPaymentMethodsService, getEmailService, getPaymentByIdService, createPaymentCheckoutService } from '../../../services/userServices';
 import HomeFooter from '../../HomePage/HomeFooter';
+import { toast } from 'react-toastify';
 
 
 
@@ -172,7 +173,7 @@ class PaymentMethods extends Component {
                 arrFood: resultFood
             })
 
-            alert('Đặt vé thành công!');
+            toast.success('Đặt vé thành công!')
             this.props.history.push(`/home`);
         }
 
