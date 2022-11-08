@@ -3,6 +3,10 @@
     height: 100%;
 
     .all-showtime {
+        .not-showtime {
+            font-size: 15px;
+            color: white;
+        }
 
         select {
             border-bottom: 1px solid #ddd;
@@ -31,6 +35,27 @@
 
 
         .all-avaiable-showtime {
+
+            .booking-showtime {
+                margin-top: 20px;
+
+                button {
+                    background-color: #4CAF50;
+                    /* Green */
+                    border: none;
+                    color: white;
+                    padding: 15px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+
+                    &:disabled {
+                        background-color: rgba(#4CAF50, 0.7);
+                        cursor: not-allowed;
+                    }
+                }
+            }
 
             .text-calendar {
                 color: orange;
@@ -102,31 +127,8 @@
                     // }
                 }
 
-                .not-showtime {
-                    font-size: 15px;
-                    color: white;
-                }
 
-                .booking-showtime {
-                    margin-top: 20px;
 
-                    button {
-                        background-color: #4CAF50;
-                        /* Green */
-                        border: none;
-                        color: white;
-                        padding: 15px 32px;
-                        text-align: center;
-                        text-decoration: none;
-                        display: inline-block;
-                        font-size: 16px;
-
-                        &:disabled{
-                            background-color: rgba(#4CAF50, 0.7);
-                            cursor: not-allowed;
-                        }
-                    }
-                }
             }
         }
     }

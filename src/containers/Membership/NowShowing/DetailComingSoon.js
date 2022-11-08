@@ -14,7 +14,7 @@ import HomeFooter from '../../HomePage/HomeFooter';
 import ReactStarsRating from 'react-awesome-stars-rating';
 
 
-class DetailMovie extends Component {
+class DetailComingSoon extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,6 +26,7 @@ class DetailMovie extends Component {
     async componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.ten_phim) {
             let id = this.props.match.params.ten_phim;
+            console.log('check ten phim:', id)
             let res = await getMovieNowShowingById(id);
             if (res && res.errCode === 0) {
                 this.setState({
@@ -41,6 +42,8 @@ class DetailMovie extends Component {
             }
             console.log('checktotal rating', ressponse)
         }
+        let phim = this.props.match.params.ten_phim;
+        console.log('check this.props.match.params.ten_phim', phim)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -125,18 +128,7 @@ class DetailMovie extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='showtimes'>
-                        <Showtime
-                            showtimeIdFromParent={detailMovie && detailMovie.id ? detailMovie.id : -1}
-                        />
-                    </div>
-                    <div className='comment-movie'>
-                        <Rating
-                            showtimeIdFromParent={detailMovie && detailMovie.id ? detailMovie.id : -1}
-                            // showtimeIdFromParent={movieId}
-                            totalRating={totalRating}
-                        />
-                    </div>
+
 
                 </div>
                 <HomeFooter />
@@ -156,4 +148,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailMovie);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailComingSoon);

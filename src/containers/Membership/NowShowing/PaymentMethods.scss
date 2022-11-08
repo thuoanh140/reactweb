@@ -1,6 +1,7 @@
 .payment-methods-container {
     height: 600px;
-    background: url('../../../assets/background.jpg');
+    // background: url('../../../assets/background.jpg');
+    background-color: #f5deb3;
     display: flex;
 
     .payment-methods {
@@ -31,7 +32,7 @@
 
             label {
                 margin-left: 10px;
-                color: white;
+                color: black;
                 cursor: pointer;
             }
         }
@@ -42,11 +43,12 @@
     .payment-detail {
         text-align: center;
         width: 50%;
-        border: 2px solid green;
+        // border: 2px solid green;
+        border-left: 2px solid gray;
 
         span {
             font-size: 30px;
-            color: #fff;
+            color: black;
         }
 
         .title-total {

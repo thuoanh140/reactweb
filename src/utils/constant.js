@@ -9,7 +9,9 @@ export const path = {
     PAYMENT_METHODS: '/payment-methods',
     LOGIN_MEMBERSHIP: '/login-membership',
     FOOD: '/booking-food',
-    MY_TICKET: '/my-ticket'
+    MY_TICKET: '/my-ticket',
+    COMING_SOON: '/coming-soon',
+    DETAIL_COMING_SOON: '/coming-soon/:ten_phim'
 };
 
 export const LANGUAGES = {

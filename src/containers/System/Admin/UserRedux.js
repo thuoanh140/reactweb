@@ -7,12 +7,16 @@ import './UserRedux.scss';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import TableManageMovie from './TableManageMovie';
+import { getStateMovieService } from '../../../services/userServices';
+import Select from 'react-select';
+
 class UserRedux extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             genreArr: [],
+            stateMovieArr: [],
             // nationArr: [],
             // directorArr: [],
             // castArr: [],
@@ -29,11 +33,27 @@ class UserRedux extends Component {
             ten_loai: '',
             dao_dien: '',
             dien_vien: '',
-            quoc_gia: ''
+            quoc_gia: '',
+            the_loai: '',
+            id_trang_thai: '',
+            listStateMovie: '',
+            selectedStateMovie: {}
         }
     }
 
     async componentDidMount() {
+
+        let response = await getStateMovieService();
+        if (response && response.errCode === 0) {
+            this.setState({
+                stateMovieArr: response.data
+            })
+        }
+
+        let dataSelect = this.buildDataInputSelectStateMovie(response.data);
+        this.setState({
+            listStateMovie: dataSelect
+        })
 
         this.props.getGenreStart();
         // this.props.getNationStart();
@@ -145,7 +165,9 @@ class UserRedux extends Component {
             dao_dien: this.state.dao_dien,
             dien_vien: this.state.dien_vien,
             ten_loai: this.state.ten_loai,
-            poster: this.state.poster
+            poster: this.state.poster,
+            the_loai: this.state.the_loai,
+            id_trang_thai: this.state.selectedStateMovie.value
             //     ten_loai: [{
             //         ten_loai: this.state.ten_loai,
             //     }]
@@ -157,7 +179,7 @@ class UserRedux extends Component {
     checkValidateInput = () => {
         let isValid = true;
         let arrCheck = ['ten_phim', 'ngay_kc', 'thoi_luong',
-            'gh_tuoi', 'ngon_ngu', 'tom_tat', 'quoc_gia', 'dao_dien', 'dien_vien']
+            'gh_tuoi', 'ngon_ngu', 'tom_tat', 'quoc_gia', 'dao_dien', 'dien_vien', 'the_loai']
         for (let i = 0; i < arrCheck.length; i++) {
             if (!this.state[arrCheck[i]]) {
                 isValid = false;
@@ -166,6 +188,13 @@ class UserRedux extends Component {
             }
         }
         return isValid;
+    }
+
+    handleChangeSelectStateMovie = async (selectedOption) => {
+        this.setState({
+            selectedStateMovie: selectedOption
+        })
+        console.log('selected state:', selectedOption)
     }
 
     onChangeInput = (event, id) => {
@@ -178,7 +207,24 @@ class UserRedux extends Component {
         })
     }
 
+    buildDataInputSelectStateMovie = (inputData) => {
+        let result = [];
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let object = {};
+                // let labelProvince = `${item.ten_tinh}`;
+                // object.label = labelProvince;
+                object.label = `${item.ten_trang_thai}`;
+                object.value = item.id;
+                result.push(object);
+            })
+        }
+        return result;
+    }
+
     render() {
+
+        console.log('check select state render', this.state.selectedStateMovie.value)
         let genres = this.state.genreArr;
         // let nations = this.state.nationArr;
         // let directors = this.state.directorArr;
@@ -187,7 +233,7 @@ class UserRedux extends Component {
 
         let { ten_phim, ngay_kc, thoi_luong, gh_tuoi, tom_tat,
             poster, ngon_ngu, ten_loai, dao_dien,
-            dien_vien, quoc_gia } = this.state;
+            dien_vien, quoc_gia, the_loai, listStateMovie } = this.state;
 
         return (
             <div className='user-redux-container'>
@@ -269,7 +315,23 @@ class UserRedux extends Component {
                             </div>
                         </div>
                         <div className='row'>
-                            <div className='col-6'>
+                            <div className='col-3'>
+                                <label><FormattedMessage id="menu.movie.TL" /></label>
+                                <input className='form-control' type='text'
+                                    value={the_loai}
+                                    onChange={(event) => { this.onChangeInput(event, 'the_loai') }}
+                                />
+                            </div>
+                            <div className='col-3 form-group'>
+                                <label>Chọn trạng thái phim:</label>
+                                <Select
+                                    value={this.state.selectedStateMovie}
+                                    onChange={this.handleChangeSelectStateMovie}
+                                    options={this.state.listStateMovie}
+                                />
+                            </div>
+
+                            {/* <div className='col-6'>
                                 <label><FormattedMessage id="menu.movie.TL" /></label>
                                 <select className='form-control'
                                     onChange={(event) => { this.onChangeInput(event, 'ten_loai') }}>
@@ -281,7 +343,7 @@ class UserRedux extends Component {
                                         })
                                     }
                                 </select>
-                            </div>
+                            </div> */}
                             {/* <div className='col-6'>
                                 <label><FormattedMessage id="menu.movie.national" /></label>
                                 <select className='form-control'

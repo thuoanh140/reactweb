@@ -213,7 +213,7 @@ class PaymentMethods extends Component {
             })
             // let response = await getPayment();
             let response = await getPayment({
-                transactionRef: '55',
+                transactionRef: '56',
                 orderType: total,
                 amount: total
             });

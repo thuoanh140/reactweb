@@ -26,6 +26,8 @@ import PaymentMethods from './Membership/NowShowing/PaymentMethods';
 import LoginCustomer from './Auth/LoginCustomer';
 import Food from './HomePage/Section/Food';
 import MyTickets from './Membership/NowShowing/MyTickets';
+import ComingSoon from './Membership/NowShowing/ComingSoon';
+import DetailComingSoon from './Membership/NowShowing/DetailComingSoon';
 
 class App extends Component {
 
@@ -68,6 +70,8 @@ class App extends Component {
                                     <Route path={path.PAYMENT_METHODS} component={PaymentMethods} />
                                     <Route path={path.LOGIN_MEMBERSHIP} component={LoginCustomer} />
                                     <Route path={path.MY_TICKET} component={MyTickets} />
+                                    <Route exact path={path.COMING_SOON} component={ComingSoon} />
+                                    <Route path={path.DETAIL_COMING_SOON} component={DetailComingSoon} />
 
 
                                 </Switch>
@@ -75,12 +79,12 @@ class App extends Component {
                         </div>
 
                         <ToastContainer
-                            // className="toast-container" 
-                            // toastClassName="toast-item" 
-                            // bodyClassName="toast-item-body"
-                            // autoClose={true} hideProgressBar={true} pauseOnHover={false}
-                            // pauseOnFocusLoss={true} closeOnClick={false} draggable={false}
-                            // closeButton={<CustomToastCloseButton />}
+                        // className="toast-container" 
+                        // toastClassName="toast-item" 
+                        // bodyClassName="toast-item-body"
+                        // autoClose={true} hideProgressBar={true} pauseOnHover={false}
+                        // pauseOnFocusLoss={true} closeOnClick={false} draggable={false}
+                        // closeButton={<CustomToastCloseButton />}
                         />
                     </div>
                 </Router>

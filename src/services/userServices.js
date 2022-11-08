@@ -118,8 +118,16 @@ const getTheaterService = (inputId) => {
     return axios.get(`/api/get-theater?tinh_tpId=${inputId}`)
 }
 
+const getComingSoonService = () => {
+    return axios.get(`/api/get-coming-soon`)
+}
+
 const getPaymentMethodsService = (inputId) => {
     return axios.get(`/api/get-payment-methods?id=${inputId}`)
+}
+
+const getStateMovieService = () => {
+    return axios.get(`/api/get-state-movie`)
 }
 
 const getTheaterByIdService = (inputId) => {
@@ -256,6 +264,6 @@ export {
     createRatingService, getRatingByMovieIdService, getIdSeatByIdShowtimeService,
     getAllTicketService, deleteTicketService, searchTicketService, registerNowService,
     editMemberService, getLimitTicketService, createReportService, getAllReportService,
-    deleteRatingService, deleteReportService
+    deleteRatingService, deleteReportService, getStateMovieService, getComingSoonService
     // getNationService, getDirectorService, getCastService
 }

@@ -174,7 +174,7 @@
             gap: 30px;
             justify-content: space-around;
 
-            
+
 
             .option-child {
                 width: 100px;
@@ -184,9 +184,11 @@
                 align-items: center;
                 transition: 0.2s;
                 color: #FFE4E1;
+
                 &:hover {
                     color: rgb(251, 231, 18) !important;
                 }
+
                 .icon-child {
                     // background: white;
                     // width: 40px;
@@ -201,13 +203,24 @@
                         font-size: 35px;
                     }
 
+
+
                 }
 
                 .text-child {
                     font-size: 17px;
                     font-weight: 600;
                     cursor: pointer;
+
                     // color: #FFE4E1;
+                    a {
+                        text-decoration: none;
+                        color: #FFE4E1;
+                    }
+
+                    a:hover {
+                        color: rgb(251, 231, 18) !important;
+                    }
                 }
             }
         }

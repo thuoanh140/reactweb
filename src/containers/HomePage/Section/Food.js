@@ -8,6 +8,7 @@ import { withRouter } from 'react-router';
 import { getFoodService } from '../../../services/userServices'
 import NumberFormat from 'react-number-format';
 import { QuantityPicker } from 'react-qty-picker';
+import HomeFooter from '../HomeFooter'
 
 
 
@@ -196,11 +197,11 @@ class Food extends Component {
                                                 <span>{item.ten_ta}</span><br></br>
                                                 <span>
                                                     <NumberFormat
-                                                    value={item.gia}
-                                                    displayType={'text'}
-                                                    thousandSeparator={true}
-                                                    suffix={'VND'}
-                                                />
+                                                        value={item.gia}
+                                                        displayType={'text'}
+                                                        thousandSeparator={true}
+                                                        suffix={'VND'}
+                                                    />
                                                 </span>
 
 
@@ -312,6 +313,7 @@ class Food extends Component {
                         onClick={() => this.handleClickCheckoutBtn()}
                     >Thanh toán</button>
                 </div>
+                <HomeFooter />
             </>
         );
     }

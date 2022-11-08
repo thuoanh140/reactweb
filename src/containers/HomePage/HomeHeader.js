@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from "react";
 import { connect } from 'react-redux';
 import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
@@ -66,6 +66,8 @@ class HomeHeader extends Component {
         })
     }
 
+
+
     render() {
         let language = this.props.language;
         let userInfo = this.props.userInfo;;
@@ -90,7 +92,7 @@ class HomeHeader extends Component {
                                 <button className="dropbtn"><b><FormattedMessage id="homeheader.movie" /></b></button>
                                 <div className="dropdown-content">
                                     <a href="#now-showing"><b><FormattedMessage id="homeheader.NOW-SHOWING" /></b></a>
-                                    <a href="#"><b><FormattedMessage id="homeheader.COMING-SOON" /></b></a>
+                                    <a href="/coming-soon"><b><FormattedMessage id="homeheader.COMING-SOON" /></b></a>
                                 </div>
                             </div>
                             <div className="dropdown">
@@ -156,7 +158,7 @@ class HomeHeader extends Component {
                                 </div>
                                 <div className='option-child'>
                                     <div className='icon-child'><i className='fas fa-film'></i></div>
-                                    <div className='text-child'><FormattedMessage id="option.now-showing" /></div>
+                                    <div className='text-child'><a href="#now-showing"><FormattedMessage id="option.now-showing" /></a></div>
                                 </div>
                                 <div className='option-child'>
                                     <div className='icon-child'><i className='fas fa-phone'></i></div>
