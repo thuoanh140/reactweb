@@ -129,6 +129,28 @@ export const adminMenu = [
 
         ]
     },
+    { //Quản lý doanh thu
+        name: 'menu.admin.revenue',
+        menus: [
+            {
+                name: 'menu.admin.ticket-revenue', link: '/system/manage-revenue-ticket'
+                // subMenus: [
+                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+                // ]
+            },
+            {
+                name: 'menu.admin.food-revenue', link: '/system/manage-revenue-food'
+                // subMenus: [
+                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+                // ]
+            }
+
+        ]
+    },
     { //Quản lý báo xấu
         name: 'menu.admin.report',
         menus: [

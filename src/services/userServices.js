@@ -234,6 +234,10 @@ const getShowtimeByDate = (movieId, provinceId, date) => {
     return axios.get(`/api/get-showtime-by-date?movieId=${movieId}&provinceId=${provinceId}&date=${date}`)
 }
 
+const getRevenueByDate = (ngay_ban) => {
+    return axios.get(`/api/get-revenue-by-date?ngay_ban=${ngay_ban}`)
+}
+
 const getPayment = (data) => {
     return axios.post('/create_payment_url', data);
 
@@ -264,6 +268,7 @@ export {
     createRatingService, getRatingByMovieIdService, getIdSeatByIdShowtimeService,
     getAllTicketService, deleteTicketService, searchTicketService, registerNowService,
     editMemberService, getLimitTicketService, createReportService, getAllReportService,
-    deleteRatingService, deleteReportService, getStateMovieService, getComingSoonService
+    deleteRatingService, deleteReportService, getStateMovieService, getComingSoonService,
+    getRevenueByDate
     // getNationService, getDirectorService, getCastService
 }

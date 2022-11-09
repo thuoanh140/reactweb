@@ -45,7 +45,10 @@
             "discount": "Event",
             "manage-discount": "Manage Event",
             "report": "Report",
-            "manage-report": "Manage Report"
+            "manage-report": "Manage Report",
+            "revenue": "Revenue",
+            "ticket-revenue": "Tickets Revenue",
+            "food-revenue": "Food Revenue"
         },
         "movie": {
             "title": "MANAGE MOVIE",

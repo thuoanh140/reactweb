@@ -40,12 +40,15 @@
             "theater": "Rạp",
             "manage-theater": "Quản lý rạp",
             "manage-room": "Quản lý phòng chiếu",
-            "food": "Thức ăn",
-            "manage-food": "Quản lý thức ăn",
+            "food": "Bắp nước",
+            "manage-food": "Quản lý bắp nước",
             "discount": "Khuyến mãi",
             "manage-discount": "Quản lý khuyến mãi",
             "report": "Báo xấu",
-            "manage-report": "Quản lý báo xấu"
+            "manage-report": "Quản lý báo xấu",
+            "revenue": "Doanh thu",
+            "ticket-revenue": "Doanh thu bán vé",
+            "food-revenue": "Doanh thu bắp nước"
         },
         "movie": {
             "title": "QUẢN LÝ PHIM",
