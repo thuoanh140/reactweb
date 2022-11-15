@@ -53,6 +53,10 @@ class Rating extends Component {
         let respon = await getRatingByMovieIdService(movieId);
         if (respon && respon.errCode === 0) {
             this.setState({
+                allRating: []
+            })
+
+            this.setState({
                 allRating: respon.data ? respon.data : [],
 
             })

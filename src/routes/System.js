@@ -13,6 +13,7 @@ import ManageTicket from '../containers/System/Admin/ManageTicket';
 import ManageReport from '../containers/System/Admin/ManageReport';
 import ManageRevenueTicket from '../containers/System/Admin/ManageRevenueTicket';
 import ManageRevenueFood from '../containers/System/Admin/ManageRevenueFood';
+import MembershipManage from '../containers/System/MembershipManage';
 
 class System extends Component {
     render() {
@@ -33,7 +34,7 @@ class System extends Component {
                             <Route path="/system/manage-report" component={ManageReport} />
                             <Route path="/system/manage-revenue-ticket" component={ManageRevenueTicket} />
                             <Route path="/system/manage-revenue-food" component={ManageRevenueFood} />
-
+                            <Route path="/system/user-membership" component={MembershipManage} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>

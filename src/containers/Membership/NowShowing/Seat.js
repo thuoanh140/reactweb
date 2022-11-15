@@ -73,6 +73,14 @@ class Seat extends Component {
 
     handleClickBtnSeat = (inputSeat) => {
         let { seat } = this.state;
+
+
+        let selectedSeat = seat.filter(item => item.isSelected === true);
+
+        if (selectedSeat.length > 0 && selectedSeat[0].id_loai_ghe !== inputSeat.id_loai_ghe) {
+            toast.warn('Chỉ được chọn ghế cùng loại!');
+            return;
+        }
         if (seat && seat.length > 0) {
             seat = seat.map(item => {
                 if (item.id === inputSeat.id) item.isSelected = !item.isSelected;
@@ -84,6 +92,7 @@ class Seat extends Component {
         }
 
     }
+
 
     handleClickCheckoutBtn = () => {
         let stateData = this.props.location.state.showtimeData;
@@ -120,9 +129,14 @@ class Seat extends Component {
         let movieFormatpick = this.props.location.state.showtimeData.showtimeClick.movieFormatData.ten_ddc;
         let selectedSeat = seat.filter(item => item.isSelected === true);
         console.log('check selected seat: ', selectedSeat)
+        console.log('check ban seat', banSeat)
         // console.log('check props: ', state);
         console.log('check isSelected: ', seat)
         let total = selectedSeat.reduce((total, item) => total + Number(item.seatTypeData.gia_tien), 0);
+        let price = selectedSeat.map(item => {
+            return item.seatTypeData.gia_tien;
+        })
+        console.log('check price', price[0])
         console.log('check props seat:', this.props)
         return (
             <>
@@ -234,12 +248,14 @@ class Seat extends Component {
 
                                 </div>
                                 <div>
-                                    <span>Thành tiền : <NumberFormat
-                                        value={total}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        suffix={'VND'}
-                                    />
+                                    <span>Thành tiền : {selectedSeat.length > 0 && `${selectedSeat.length} x `}
+
+                                        <NumberFormat
+                                            value={price[0]}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            suffix={'VND'}
+                                        />
                                     </span>
 
                                 </div>

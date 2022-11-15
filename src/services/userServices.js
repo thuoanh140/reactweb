@@ -142,6 +142,10 @@ const getTicketByIdTVService = (inputId) => {
     return axios.get(`/api/get-Ticket-by-IdTV?id_tv=${inputId}`)
 }
 
+const getTicketUnPaidByIdTVService = (inputId) => {
+    return axios.get(`/api/get-Ticket-unpaid-by-IdTV?id_tv=${inputId}`)
+}
+
 const getDetailTicketByIdTicketService = (inputId) => {
     return axios.get(`/api/get-DetailTicket-by-IdTicket?id=${inputId}`)
 }
@@ -196,6 +200,10 @@ const getAllReportService = () => {
     return axios.get(`/api/get-report`)
 }
 
+const getAllMembershipService = () => {
+    return axios.get(`/api/get-all-membership`)
+}
+
 const getLimitTicketService = (params) => {
     return axios.get(`/api/get-ticket-limit`, { params })
 }
@@ -218,6 +226,10 @@ const getRatingByMovieIdService = (inputId) => {
 
 const getIdSeatByIdShowtimeService = (inputId) => {
     return axios.get(`/api/get-idSeat-by-idShowtime?id_suat_chieu=${inputId}`)
+}
+
+const compareVoucherService = (voucher) => {
+    return axios.get(`/api/compare-voucher?ma_giam_gia=${voucher}`)
 }
 
 const searchTicketService = (condition) => {
@@ -252,6 +264,14 @@ const cancelTicket = (inputId) => {
     return axios.put(`/api/cancel-ticket?id=${inputId}`)
 }
 
+const paymentVnpaySuccess = (inputId) => {
+    return axios.put(`/api/payment-vnpay-success?id=${inputId}`)
+}
+
+const minusQuantity = (inputId) => {
+    return axios.put(`/api/minus-quantity?id=${inputId}`)
+}
+
 export {
     handleLoginApi, getAllStaff, createNewStaffService,
     deleteStaffService, editStaffService, getGenreService,
@@ -269,6 +289,7 @@ export {
     getAllTicketService, deleteTicketService, searchTicketService, registerNowService,
     editMemberService, getLimitTicketService, createReportService, getAllReportService,
     deleteRatingService, deleteReportService, getStateMovieService, getComingSoonService,
-    getRevenueByDate
+    getRevenueByDate, getAllMembershipService, getTicketUnPaidByIdTVService,
+    paymentVnpaySuccess, compareVoucherService, minusQuantity
     // getNationService, getDirectorService, getCastService
 }

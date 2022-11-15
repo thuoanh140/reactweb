@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './SearchData.scss';
-import { getAllStaff,getAllTicketService, getNowShowingService, getTheaterService } from '../../../services/userServices'
+import { getAllStaff, getAllTicketService, getNowShowingService, getTheaterService } from '../../../services/userServices'
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import Select from 'react-select';
@@ -56,7 +56,7 @@ class SearchData extends Component {
     }
 
     handleOnChangeDataPicker = (date) => {
-        const momentTimeTmp =  moment(date[0]).unix()
+        const momentTimeTmp = moment(date[0]).unix()
         this.handleChangeValue('ngay_ban', momentTimeTmp * 1000)
         // this.setState({
         //     // currentDate: date[0]
@@ -65,7 +65,7 @@ class SearchData extends Component {
 
     handleChangeValue(key, value) {
         this.setState({
-            selectedValue: { ...this.state.selectedValue, [key]: value}
+            selectedValue: { ...this.state.selectedValue, [key]: value }
         })
     }
 
@@ -76,9 +76,9 @@ class SearchData extends Component {
 
     render() {
 
-        const movieOptions = this.state.arrNowShowing.map(item => ({value: item.id, label: item.ten_phim }))
+        const movieOptions = this.state.arrNowShowing.map(item => ({ value: item.id, label: item.ten_phim }))
         // const userOptions = this.state.arrStaffs.map(item => ({value: item.id, label: item.id }))
-        const theaterOptions = this.state.arrTheater.map(item => ({value: item.id, label: item.ten_rap }))
+        const theaterOptions = this.state.arrTheater.map(item => ({ value: item.id, label: item.ten_rap }))
 
         return (
             <div className='search-data-container'>
@@ -86,11 +86,11 @@ class SearchData extends Component {
                     <div className='row'>
                         <div className='col-4'>
                             <span>Mã vé</span>
-                            <input className="form-control" onChange={e => this.handleChangeValue('id', e.target.value)}/>
+                            <input className="form-control" onChange={e => this.handleChangeValue('id', e.target.value)} />
                         </div>
                         <div className='col-4'>
-                            <span>Mã thành viên</span>
-                            <input className="form-control" onChange={e => this.handleChangeValue('id_tv', e.target.value)}/>
+                            <span>SĐT</span>
+                            <input className="form-control" onChange={e => this.handleChangeValue('sdt', e.target.value)} />
                         </div>
                         <div className='col-4'>
                             <span>Ngày chiếu</span>
@@ -103,11 +103,11 @@ class SearchData extends Component {
                         </div>
                         <div className='col-6'>
                             <span>Rạp</span>
-                            <Select options={theaterOptions} onChange={value => this.handleChangeValue('ten_rap', value.label)}/>
+                            <Select options={theaterOptions} onChange={value => this.handleChangeValue('ten_rap', value.label)} />
                         </div>
                         <div className='col-6'>
                             <span>Phim</span>
-                            <Select options={movieOptions} onChange={value => this.handleChangeValue('movieId', value.value)}/>
+                            <Select options={movieOptions} onChange={value => this.handleChangeValue('movieId', value.value)} />
                         </div>
                     </div>
                     <div className='row justify-content-center gap-2'>

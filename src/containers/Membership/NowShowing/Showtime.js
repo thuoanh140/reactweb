@@ -166,6 +166,8 @@ class Showtime extends Component {
 
     render() {
         let { allDays, allAvaiableTime, showtimeClick, selectedShowtime } = this.state;
+        let today = moment().unix();
+        let todayCompare = today * 1000;
         console.log('check allAvaiableTime', allAvaiableTime)
         console.log('check selectedShowtime', selectedShowtime)
         let object = []
@@ -176,6 +178,19 @@ class Showtime extends Component {
                 object[item.theaterId] = [item];
             }
         })
+
+        let showtime = object.map(i => {
+            return i.filter(item => new Date(Number(item.date)).setHours(Number((item.showTime).slice(0, 2))) >= todayCompare)
+        })
+
+        let showtimeUsing = showtime.filter(item => item && item.length > 0)
+        console.log('check showtimeUsing', showtimeUsing)
+
+        // let showtime = object.filter(item => new Date(Number(item.date)).setHours(Number((item.showTime).slice(0, 2))) >= todayCompare)
+
+        console.log('check st', showtime)
+
+        // let showtime = object.filter(item => new Date(Number(item.data[0].ticketData.ngay_ban)).setHours(Number((item.data[0].suatChieuId.showTime).slice(0, 2))) > todayCompare)
 
 
         console.log('check object', object)
@@ -209,70 +224,16 @@ class Showtime extends Component {
                                         <i className='fas fa-calendar-alt'> <span>Lịch chiếu</span></i>
                                         <hr />
                                     </div>
-                                    {/* <div className='theater-name'>
-                                        {allAvaiableTime && allAvaiableTime.length > 0 &&
-                                            allAvaiableTime.slice(0, 1).map((item, index) => {
-                                                return (
-                                                    <span >{item.theaterData.ten_rap}</span>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                    <hr />
-                                    <div className='movieFormat-name'>
-                                        {allAvaiableTime && allAvaiableTime.length > 0 &&
-                                            allAvaiableTime.slice(0, 1).map((item, index) => {
 
-                                                return (
-                                                    <span key={index}>Rạp {item.movieFormatData.ten_ddc}</span>
-                                                )
-
-                                            })
-                                        }
-                                    </div> */}
-
-
-                                    {/* <div className='time-content'> */}
-
-                                    {/* {allAvaiableTime && allAvaiableTime.length > 0 ?
-
-                                            <>
-                                                <div className='time-content-btns' >
-                                                    {allAvaiableTime.map((item, index) => {
-                                                        return (
-                                                            <button key={index}
-                                                                className={item.id === showtimeClick.id && 'time-content-btns--active'}
-                                                                // onChange={(item) => this.handleChangeSelectShowtime(item)}
-                                                                onClick={() => this.handleViewSeat(item)}>{item.showTime}</button>
-                                                        )
-                                                    })}
-                                                </div>
-
-                                                <div className='booking-showtime'>
-                                                    <button
-                                                        onClick={() => this.handleBookingSeat()}
-                                                    ><i className='far fa-hand-point-up'></i>Đặt vé</button>
-                                                </div>
-
-
-
-                                            </>
-                                            :
-                                            <div className='not-showtime'>Không có suất chiếu trong thời gian này, vui lòng chọn ngày khác!</div>
-                                        } */}
-                                    {object && object.length > 0 ?
+                                    {showtimeUsing && showtimeUsing.length > 0 ?
                                         <>
-                                            {object.map((item, index) => {
+                                            {showtimeUsing.map((item, index) => {
                                                 return (
                                                     <div key={index}>
                                                         <div className='theater-name'><span>{item[0].theaterData.ten_rap}</span></div>
                                                         <div className='movieFormat-name'><span>Định dạng {item[0].movieFormatData.ten_ddc}</span></div>
                                                         <div className='time-content'>
                                                             <div className='time-content-btns'>
-                                                                {/* <button
-                                                            className={item.id === showtimeClick.id && 'time-content-btns--active'}
-                                                            // onChange={(item) => this.handleChangeSelectShowtime(item)}
-                                                            onClick={() => this.handleViewSeat(item)}>{item.showTime}</button> */}
                                                                 {item.map((item, index) => {
                                                                     return (
                                                                         <button key={index}
@@ -299,47 +260,9 @@ class Showtime extends Component {
                                         </>
                                         : <div className='not-showtime'>Không có suất chiếu trong thời gian này, vui lòng chọn ngày khác!</div>
                                     }
-                                    {/* </div> */}
+
                                     <div>
-                                        {/* {Object.keys(object).map(key => {
-                                            return object[key].map(item => {
-                                                console.log('check item', item)
-                                                // return (
-                                                //     <span>{item.theaterData.ten_rap}</span>
 
-                                                // )
-
-                                            })
-                                        })} */}
-                                        {/* {Object.values(object).map(value => {
-                                            return object[value].map(item => {
-                                                return (
-                                                    <span>{item.theaterData.ten_rap}</span>
-                                                )
-
-                                            })
-
-
-
-                                        })
-                                        } */}
-                                        {/* {object.map((item, index) => {
-                                            return (
-                                                <div key={index}>
-                                                    <div className='theater-name'><span>{item[0].theaterData.ten_rap}</span></div>
-                                                    <div className='movieFormat-name'><span>{item[0].movieFormatData.ten_ddc}</span></div>
-                                                    <div className='time-content'>
-                                                        <div className='time-content-btns'>
-                                                            <button key={index}
-                                                                className={item.id === showtimeClick.id && 'time-content-btns--active'}
-                                                                // onChange={(item) => this.handleChangeSelectShowtime(item)}
-                                                                onClick={() => this.handleViewSeat(item)}>{item.showTime}</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            )
-                                        })} */}
                                     </div>
                                 </div>
                             </div>
@@ -347,7 +270,6 @@ class Showtime extends Component {
                     </div>
 
                 </div>
-                {/* <Seat showtime={showtime} /> */}
             </>
         );
     }

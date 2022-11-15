@@ -88,7 +88,7 @@ class HomeFooter extends Component {
                                         <h6 className='text-uppercase fw-bold mb-4'>Điều khoản sử dụng</h6>
                                         <p>
                                             <a href='#!' className='text-reset'>
-                                                Điều khoảng chung
+                                                Điều khoản chung
                                             </a>
                                         </p>
                                         <p>

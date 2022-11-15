@@ -301,7 +301,7 @@ class ManageShowtimes extends Component {
                     result.push(object);
                 })
             } else {
-                alert('Chưa chọn suất chiếu!');
+                toast.warn('Chưa chọn suất chiếu!');
                 return;
             }
             let res = await createShowtimeService({
@@ -311,10 +311,10 @@ class ManageShowtimes extends Component {
                 formatedDate: formatedDate
             });
             if (res.errCode === 0) {
-                toast.success("Thêm xuất chiếu thành công")
+                toast.success("Thêm suất chiếu thành công")
             }
             else {
-                toast.warn("Thêm xuất chiếu thất bại!")
+                toast.warn("Thêm suất chiếu thất bại!")
             }
             console.log('check res: ', res);
             console.log('check result: ', result);

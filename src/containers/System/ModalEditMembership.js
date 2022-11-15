@@ -2,22 +2,23 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-// import { emitter } from '../../utils/emitter'
+import { emitter } from '../../utils/emitter'
 import _ from 'lodash';
 
 
-class ModalUpdateMember extends Component {
+class ModalEditMembership extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             id: '',
-            ten_tv: '',
+            ten_nv: '',
             ngay_sinh: '',
             gioi_tinh: '',
             email: '',
             sdt: '',
-
+            dia_chi: '',
+            anh_dai_dien: ''
         }
 
     }
@@ -29,12 +30,13 @@ class ModalUpdateMember extends Component {
         if (staff && !_.isEmpty(staff)) {
             this.setState({
                 id: staff.id,
-                ten_tv: staff.ten_tv,
+                ten_nv: staff.ten_nv,
                 ngay_sinh: staff.ngay_sinh,
                 gioi_tinh: staff.gioi_tinh,
                 email: staff.email,
                 sdt: staff.sdt,
-
+                dia_chi: staff.dia_chi,
+                anh_dai_dien: staff.anh_dai_dien
             })
         }
         console.log('didmount edit modal', this.props.currentStaff)
@@ -54,7 +56,7 @@ class ModalUpdateMember extends Component {
 
     checkValidateInput = () => {
         let isValid = true;
-        let arrInput = ['ten_tv', 'ngay_sinh', 'email', 'sdt', 'gioi_tinh'];
+        let arrInput = ['ten_nv', 'ngay_sinh', 'email', 'sdt', 'gioi_tinh', 'dia_chi'];
         for (let i = 0; i < arrInput.length; i++) {
             console.log('check inside loop', this.state[arrInput[i]], arrInput[i])
             if (!this.state[arrInput[i]]) {
@@ -77,19 +79,18 @@ class ModalUpdateMember extends Component {
 
     render() {
         console.log('check props from parent: ', this.props)
-        console.log('check state', this.state)
         return (
             <Modal isOpen={this.props.isOpen}
                 toggle={() => { this.toggle() }}
                 className={'modal-staff-container'}
                 size="md">
-                <ModalHeader toggle={() => { this.toggle() }}>Cập nhật thông tin thành viên</ModalHeader>
+                <ModalHeader toggle={() => { this.toggle() }}>Cập nhật thông tin nhân viên</ModalHeader>
                 <ModalBody>
                     <div className='modal-staff-body'>
                         <div className='input-container'>
                             <label>Họ tên</label>
-                            <input type='text' onChange={(event) => { this.handleOnChangeInput(event, 'ten_tv') }}
-                                value={this.state.ten_tv} />
+                            <input type='text' onChange={(event) => { this.handleOnChangeInput(event, 'ten_nv') }}
+                                value={this.state.ten_nv} />
                         </div>
                         <div className='input-container'>
                             <label>Ngày sinh</label>
@@ -127,11 +128,11 @@ class ModalUpdateMember extends Component {
                             <input type='file' />
                         </div> */}
 
-                        {/* <div className='input-container max-width-input'>
+                        <div className='input-container max-width-input'>
                             <label>Địa chỉ</label>
                             <input type='text' onChange={(event) => { this.handleOnChangeInput(event, 'dia_chi') }}
                                 value={this.state.dia_chi} />
-                        </div> */}
+                        </div>
 
 
                     </div>
@@ -156,4 +157,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUpdateMember);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditMembership);

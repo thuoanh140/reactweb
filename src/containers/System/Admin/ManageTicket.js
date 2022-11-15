@@ -84,7 +84,7 @@ class ManageTicket extends Component {
             // tạo 1 obj info cho dễ tìm so sánh nè
             const ticketInfo = {
                 id: item.id,
-                id_tv: item.ticketData?.id_tv,
+                sdt: item.ticketData?.sdtData?.sdt,
                 ngay_ban: item.ticketData?.ngay_ban,
                 ten_rap: item.seatId?.cinemaRoomData?.rapData?.ten_rap,
                 movieId: item.suatChieuId?.movieId
@@ -102,7 +102,8 @@ class ManageTicket extends Component {
     }
 
     render() {
-        let { ticketFilterList } = this.state;
+        let { ticketFilterList, allTicket } = this.state;
+        console.log('check all-ticket', allTicket)
         return (
             <div className='managhe-ticket-container'>
                 <div className='title text-center'>QUẢN LÝ VÉ BÁN</div>
@@ -112,7 +113,7 @@ class ManageTicket extends Component {
                         <tbody>
                             <tr>
                                 <th>Mã vé</th>
-                                <th>Mã TV</th>
+                                <th>SĐT</th>
                                 <th>Tên ghế</th>
                                 <th>Suất chiếu</th>
                                 <th>Rạp</th>
@@ -130,7 +131,7 @@ class ManageTicket extends Component {
                                 return (
                                     <tr key={index}>
                                         <td>{item.id}</td>
-                                        <td>{item.ticketData.id_tv}</td>
+                                        <td>{item.ticketData.sdtData.sdt}</td>
                                         <td>{item.seatId.ten_ghe}</td>
                                         <td>{item.suatChieuId.showTime}</td>
                                         <td>{item.seatId.cinemaRoomData.rapData.ten_rap}</td>

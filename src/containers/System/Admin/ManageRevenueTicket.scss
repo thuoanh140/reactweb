@@ -1,6 +1,11 @@
 .manage-revenue-container {
     .manage-revenue-content {
-        .search-data {}
+        .search-data {
+            display: flex;
+            gap: 70px
+        }
+
+        // display: flex;
 
         .chart {
             width: 1000px !important;

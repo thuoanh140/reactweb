@@ -20,52 +20,59 @@ class ManageRevenueTicket extends Component {
             revenueDate: [],
             selectedValue: '',
             ngay_ban: '',
-            last7: []
+            last7: [],
+            timeStart: moment().subtract(7, 'day').startOf('day'),
+            timeEnd: moment().startOf('day')
         }
     }
 
     async componentDidMount() {
-        function last7Days() {
-            let today = new Date(moment(new Date()).format("YYYY/MM/DD")).getTime();
-            let lastSevenDays = [today];
-            let dateOffset;
-            for (let i = 1; i < 7; i++) {
-                dateOffset = (24 * 60 * 60 * 1000)
-                dateOffset *= i;
-                today = new Date(moment(new Date()).format("YYYY/MM/DD"));
-                today.setTime(today.getTime() - dateOffset);
-                lastSevenDays.push(today.getTime());
-            }
-            return lastSevenDays;
+
+        this.getArrDays()
+
+    }
+
+
+
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.timeStart !== this.state.timeStart || prevState.timeEnd !== this.state.timeEnd) {
+            await this.getArrDays()
         }
 
-        console.log(last7Days());
+    }
 
-        let days = last7Days()
+    async getArrDays() {
+        let timeStart = this.state.timeStart;
+        let timeEnd = this.state.timeEnd;
+        let totalDay = timeEnd.diff(timeStart, 'day')
+        let dateList = []
+        for (let i = 1; i < totalDay; i++) {
+            let dateClone = timeStart.clone()
+            dateList.push(dateClone.add(i, 'day').unix() * 1000)
+        }
+
+
+
+        console.log('dateClone', dateList);
+
+
         let arr7Days = []
-        for (let i = 0; i < days.length; i++) {
-            let response = await getRevenueByDate(days[i]);
+        for (let i = 0; i < dateList.length; i++) {
+            let response = await getRevenueByDate(dateList[i]);
             arr7Days.push(response)
         }
         this.setState({
             last7: arr7Days
         })
         console.log("arr7Days", arr7Days)
-
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    handleOnChangeDataPicker = (key, value) => {
+        this.setState({
+            [key]: moment(value[0])
+        })
+        console.log('value', value)
 
-    }
-
-    handleOnChangeDataPicker = (date) => {
-        const momentTimeTmp = moment(date[0]).unix()
-        this.handleChangeValue('ngay_ban', momentTimeTmp * 1000)
-        // this.setState({
-        //     // currentDate: date[0]
-        // })
-        console.log('momentTimeTmp', momentTimeTmp)
-        console.log('onchange', date[0])
     }
 
     async handleChangeValue(key, value) {
@@ -85,21 +92,32 @@ class ManageRevenueTicket extends Component {
 
 
     render() {
-        let { revenueDate, last7 } = this.state;
+        let { revenueDate, last7, timeStart, timeEnd } = this.state;
 
         let revenue = revenueDate.reduce((total, item) => total + Number(item.ticketData[0].so_luong_ve) * Number(item.ticketData[0].don_gia_ve), 0);
 
         console.log('check last7', last7)
+        console.log('check timeStart', timeStart)
+        console.log('check timeEnd', timeEnd)
 
         return (
             <div className='manage-revenue-container'>
                 <div className='manage-revenue-content'>
                     <div className='title'>QUẢN LÝ DOANH THU VÉ</div>
                     <div className='search-data'>
-                        <div className='col-4'>
-                            <span>Ngày chiếu</span>
+                        <div className='col-2'>
+                            <span>Ngày bắt đầu</span>
                             <DatePicker
-                                onChange={this.handleOnChangeDataPicker}
+                                onChange={(value) => this.handleOnChangeDataPicker('timeStart', value)}
+                                className='form-control'
+
+                            />
+                        </div>
+
+                        <div className='col-2'>
+                            <span>Ngày kết thúc</span>
+                            <DatePicker
+                                onChange={(value) => this.handleOnChangeDataPicker('timeEnd', value)}
                                 className='form-control'
 
                             />
@@ -120,10 +138,11 @@ class ManageRevenueTicket extends Component {
                                         borderWidth: 1,
                                         barThickness: 40,
                                         data: last7.map(revenue => {
+                                            return revenue.data.map(total => total.total)
 
-                                            return revenue.data.map(ticket => {
-                                                return ticket.ticketData.reduce((total, item) => total + Number(item.so_luong_ve) * Number(item.don_gia_ve), 0)
-                                            })
+                                            // return revenue.data.map(ticket => {
+                                            //     return ticket.ticketData.reduce((total, item) => total + Number(item.so_luong_ve) * Number(item.don_gia_ve), 0)
+                                            // })
                                         }
                                         )
 

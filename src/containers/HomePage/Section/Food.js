@@ -20,6 +20,7 @@ class Food extends Component {
             arrFood: [],
             food: [],
             quantity: '',
+            selectFood: []
         }
     }
 
@@ -58,28 +59,28 @@ class Food extends Component {
         }
     }
 
-    handleClickFood = (inputFood) => {
-        let { food } = this.state;
-        if (food && food.length > 0) {
-            food = food.map(item => {
-                if (item.id === inputFood.id) item.isSelected = !item.isSelected;
-                return item;
-            })
-            this.setState({
-                food: food
-            })
-            console.log('check food select: ', food);
-        }
+    // handleClickFood = (inputFood) => {
+    //     let { food } = this.state;
+    //     if (food && food.length > 0) {
+    //         food = food.map(item => {
+    //             if (item.id === inputFood.id) item.isSelected = !item.isSelected;
+    //             return item;
+    //         })
+    //         this.setState({
+    //             food: food
+    //         })
+    //         console.log('check food select: ', food);
+    //     }
 
-    }
+    // }
 
     handleClickCheckoutBtn = () => {
-        let { food } = this.state;
+        let { food, selectFood } = this.state;
         let stateData = this.props.location.state;
         let selectedFood = food.filter(item => item.isSelected === true);
         this.props.history.push({
             pathname: "/payment-methods",
-            state: { stateData, selectedFood }
+            state: { stateData, selectFood }
         }
         );
 
@@ -92,18 +93,37 @@ class Food extends Component {
         // console.log('check datee: ', datee)
     }
 
-    handleQuantity = (event, item) => {
-        this.setState({
-            quantity: event
-        })
-        console.log('check event:', event, item)
-        let { food } = this.state;
-        let selectedFood = food.filter(item => item.isSelected === true);
-        selectedFood = selectedFood.map(item => {
-            item.quantity = event;
-            return item;
-        })
+    // handleQuantity = (event, item) => {
 
+    //     console.log('check event:', event, item)
+    //     let { food } = this.state;
+    //     let selectedFood = food.filter(item => item.isSelected === true);
+    //     selectedFood = selectedFood.map(item => {
+    //         item.quantity = event;
+    //         return item;
+    //     })
+    //     this.setState({
+    //         quantity: event
+    //     })
+
+    // }
+
+    handleSelectFood = (item, event) => {
+        let { selectFood } = this.state;
+        console.log({ selectFood });
+        let indexOfSelectedFood = selectFood.findIndex(food => food.id === item.id)
+        if (indexOfSelectedFood === -1) {
+            this.setState({
+                selectFood: [...selectFood, { ...item, quantity: event }].filter(item => item.quantity > 0)
+            })
+        }
+        else {
+            let food = [...selectFood]
+            food[indexOfSelectedFood].quantity = event;
+            this.setState({
+                selectFood: food.filter(item => item.quantity > 0)
+            })
+        }
     }
 
 
@@ -122,14 +142,17 @@ class Food extends Component {
         let showtimepick = this.props.location.state.stateData.showtimeClick.showTime;
         let movieFormatpick = this.props.location.state.stateData.showtimeClick.movieFormatData.ten_ddc;
         let selectedSeat = this.props.location.state.selectedSeat;
-        let { food } = this.state;
+        let { food, selectFood } = this.state;
         console.log('check food food: ', food)
         let selectedFood = food.filter(item => item.isSelected === true);
-        console.log('check selected food: ', selectedFood)
+        console.log('check selected food: ', selectFood)
         // console.log('check props: ', state);
         let ve = Number(selectedSeat.reduce((total, item) => total + Number(item.seatTypeData.gia_tien), 0))
-        let bap = Number(selectedFood.reduce((total, item) => total + (Number(item.gia) * item.quantity), 0))
+        let bap = Number(selectFood.reduce((total, item) => total + (Number(item.gia) * item.quantity), 0))
         let total = ve + bap;
+        let priceTicket = selectedSeat.map(item => {
+            return item.seatTypeData.gia_tien;
+        })
         console.log('check total: ', total)
 
         return (
@@ -157,15 +180,14 @@ class Food extends Component {
                                                 style={{ backgroundImage: `url(${imageBase64})` }}
 
                                             ></div>
-                                            <div className={item.isSelected === true ? 'text-center food-title active' : 'text-center food-title'}
-                                                onClick={() => this.handleClickFood(item)}>
+                                            <div className='text-center food-title'>
                                                 <span>{item.ten_ta}</span><br></br>
                                                 <span>{item.gia}</span>
 
                                             </div>
                                             <div className='row justify-content-center align-items-center'>
                                                 <QuantityPicker smooth
-                                                    onChange={(event) => this.handleQuantity(event, item)} />
+                                                    onChange={(event) => this.handleSelectFood(item, event)} />
                                             </div>
 
                                         </div>
@@ -192,8 +214,7 @@ class Food extends Component {
                                                 style={{ backgroundImage: `url(${imageBase64})` }}
 
                                             ></div>
-                                            <div className={item.isSelected === true ? 'text-center food-title active' : 'text-center food-title'}
-                                                onClick={() => this.handleClickFood(item)}>
+                                            <div className='text-center food-title'>
                                                 <span>{item.ten_ta}</span><br></br>
                                                 <span>
                                                     <NumberFormat
@@ -208,7 +229,7 @@ class Food extends Component {
                                             </div>
                                             <div className='row justify-content-center align-items-center'>
                                                 <QuantityPicker smooth
-                                                    onChange={(event) => this.handleQuantity(event, item)} />
+                                                    onChange={(event) => this.handleSelectFood(item, event)} />
                                             </div>
 
                                         </div>
@@ -277,18 +298,31 @@ class Food extends Component {
 
                         </div>
                         <div>
-                            <span>Giá vé  :<NumberFormat
-                                value={ve}
-                                displayType={'text'}
-                                thousandSeparator={true}
-                                suffix={'VND'}
-                            /></span><br />
-                            <span>Giá bắp nước  :<NumberFormat
-                                value={bap}
-                                displayType={'text'}
-                                thousandSeparator={true}
-                                suffix={'VND'}
-                            /></span><br />
+                            <span>Giá vé  : {selectedSeat.length > 0 && `${selectedSeat.length} x `}
+
+                                <NumberFormat
+                                    value={priceTicket[0]}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    suffix={'VND'}
+                                /></span><br />
+                            <span>Giá bắp nước  :
+                                {selectFood && selectFood.length > 0
+                                    && selectFood.map((item, index) => {
+                                        return (
+                                            <span>{index > 0 && ' + '}{item.quantity} x {<NumberFormat
+                                                value={item.gia}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                suffix={'VND'}
+                                            />}</span>
+                                        )
+                                    })
+                                }
+
+
+
+                            </span><br />
                             <span>Tổng cộng: <NumberFormat
                                 value={total}
                                 displayType={'text'}

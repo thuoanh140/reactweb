@@ -7,7 +7,7 @@ import * as actions from '../../../store/actions';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import { withRouter } from 'react-router';
-import { getTicketByIdTVService, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService, editMemberService } from '../../../services/userServices'
+import { getTicketByIdTVService, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService, editMemberService, getTicketUnPaidByIdTVService } from '../../../services/userServices'
 import { createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -31,13 +31,16 @@ class MyTickets extends Component {
             futureTicket: [],
             memberInfo: [],
             isOpenModalEditMember: false,
-            memberEdit: {}
+            memberEdit: {},
+            allTicketUnpaid: [],
+            allDetailTicketUnpaid: []
 
         }
     }
 
     componentDidMount() {
         setTimeout(() => this.getTicket(), 0)
+        setTimeout(() => this.getTicketUnPaid(), 0)
     }
 
     async getTicket() {
@@ -50,19 +53,10 @@ class MyTickets extends Component {
             })
         }
         let ticket = res.data;
-        // let response = await getDetailTicketByIdTicketService(ticket[0].id);
         let detailTicket = [];
         for (let i = 0; i < ticket.length; i++) {
-            // ticket_id.push(res.data[i].id);
-            // return ticket_id;
             let response = await getDetailTicketByIdTicketService(ticket[i].id);
             detailTicket.push(response)
-            // if (response && response.errCode === 0) {
-            //     this.setState({
-            //         allDetailTicket: response.data ? response.data : [],
-            //     })
-            // }
-
         }
         this.setState({
             allDetailTicket: detailTicket
@@ -73,6 +67,28 @@ class MyTickets extends Component {
                 memberInfo: resp.data ? resp.data : [],
             })
         }
+    }
+
+    async getTicketUnPaid() {
+        let userId = this.props.userInfo?.id_tv;
+        let res = await getTicketUnPaidByIdTVService(userId);
+        if (res && res.errCode === 0) {
+            this.setState({
+                allTicketUnpaid: res.data ? res.data : [],
+            })
+        }
+        console.log('check unpaid', res)
+        let ticketUnpaid = res.data;
+        let detailTicketUnpaid = [];
+        for (let i = 0; i < ticketUnpaid.length; i++) {
+            let response = await getDetailTicketByIdTicketService(ticketUnpaid[i].id);
+            detailTicketUnpaid.push(response)
+        }
+        this.setState({
+            allDetailTicketUnpaid: detailTicketUnpaid
+        })
+
+
     }
 
     toggleMemberEditModal = () => {
@@ -115,41 +131,35 @@ class MyTickets extends Component {
         await cancelTicket(id);
 
         await this.getTicket()
-
-        // window.location.reload(false);
-        // let { allDetailTicket } = this.state;
-        // let today = moment().format("DD/MM/YYYY");
-        // // let futureTicket = allDetailTicket.filter(item => (moment(new Date(Number(item.data[0].ticketData.ngay_ban))).format("DD/MM/YYYY")) >= today)
-        // this.setState({
-        //     allDetailTicket: allDetailTicket
-        // })
-        // console.log('check allDetailTicket', allDetailTicket)
     }
 
 
     render() {
-        let { allDetailTicket, memberInfo } = this.state;
-        // let movieDate = new Date(allDetailTicket[0].data[0].ticketData.ngay_ban);
-        let today = moment().format("DD/MM/YYYY");
-        // console.log('check movieDate:', movieDate);
-        // console.log('check memberInfo:', loai_tv);
+        let { allDetailTicket, memberInfo, allDetailTicketUnpaid } = this.state;
+        let today = moment().unix();
+        let todayCompare = today * 1000;
+        let todayEarly10 = todayCompare - (10 * 60 * 60)
+        console.log('todayEarly10', todayEarly10)
         let loai_tv = memberInfo.loai_tv;
         console.log('check props:', this.props)
-        // let loai_tv = memberInfo.loai_tv.ten_loai_tv;
         let total = allDetailTicket.reduce((total, item) => total + (Number(item.data[0].don_gia_ve) * Number(item.data[0].so_luong_ve)), 0);
-        // let total = selectedSeat.reduce((total, item) => total + Number(item.seatTypeData.gia_tien), 0);
         console.log('checl total: ', total)
-        let historyTicket = allDetailTicket.filter(item => (moment(new Date(Number(item.data[0].ticketData.ngay_ban))).format("DD/MM/YYYY")) < today)
-        let futureTicket = allDetailTicket.filter(item => (moment(new Date(Number(item.data[0].ticketData.ngay_ban))).format("DD/MM/YYYY")) >= today)
+
+        let historyTicket = allDetailTicket.filter(item => new Date(Number(item.data[0].ticketData.ngay_ban)).setHours(Number((item.data[0].suatChieuId.showTime).slice(0, 2))) <= todayCompare)
+
+        let futureTicket = allDetailTicket.filter(item => new Date(Number(item.data[0].ticketData.ngay_ban)).setHours(Number((item.data[0].suatChieuId.showTime).slice(0, 2))) > todayCompare)
+        let futureTicketUnpaid = allDetailTicketUnpaid.filter(item => new Date(Number(item.data[0].ticketData.ngay_ban)).setHours(Number((item.data[0].suatChieuId.showTime).slice(0, 2))) > todayEarly10)
+        let nonPayment = allDetailTicketUnpaid.filter(item => new Date(Number(item.data[0].ticketData.ngay_ban)).setHours(Number((item.data[0].suatChieuId.showTime).slice(0, 2))) <= todayEarly10)
         console.log('checl historyTicket: ', historyTicket)
         console.log('checl futureTicket: ', futureTicket)
         console.log('checl allDetailTicket: ', allDetailTicket)
+        console.log('checl allDetailTicketUnpaid: ', allDetailTicketUnpaid)
         return (
             <>
                 <HomeHeader isShowBanner={false} />
                 <div className='myticket-container'>
                     <div className='content-left'>
-                        <div className='title'><span>Các vé đã xem</span></div>
+                        <div className='title'><span>Lịch sử giao dịch</span></div>
                         <div className='history-ticket'>
                             {historyTicket && historyTicket.length > 0 ?
                                 <>
@@ -192,7 +202,7 @@ class MyTickets extends Component {
 
                             }
                         </div>
-                        <div className='title'>Các vé đang đợi xem</div>
+                        <div className='title'>Các vé đã thanh toán</div>
                         <div className='future-ticket'>
                             {futureTicket && futureTicket.length > 0 ?
                                 <>
@@ -205,6 +215,7 @@ class MyTickets extends Component {
                                                 <th>Suất chiếu</th>
                                                 <th>Giá vé</th>
                                                 <th>Số lượng</th>
+                                                <th>PTTT</th>
                                                 <th>Rạp</th>
                                                 <th>Hủy vé</th>
                                             </tr>
@@ -222,6 +233,7 @@ class MyTickets extends Component {
                                                             suffix={'VND'}
                                                         /></td>
                                                         <td>{item.data[0].so_luong_ve}</td>
+                                                        <td>{item.data[0].ticketData.paymentData.ten_pttt}</td>
                                                         <td>{item.data[0].suatChieuId.theaterData.ten_rap}</td>
                                                         <td>
                                                             <button className='btn-cancel'
@@ -238,48 +250,108 @@ class MyTickets extends Component {
 
                                 </>
                                 :
-                                <div className='not-history'>Bạn chưa có giao dịch (đơn hàng) đợi xem nào!</div>
+                                <div className='not-history'>Bạn chưa có giao dịch (đơn hàng) đã thanh toán nào!</div>
 
                             }
                         </div>
-                        {/* <table id='TableManageMovie'>
-                    <tbody>
-                        <tr>
-                            <th>Tên phim </th>
-                            <th>Ngày chiếu</th>
-                            <th>Suất chiếu</th>
-                            <th>Giá vé</th>
-                            <th>Số lượng</th>
-                            <th>Rạp</th>
-                            <th>Hủy vé</th>
-                        </tr>
 
-                        {futureTicket && futureTicket.map((item, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{item.data[0].suatChieuId.movieData.ten_phim}</td>
-                                    <td>{moment(new Date(Number(item.data[0].ticketData.ngay_ban))).format("DD/MM/YYYY")}</td>
-                                    <td>{item.data[0].suatChieuId.showTime}</td>
-                                    <td>{item.data[0].don_gia_ve}</td>
-                                    <td>{item.data[0].so_luong_ve}</td>
-                                    <td>{item.data[0].suatChieuId.theaterData.ten_rap}</td>
+                        <div className='title'>Các vé chưa thanh toán</div>
+                        <div className='future-ticket'>
+                            {futureTicketUnpaid && futureTicketUnpaid.length > 0 ?
+                                <>
+                                    <table id='TableManageMovie'>
 
-                                    <td>
-                                        <button className='btn-cancel'
-                                            onClick={() => this.btnCancelTicket(item)}
-                                        ><i class="fas fa-window-close"></i></button>
+                                        <tbody>
+                                            <tr>
+                                                <th>Tên phim </th>
+                                                <th>Ngày chiếu</th>
+                                                <th>Suất chiếu</th>
+                                                <th>Giá vé</th>
+                                                <th>Số lượng</th>
+                                                <th>PTTT</th>
+                                                <th>Rạp</th>
+                                                <th>Hủy vé</th>
+                                            </tr>
 
-                                    </td>
-                                </tr>
-                            )
-                        })
-                        }
+                                            {futureTicketUnpaid && futureTicketUnpaid.map((item, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>{item.data[0].suatChieuId.movieData.ten_phim}</td>
+                                                        <td>{moment(new Date(Number(item.data[0].ticketData.ngay_ban))).format("DD/MM/YYYY")}</td>
+                                                        <td>{item.data[0].suatChieuId.showTime}</td>
+                                                        <td> <NumberFormat
+                                                            value={item.data[0].don_gia_ve}
+                                                            displayType={'text'}
+                                                            thousandSeparator={true}
+                                                            suffix={'VND'}
+                                                        /></td>
+                                                        <td>{item.data[0].so_luong_ve}</td>
+                                                        <td>{item.data[0].ticketData.paymentData.ten_pttt}</td>
+                                                        <td>{item.data[0].suatChieuId.theaterData.ten_rap}</td>
+                                                        <td>
+                                                            <button className='btn-cancel'
+                                                                onClick={() => this.btnCancelTicket(item)}
+                                                            ><i class="fas fa-window-close"></i></button>
 
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                            }
+                                        </tbody>
+                                    </table>
 
+                                </>
+                                :
+                                <div className='not-history'>Bạn chưa có giao dịch (đơn hàng) chưa thanh toán nào!</div>
 
+                            }
+                        </div>
 
-                    </tbody>
-                </table> */}
+                        <div className='title'><span>Các vé bạn không thanh toán</span></div>
+                        <div className='history-ticket'>
+                            {nonPayment && nonPayment.length > 0 ?
+                                <>
+                                    <table id='TableManageMovie'>
+
+                                        <tbody>
+                                            <tr>
+                                                <th>Tên phim </th>
+                                                <th>Ngày chiếu</th>
+                                                <th>Suất chiếu</th>
+                                                <th>Giá vé</th>
+                                                <th>Số lượng</th>
+                                                <th>Rạp</th>
+                                            </tr>
+
+                                            {nonPayment && nonPayment.map((item, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>{item.data[0].suatChieuId.movieData.ten_phim}</td>
+                                                        <td>{moment(new Date(Number(item.data[0].ticketData.ngay_ban))).format("DD/MM/YYYY")}</td>
+                                                        <td>{item.data[0].suatChieuId.showTime}</td>
+                                                        <td> <NumberFormat
+                                                            value={item.data[0].don_gia_ve}
+                                                            displayType={'text'}
+                                                            thousandSeparator={true}
+                                                            suffix={'VND'}
+                                                        /></td>
+                                                        <td>{item.data[0].so_luong_ve}</td>
+                                                        <td>{item.data[0].suatChieuId.theaterData.ten_rap}</td>
+                                                    </tr>
+                                                )
+                                            })
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </>
+                                :
+                                <div className='not-history'>Bạn chưa có giao dịch (đơn hàng) không thanh toán nào!</div>
+
+                            }
+                        </div>
+
                     </div>
                     <div className='content-right'>
                         {
@@ -295,33 +367,6 @@ class MyTickets extends Component {
                         <div className='title'>
                             <span>Thông tin chung</span>
                         </div >
-
-                        {/* {memberInfo && memberInfo.map((item, index) => {
-                            return (
-                                <div className='member-info' key={index}>
-                                    <span>Tên thành viên: {item.ten_tv}</span>
-                                    <span>Ngày sinh: {item.ngay_sinh}</span>
-                                    <span>Giới tính: {item.ten_tv === true ? 'Nam' : 'Nữ'}</span>
-                                    <span>Loại thành viên: {item.loai_tv.ten_loai_tv}</span>
-                                    <span>Số điện thoại: {item.sdt}</span>
-                                    <span>Email: {item.email}</span>
-                                </div>
-                            )
-                        })
-                        } */}
-
-                        {/* {memberInfo && memberInfo.map((item, index) => {
-                            return (
-                                <div className='member-info' key={index}>
-                                    <span>Tên thành viên: {item.ten_tv}</span>
-                                    <span>Ngày sinh: {item.ngay_sinh}</span>
-                                    <span>Giới tính: {item.ten_tv === true ? 'Nam' : 'Nữ'}</span>
-                                    <span>Loại thành viên: {item.loai_tv.ten_loai_tv}</span>
-                                    <span>Số điện thoại: {item.sdt}</span>
-                                    <span>Email: {item.email}</span>
-                                </div>
-                            )
-                        })} */}
                         <div className='member-action'>
                             <span><b>Xin chào {memberInfo.ten_tv},</b></span><br />
                             <span>Với trang này, bạn sẽ có thể xem và quản lý các thông tin hoặc giao dịch của mình.</span>
