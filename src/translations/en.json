@@ -47,8 +47,8 @@
             "report": "Report",
             "manage-report": "Manage Report",
             "revenue": "Revenue",
-            "ticket-revenue": "Tickets Revenue",
-            "food-revenue": "Food Revenue"
+            "ticket-revenue": "Revenue Days",
+            "food-revenue": "Movie Revenue"
         },
         "movie": {
             "title": "MANAGE MOVIE",

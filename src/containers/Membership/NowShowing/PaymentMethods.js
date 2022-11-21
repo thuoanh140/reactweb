@@ -55,11 +55,11 @@ class PaymentMethods extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevState.giam_gia !== this.state.giam_gia) {
-            this.setState({
-                giam_gia: this.state.giam_gia
-            })
-        }
+        // if (prevState.giam_gia !== this.state.giam_gia) {
+        //     this.setState({
+        //         giam_gia: this.state.giam_gia
+        //     })
+        // }
 
     }
 
@@ -95,7 +95,7 @@ class PaymentMethods extends Component {
         let ve = Number(selectedSeatCheckout.reduce((total, item) => total + Number(item.seatTypeData.gia_tien), 0))
         let bap = Number(selectedFoodCheckout.reduce((total, item) => total + Number(item.gia), 0))
         let total = ve + bap;
-        let lastTotal = giam_gia ? (total - giam_gia) : total
+        let lastTotal = total - giam_gia
         console.log('lastTotal', lastTotal)
         if (selectedSeatCheckout) {
             selectedSeatCheckout.map(item => {
@@ -188,49 +188,106 @@ class PaymentMethods extends Component {
         }
 
         if (isSelected === '1') {
-            let res = await createNewTicketService({
-                id_pttt: isSelected,
-                id_tv: userId,
-                id_km: '',
-                ngay_ban: date,
-                giam_gia_ve: '',
-                trang_thai_ve: false,
+            if (response.errCode === 0) {
+                let res = await createNewTicketService({
+                    id_pttt: isSelected,
+                    id_tv: userId,
+                    id_km: response.id,
+                    ngay_ban: date,
+                    giam_gia_ve: response.data,
+                    trang_thai_ve: false,
 
-                arrCTHDV: result,
-                email: data_tv.email,
-                name: data_tv.ten_tv,
-                dateBooking: dateee,
-                movieNameBooking: movieName,
-                showTimeBooking: showTime,
-                theaterBooking: theater,
-                arrSeat: resultSeatName,
-                paymentNameBooking: paymentName,
-                arrFoodSelected: resultFoodName
+                    arrCTHDV: result,
+                    email: data_tv.email,
+                    name: data_tv.ten_tv,
+                    dateBooking: dateee,
+                    movieNameBooking: movieName,
+                    showTimeBooking: showTime,
+                    theaterBooking: theater,
+                    arrSeat: resultSeatName,
+                    paymentNameBooking: paymentName,
+                    arrFoodSelected: resultFoodName
 
-            })
-
-
-
-            await createNewFoodService({
-                id_pttt: isSelected,
-                id_tv: userId,
-                id_km: '',
-                ngay_ban: date,
-                giam_gia_hd: '',
-                trang_thai_hd: '1',
+                })
 
 
-                arrFood: resultFood
-            })
-            if (res && res.errCode === 0) {
-                let response = await getPayment({
-                    transactionRef: String(res.id_ve),
-                    orderType: lastTotal,
-                    amount: lastTotal
-                });
-                console.log(response);
-                window.location.href = response;
+                await createNewFoodService({
+                    id_pttt: isSelected,
+                    id_tv: userId,
+                    id_km: '',
+                    ngay_ban: date,
+                    giam_gia_hd: '',
+                    trang_thai_hd: '1',
+
+
+                    arrFood: resultFood
+                })
+
+                if (res && res.errCode === 0) {
+                    let response = await getPayment({
+                        transactionRef: String(res.id_ve),
+                        orderType: lastTotal,
+                        amount: lastTotal
+                    });
+                    console.log(response);
+                    window.location.href = response;
+                }
+
+
             }
+            else {
+                let res = await createNewTicketService({
+                    id_pttt: isSelected,
+                    id_tv: userId,
+                    id_km: '',
+                    ngay_ban: date,
+                    giam_gia_ve: 0,
+                    trang_thai_ve: false,
+
+                    arrCTHDV: result,
+                    email: data_tv.email,
+                    name: data_tv.ten_tv,
+                    dateBooking: dateee,
+                    movieNameBooking: movieName,
+                    showTimeBooking: showTime,
+                    theaterBooking: theater,
+                    arrSeat: resultSeatName,
+                    paymentNameBooking: paymentName,
+                    arrFoodSelected: resultFoodName
+
+                })
+
+
+                await createNewFoodService({
+                    id_pttt: isSelected,
+                    id_tv: userId,
+                    id_km: '',
+                    ngay_ban: date,
+                    giam_gia_hd: '',
+                    trang_thai_hd: '1',
+
+
+                    arrFood: resultFood
+                })
+
+                if (res && res.errCode === 0) {
+                    let response = await getPayment({
+                        transactionRef: String(res.id_ve),
+                        orderType: lastTotal,
+                        amount: lastTotal
+                    });
+                    console.log(response);
+                    window.location.href = response;
+                }
+            }
+
+
+
+
+
+
+
+
         }
 
 
@@ -249,10 +306,14 @@ class PaymentMethods extends Component {
         this.setState({
             response: res
         })
-        console.log('response', res)
-        if (res && res.errCode === 0) {
+        if (res.errCode === 0) {
             this.setState({
                 giam_gia: res.data
+            })
+        }
+        else {
+            this.setState({
+                giam_gia: 0
             })
         }
 
@@ -273,7 +334,8 @@ class PaymentMethods extends Component {
         let bap = Number(selectedFood.reduce((total, item) => total + (Number(item.gia) * item.quantity), 0))
         let selectFood = this.props.location.state.selectFood;
         let total = ve + bap;
-        let lastTotal = giam_gia ? (total - giam_gia) : total
+        // let lastTotal = giam_gia ? (total - giam_gia) : total
+        let lastTotal = total - giam_gia
         let { selectedPayment } = this.state;
         return (
             <>
@@ -361,7 +423,10 @@ class PaymentMethods extends Component {
                             <div className='voucher'>
                                 <div class="col-3">
                                     <input class="effect-8" type="text" placeholder='Mã giảm giá' value={ma_giam_gia} onChange={(event) => this.handleOnChangeVoucher(event)} />
-                                    <br /><span>{response.errMessage}</span>
+                                    <br />
+                                    <div className={response.errCode === 0 ? 'success' : 'fail'}>
+                                        <span>{response.errMessage}</span>
+                                    </div>
                                 </div>
                                 <div>
                                     <button className='btn btn-primary' onClick={() => this.compareVoucher()}>Sử dụng</button>

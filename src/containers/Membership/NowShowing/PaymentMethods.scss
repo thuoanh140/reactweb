@@ -102,7 +102,7 @@
 
             .voucher {
                 display: flex;
-                gap: 50px;
+                gap: 10px;
                 margin: 20px;
 
                 .effect-8 {
@@ -115,14 +115,24 @@
 
                 .col-3 {
                     float: left;
-                    width: 50%;
+                    width: 40%;
                     // margin: 40px 3%;
                     position: relative;
 
-                    span {
-                        font-size: 10px;
-                        color: red;
+                    .success {
+                        span {
+                            font-size: 10px;
+                            color: green;
+                        }
                     }
+
+                    .fail {
+                        span {
+                            font-size: 10px;
+                            color: red;
+                        }
+                    }
+
                 }
 
                 /* necessary to give position: relative to parent. */

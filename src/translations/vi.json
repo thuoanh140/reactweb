@@ -47,8 +47,8 @@
             "report": "Báo xấu",
             "manage-report": "Quản lý báo xấu",
             "revenue": "Doanh thu",
-            "ticket-revenue": "Doanh thu bán vé",
-            "food-revenue": "Doanh thu bắp nước"
+            "ticket-revenue": "Doanh thu theo ngày",
+            "food-revenue": "Doanh thu theo phim"
         },
         "movie": {
             "title": "QUẢN LÝ PHIM",

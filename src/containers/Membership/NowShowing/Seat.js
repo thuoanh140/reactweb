@@ -244,10 +244,6 @@ class Seat extends Component {
                                     }
                                 </div>
                                 <div>
-                                    <span>Chiết khấu: </span>
-
-                                </div>
-                                <div>
                                     <span>Thành tiền : {selectedSeat.length > 0 && `${selectedSeat.length} x `}
 
                                         <NumberFormat

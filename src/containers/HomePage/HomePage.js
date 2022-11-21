@@ -8,7 +8,7 @@ import './HomePage.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { withRouter } from 'react-router';
-import { paymentVnpaySuccess } from '../../services/userServices'
+import { paymentVnpaySuccess, minusQuantity } from '../../services/userServices'
 import { toast } from 'react-toastify';
 
 
@@ -23,6 +23,7 @@ class HomePage extends Component {
 
             let res = await paymentVnpaySuccess(vnp_TxnRef)
             if (res && res.errCode === 0) {
+                await minusQuantity(res.id_km)
                 toast.success('Thanh toán thành công!')
             }
             else (

@@ -204,6 +204,14 @@ const getAllMembershipService = () => {
     return axios.get(`/api/get-all-membership`)
 }
 
+const getRevenueMovieService = () => {
+    return axios.get(`/api/get-revenue-by-movie`)
+}
+
+const getRevenueTheaterService = () => {
+    return axios.get(`/api/get-revenue-by-theater`)
+}
+
 const getLimitTicketService = (params) => {
     return axios.get(`/api/get-ticket-limit`, { params })
 }
@@ -250,6 +258,14 @@ const getRevenueByDate = (ngay_ban) => {
     return axios.get(`/api/get-revenue-by-date?ngay_ban=${ngay_ban}`)
 }
 
+const getRevenueTheaterByDate = (ngay_ban) => {
+    return axios.get(`/api/get-revenue-theater-by-date?ngay_ban=${ngay_ban}`)
+}
+
+const getRevenueFoodByDate = (ngay_ban) => {
+    return axios.get(`/api/get-revenue-food-by-date?ngay_ban=${ngay_ban}`)
+}
+
 const getPayment = (data) => {
     return axios.post('/create_payment_url', data);
 
@@ -290,6 +306,7 @@ export {
     editMemberService, getLimitTicketService, createReportService, getAllReportService,
     deleteRatingService, deleteReportService, getStateMovieService, getComingSoonService,
     getRevenueByDate, getAllMembershipService, getTicketUnPaidByIdTVService,
-    paymentVnpaySuccess, compareVoucherService, minusQuantity
+    paymentVnpaySuccess, compareVoucherService, minusQuantity, getRevenueFoodByDate,
+    getRevenueMovieService, getRevenueTheaterService, getRevenueTheaterByDate
     // getNationService, getDirectorService, getCastService
 }

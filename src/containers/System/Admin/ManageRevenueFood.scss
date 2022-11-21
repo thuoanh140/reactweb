@@ -1,0 +1,217 @@
+.manage-revenue-movie-container {
+
+
+    .manage-revenue-movie-content {
+
+
+        // display: flex;
+
+        .content-up {
+
+
+            // margin-bottom: 50px;
+            // margin-left: 80px;
+
+            .chart-name {
+                margin-top: 50px;
+                text-align: center;
+
+                span {
+                    font-size: 30px;
+                }
+            }
+
+            .content {
+                display: flex;
+                gap: 50px;
+
+                .content-left {
+                    width: 70%;
+
+                    .search-data {
+                        display: flex;
+                        gap: 70px
+                    }
+
+                    // display: flex;
+
+                    .chart {
+                        // width: 1200px !important;
+                        // height: 600px !important;
+
+                    }
+                }
+
+                .content-right {
+                    width: 20%;
+                    // border: 1px solid red;
+                    display: flex;
+
+                    flex-direction: column;
+                    justify-content: flex-end;
+
+                    .total-ticket {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 20px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+                    .total-revenue-ticket {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 20px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+                    .total-revenue-food {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 55px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+
+        .content-down {
+
+
+            // margin-bottom: 50px;
+            // margin-left: 80px;
+
+            .chart-name {
+                margin-top: 50px;
+                text-align: center;
+
+                span {
+                    font-size: 30px;
+                }
+            }
+
+            .content {
+                display: flex;
+                gap: 50px;
+
+                .content-left {
+                    width: 70%;
+
+                    .search-data {
+                        display: flex;
+                        gap: 70px
+                    }
+
+                    // display: flex;
+
+                    .chart {
+                        // width: 1200px !important;
+                        // height: 600px !important;
+
+                    }
+                }
+
+                .content-right {
+                    width: 20%;
+                    // border: 1px solid red;
+                    display: flex;
+
+                    flex-direction: column;
+                    justify-content: flex-end;
+
+                    .total-ticket {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 20px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+                    .total-revenue-ticket {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 20px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+                    .total-revenue-food {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 55px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+    }
+}

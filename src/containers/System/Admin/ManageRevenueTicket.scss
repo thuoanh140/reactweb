@@ -1,16 +1,197 @@
 .manage-revenue-container {
     .manage-revenue-content {
-        .search-data {
-            display: flex;
-            gap: 70px
+
+        .content-up {
+
+
+            // margin-bottom: 50px;
+            // margin-left: 80px;
+
+            .chart-name {
+                margin-top: 50px;
+                text-align: center;
+
+                span {
+                    font-size: 30px;
+                }
+            }
+
+            .content {
+                display: flex;
+                gap: 50px;
+
+                .content-left {
+                    width: 70%;
+
+                    .search-data {
+                        display: flex;
+                        gap: 70px
+                    }
+
+                    // display: flex;
+
+                    .chart {
+                        // width: 1200px !important;
+                        // height: 600px !important;
+
+                    }
+                }
+
+                .content-right {
+                    width: 20%;
+                    // border: 1px solid red;
+                    display: flex;
+
+                    flex-direction: column;
+                    justify-content: flex-end;
+
+                    .total-ticket {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 20px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+                    .total-revenue-ticket {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 20px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+                    .total-revenue-food {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 55px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+
+
+
         }
 
-        // display: flex;
+        .content-mid {
 
-        .chart {
-            width: 1000px !important;
-            height: 600px !important;
 
+            margin-top: 60px;
+
+            .chart-name {
+                margin-top: 50px;
+                text-align: center;
+
+                span {
+                    font-size: 30px;
+                }
+            }
+
+            .content {
+                display: flex;
+                gap: 50px;
+
+                .content-left {
+                    width: 70%;
+                    text-align: center;
+
+
+
+                    // display: flex;
+
+                    .chart-movie {
+                        width: 500px !important;
+                        height: 500px !important;
+
+                    }
+                }
+
+                .content-right {
+                    width: 20%;
+                    // border: 1px solid red;
+                    display: flex;
+
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+
+                    .total-revenue-movie {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-bottom: 55px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+
+                }
+            }
+
+            // .content-left {
+            //     width: 70%;
+
+            //     .chart-movie {
+            //         margin-top: 80px;
+            //         display: block;
+            //         margin-left: auto;
+            //         margin-right: auto;
+            //         // width: 300px !important;
+            //         // height: 300px !important;
+
+            //     }
+
+            // }
+
+            // .content-right {
+            //     width: 20%;
+            //     border: 1px solid red;
+            // }
         }
+
     }
 }
