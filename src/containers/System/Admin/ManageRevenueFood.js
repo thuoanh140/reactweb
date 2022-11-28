@@ -5,7 +5,7 @@ import * as actions from '../../../store/actions'
 import './ManageRevenueFood.scss';
 import { toast } from 'react-toastify';
 // import { getAllStaff, createNewStaffService, deleteStaffService, editStaffService } from '../../services/userServices'
-import { getRevenueTheaterService, getRevenueTheaterByDate } from '../../../services/userServices';
+import { getRevenueTheaterService, getRevenueTheaterByDate, getRevenueFoodByTheaterService, getRevenueFoodTheaterByDate } from '../../../services/userServices';
 import DatePicker from '../../../components/Input/DatePicker';
 import { Bar } from "react-chartjs-2";
 import moment from 'moment';
@@ -23,7 +23,9 @@ class ManageRevenueFood extends Component {
             timeStart: moment().subtract(6, 'day').startOf('day'),
             timeEnd: moment().startOf('day'),
             listDay: [],
-            revenueDaysTheater: []
+            revenueDaysTheater: [],
+            revenueFood: [],
+            revenueFoodDaysTheater: []
         }
     }
 
@@ -45,6 +47,16 @@ class ManageRevenueFood extends Component {
 
             })
         }
+
+        let res = await getRevenueFoodByTheaterService();
+        if (res && res.errCode === 0) {
+            this.setState({
+                revenueFood: res.data ? res.data : [],
+
+            })
+        }
+
+
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -82,6 +94,17 @@ class ManageRevenueFood extends Component {
         })
         console.log("arr7Days", arr7Days)
 
+        let arrFood = []
+
+        for (let i = 0; i < dateList.length; i++) {
+            let response = await getRevenueFoodTheaterByDate(dateList[i]);
+            arrFood.push(response)
+        }
+        this.setState({
+            revenueFoodDaysTheater: arrFood
+        })
+        console.log('arrFood', arrFood)
+
     }
 
     handleOnChangeDataPicker = (key, value) => {
@@ -101,15 +124,19 @@ class ManageRevenueFood extends Component {
 
 
     render() {
-        let { revenueTheater, revenueDaysTheater } = this.state;
-        console.log('check ', revenueTheater)
-        console.log('check revenueDaysTheater', revenueDaysTheater)
+        let { revenueTheater, revenueDaysTheater, revenueFood, revenueFoodDaysTheater } = this.state;
+        console.log('check revenueFood', revenueFood)
+        console.log('check revenueFoodDaysTheater', revenueFoodDaysTheater)
 
         let arr = revenueDaysTheater.filter(item => {
             return item.data.length > 0
         })
 
-        console.log('arr', arr)
+        let arrF = revenueFoodDaysTheater.filter(item => {
+            return item.data.length > 0
+        })
+
+        console.log('arrF', arrF)
 
         let revenueThuDuc = arr.map(item => {
             return item.data.filter(data => {
@@ -120,6 +147,37 @@ class ManageRevenueFood extends Component {
         let revenueThuDucClean = revenueThuDuc.filter(item => {
             return item.length > 0
         })
+
+        let revenueFoodThuDuc = arrF.map(item => {
+            return item.data.filter(data => {
+                return data.billData.ten_rap === 'On Cinema Thủ Đức'
+            })
+            // return item.data.ticketData.suatChieuId.theaterData.ten_rap === 'On Cinema Thủ Đức'
+        })
+        let revenueFoodThuDucClean = revenueFoodThuDuc.filter(item => {
+            return item.length > 0
+        })
+
+        let revenueFoodGoVap = arrF.map(item => {
+            return item.data.filter(data => {
+                return data.billData.ten_rap === 'On Cinema Gò Vấp'
+            })
+            // return item.data.ticketData.suatChieuId.theaterData.ten_rap === 'On Cinema Thủ Đức'
+        })
+        let revenueFoodGoVapClean = revenueFoodGoVap.filter(item => {
+            return item.length > 0
+        })
+
+        let revenueFoodNinhKieu = arrF.map(item => {
+            return item.data.filter(data => {
+                return data.billData.ten_rap === 'On Cinema Ninh Kiều'
+            })
+            // return item.data.ticketData.suatChieuId.theaterData.ten_rap === 'On Cinema Thủ Đức'
+        })
+        let revenueFoodNinhKieuClean = revenueFoodNinhKieu.filter(item => {
+            return item.length > 0
+        })
+
 
         let revenueGoVap = arr.map(item => {
             return item.data.filter(data => {
@@ -146,10 +204,27 @@ class ManageRevenueFood extends Component {
         let thuduc = revenueThuDucClean && revenueThuDucClean.length > 0 ? revenueThuDucClean.reduce((total, item) => total + Number(item[0].total), 0) : 0
         let govap = revenueGoVapClean && revenueGoVapClean.length > 0 ? revenueGoVapClean.reduce((total, item) => total + Number(item[0].total), 0) : 0
         let ninhkieu = revenueNinhKieuClean && revenueNinhKieuClean.length > 0 ? revenueNinhKieuClean.reduce((total, item) => total + Number(item[0].total), 0) : 0
-        console.log('thu duc', thuduc)
+
+        let thuducNumberTicket = revenueThuDucClean && revenueThuDucClean.length > 0 ? revenueThuDucClean.reduce((total, item) => total + Number(item[0].totalTicket), 0) : 0
+        let govapNumberTicket = revenueGoVapClean && revenueGoVapClean.length > 0 ? revenueGoVapClean.reduce((total, item) => total + Number(item[0].totalTicket), 0) : 0
+        let ninhkieuNumberTicket = revenueNinhKieuClean && revenueNinhKieuClean.length > 0 ? revenueNinhKieuClean.reduce((total, item) => total + Number(item[0].totalTicket), 0) : 0
+
+        let thuducFood = revenueFoodThuDucClean && revenueFoodThuDucClean.length > 0 ? revenueFoodThuDucClean.reduce((total, item) => total + Number(item[0].total) || 0, 0) : 0
+        let govapFood = revenueFoodGoVapClean && revenueFoodGoVapClean.length > 0 ? revenueFoodGoVapClean.reduce((total, item) => total + Number(item[0].total) || 0, 0) : 0
+        let ninhkieuFood = revenueFoodNinhKieuClean && revenueFoodNinhKieuClean.length > 0 ? revenueNinhKieuClean.reduce((total, item) => total + Number(item[0].total) || 0, 0) : 0
+
         console.log('revenueThuDucClean', revenueThuDucClean)
+        console.log('arr', arr)
+        console.log('revenueTheater', revenueTheater)
         let totalTicket = revenueTheater.reduce((total, item) => total + Number(item.totalTicket), 0)
         let totalRevenueTicket = revenueTheater.reduce((total, item) => total + Number(item.total), 0)
+        let totalRevenueFood = revenueFood.reduce((total, item) => total + Number(item.total), 0)
+
+        // let totalTicketDay = arr.reduce((total, item) => total + {
+        //     return item.data.reduce((totalData, itemData) => totalData + itemData.totalTicket, 0)
+        // }, 0)
+        // console.log('totalTicketDay', totalTicketDay)
+
         return (
             <div className='manage-revenue-movie-container'>
                 <div className='manage-revenue-movie-content'>
@@ -174,12 +249,21 @@ class ManageRevenueFood extends Component {
                                             ,
                                             datasets: [
                                                 {
-                                                    label: 'Doanh thu',
+                                                    label: 'Vé',
                                                     backgroundColor: 'rgba(0, 255, 0, 0.2)',
                                                     borderColor: 'rgb(0, 255, 0)',
                                                     borderWidth: 1,
                                                     barThickness: 40,
                                                     data: revenueTheater.map(item => item.total)
+
+                                                },
+                                                {
+                                                    label: 'Bắp nước',
+                                                    backgroundColor: 'rgb(239, 197, 120)',
+                                                    borderColor: 'orange',
+                                                    borderWidth: 1,
+                                                    barThickness: 40,
+                                                    data: revenueFood.map(revenue => revenue.total)
 
                                                 }
 
@@ -239,12 +323,27 @@ class ManageRevenueFood extends Component {
                                 <div className='total-revenue-food'>
                                     <span>Tổng doanh thu bắp nước: <div className='number'>
                                         <span>
-                                            {/* <NumberFormat
-                                            value={totalRevenueFood}
-                                            displayType={'text'}
-                                            thousandSeparator={true}
-                                            suffix={'VND'}
-                                        /> */}
+                                            <NumberFormat
+                                                value={totalRevenueFood}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                suffix={'VND'}
+                                            />
+                                        </span>
+                                    </div>
+
+                                    </span>
+
+                                </div>
+                                <div className='total-revenue-food-ticket'>
+                                    <span>Tổng doanh thu: <div className='number'>
+                                        <span>
+                                            <NumberFormat
+                                                value={totalRevenueFood + totalRevenueTicket}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                suffix={'VND'}
+                                            />
                                         </span>
                                     </div>
 
@@ -299,7 +398,7 @@ class ManageRevenueFood extends Component {
                                             ,
                                             datasets: [
                                                 {
-                                                    label: 'Doanh thu',
+                                                    label: 'Vé',
                                                     backgroundColor: 'rgba(0, 255, 0, 0.2)',
                                                     borderColor: 'rgb(0, 255, 0)',
                                                     borderWidth: 1,
@@ -308,6 +407,19 @@ class ManageRevenueFood extends Component {
                                                         thuduc,
                                                         govap,
                                                         ninhkieu
+                                                    ]
+
+                                                },
+                                                {
+                                                    label: 'Bắp nước',
+                                                    backgroundColor: 'rgb(239, 197, 120)',
+                                                    borderColor: 'orange',
+                                                    borderWidth: 1,
+                                                    barThickness: 40,
+                                                    data: [
+                                                        thuducFood,
+                                                        govapFood,
+                                                        ninhkieuFood
                                                     ]
 
                                                 }
@@ -343,23 +455,31 @@ class ManageRevenueFood extends Component {
                             </div>
                             <div className='content-right'>
                                 <div className='total-ticket'>
-                                    <span>Tổng số vé: <div className='number'>
-                                        <span>
-                                        </span>
-                                    </div>
+                                    <span>Tổng số vé:
+                                        <div className='number'>
+                                            <span>{thuducNumberTicket + govapNumberTicket + ninhkieuNumberTicket}
+                                            </span>
+
+                                        </div>
+                                        <div className='number'>
+                                            <span>Thủ Đức: {thuducNumberTicket}, Gò Vấp: {govapNumberTicket}, Ninh Kiều: {ninhkieuNumberTicket}
+                                            </span>
+
+                                        </div>
 
                                     </span>
+
                                 </div>
                                 <div className='total-revenue-ticket'>
                                     <span>Tổng doanh thu vé:
                                         <div className='number'>
                                             <span>
-                                                {/* <NumberFormat
-                                                    value={totalRevenueTicket}
+                                                <NumberFormat
+                                                    value={thuduc + govap + ninhkieu}
                                                     displayType={'text'}
                                                     thousandSeparator={true}
                                                     suffix={'VND'}
-                                                /> */}
+                                                />
                                             </span>
 
                                         </div>
@@ -368,12 +488,27 @@ class ManageRevenueFood extends Component {
                                 <div className='total-revenue-food'>
                                     <span>Tổng doanh thu bắp nước: <div className='number'>
                                         <span>
-                                            {/* <NumberFormat
-                                            value={totalRevenueFood}
-                                            displayType={'text'}
-                                            thousandSeparator={true}
-                                            suffix={'VND'}
-                                        /> */}
+                                            <NumberFormat
+                                                value={thuducFood + govapFood + ninhkieuFood}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                suffix={'VND'}
+                                            />
+                                        </span>
+                                    </div>
+
+                                    </span>
+
+                                </div>
+                                <div className='total-revenue-food-ticket'>
+                                    <span>Tổng doanh thu: <div className='number'>
+                                        <span>
+                                            <NumberFormat
+                                                value={thuduc + govap + ninhkieu + thuducFood + govapFood + ninhkieuFood}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                suffix={'VND'}
+                                            />
                                         </span>
                                     </div>
 

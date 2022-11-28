@@ -51,6 +51,7 @@
                         border: 1px solid blue;
                         border-radius: 4px;
                         margin-bottom: 20px;
+                        margin-top: 80px;
 
                         display: flex;
                         justify-content: center;
@@ -86,7 +87,26 @@
                         height: 20%;
                         border: 1px solid blue;
                         border-radius: 4px;
-                        margin-bottom: 55px;
+                        // margin-bottom: 55px;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .number {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+
+                    .total-revenue-food-ticket {
+                        background-color: azure;
+                        height: 20%;
+                        border: 1px solid blue;
+                        border-radius: 4px;
+                        margin-top: 20px;
+                        margin-bottom: 20px;
 
                         display: flex;
                         justify-content: center;

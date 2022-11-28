@@ -182,7 +182,12 @@ class Food extends Component {
                                             ></div>
                                             <div className='text-center food-title'>
                                                 <span>{item.ten_ta}</span><br></br>
-                                                <span>{item.gia}</span>
+                                                <span><NumberFormat
+                                                    value={item.gia}
+                                                    displayType={'text'}
+                                                    thousandSeparator={true}
+                                                    suffix={'VND'}
+                                                /></span>
 
                                             </div>
                                             <div className='row justify-content-center align-items-center'>

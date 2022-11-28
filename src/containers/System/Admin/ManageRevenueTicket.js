@@ -190,7 +190,7 @@ class ManageRevenueTicket extends Component {
                                                     backgroundColor: 'rgba(0, 255, 0, 0.2)',
                                                     borderColor: 'rgb(0, 255, 0)',
                                                     borderWidth: 1,
-                                                    barThickness: 40,
+                                                    barThickness: 20,
                                                     data: last7.map(revenue => {
                                                         return revenue.data.map(total => total.total)
 
@@ -206,7 +206,7 @@ class ManageRevenueTicket extends Component {
                                                     backgroundColor: 'rgb(239, 197, 120)',
                                                     borderColor: 'orange',
                                                     borderWidth: 1,
-                                                    barThickness: 40,
+                                                    barThickness: 20,
                                                     data: revenueFood.map(revenue => {
                                                         return revenue.data.map(total => total.total)
 
@@ -278,6 +278,21 @@ class ManageRevenueTicket extends Component {
                                             thousandSeparator={true}
                                             suffix={'VND'}
                                         />
+                                        </span>
+                                    </div>
+
+                                    </span>
+
+                                </div>
+                                <div className='total-revenue-food-ticket'>
+                                    <span>Tổng doanh thu: <div className='number'>
+                                        <span>
+                                            <NumberFormat
+                                                value={totalRevenueFood + totalRevenueTicket}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                suffix={'VND'}
+                                            />
                                         </span>
                                     </div>
 
