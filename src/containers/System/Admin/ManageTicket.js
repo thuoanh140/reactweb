@@ -19,7 +19,7 @@ class ManageTicket extends Component {
             ticketFilterList: [],
             page: 1,
             limit: 5,
-            total: 10
+            total: 0
         }
     }
 
@@ -40,14 +40,11 @@ class ManageTicket extends Component {
     }
 
     getAllTicket = async (page) => {
-        let response = await getLimitTicketService({
-            limit: this.state.limit,
-            page
-        });
+        let response = await getAllTicketService();
         if (response && response.errCode === 0) {
             this.setState({
-                allTicket: response.data?.rows || [],
-                ticketFilterList: response.data?.rows || [],
+                allTicket: response.data || [],
+                ticketFilterList: response.data || [],
                 total: response.data?.count || 0
             })
         }
@@ -95,8 +92,10 @@ class ManageTicket extends Component {
                 .every(key => filtersQuery[key] == ticketInfo[key]) // every trả về true nếu tất cả thành phần trong mảng đều true
         })
 
+        console.log(newTicketList);
         // set state để rerender nè
         this.setState({
+            page: 1,
             ticketFilterList: newTicketList
         })
     }
@@ -127,11 +126,11 @@ class ManageTicket extends Component {
                                 <th>Hành động</th>
                             </tr>
 
-                            {ticketFilterList && ticketFilterList.map((item, index) => {
+                            {ticketFilterList && ticketFilterList.slice((this.state.page - 1) * this.state.limit, this.state.page * this.state.limit).map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{item.id}</td>
-                                        <td>{item.ticketData.sdtData.sdt}</td>
+                                        {/* <td>{item.ticketData.sdtData.sdt}</td> */}
                                         <td>{item.seatId.ten_ghe}</td>
                                         <td>{item.suatChieuId.showTime}</td>
                                         <td>{item.seatId.cinemaRoomData.rapData.ten_rap}</td>
@@ -158,7 +157,7 @@ class ManageTicket extends Component {
                         </tbody>
                     </table>
                     <div className='row p-2'>
-                        <Pagination onChangePage={(page) => this.handleChangePage(page)} limit={this.state.limit} total={this.state.total} page={this.state.page} />
+                        <Pagination onChangePage={(page) => this.setState({ page })} limit={this.state.limit} total={this.state.ticketFilterList.length} page={this.state.page} />
                     </div>
                 </div>
             </div>
