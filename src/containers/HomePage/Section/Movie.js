@@ -18,6 +18,7 @@ class Movie extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log({ nowShowingRedux: this.props });
         if (prevProps.nowShowingRedux !== this.props.nowShowingRedux) {
             this.setState({
                 arrNowShowing: this.props.nowShowingRedux
@@ -85,7 +86,8 @@ const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
-        nowShowingRedux: state.admin.nowShowing
+        nowShowingRedux: state.admin.nowShowing // ủa s admin ta
+        // haha bit sai roi
     };
 };
 

@@ -137,3 +137,31 @@ export const adminMenu = [
         ]
     },
 ];
+
+export const staffMenu = [
+    { //Bán vé
+        name: 'menu.staff.sell',
+        menus: [
+
+
+            {
+                name: 'menu.staff.sell-ticket', link: '/system/sell-ticket'
+                // subMenus: [
+                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+                // ]
+            },
+            {
+                name: 'menu.staff.sell-food', link: '/system/sell-food'
+                // subMenus: [
+                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+                // ]
+            },
+
+        ]
+    },
+
+];

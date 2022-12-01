@@ -1,0 +1,59 @@
+.sell-ticket-component {
+
+    .manage-showtimes-title {
+        text-transform: uppercase;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-weight: 600;
+        font-size: 17px;
+        text-align: center;
+    }
+
+
+    .container {
+        display: flex;
+
+        .content-left {
+            width: 60%;
+
+            .movie {
+                margin-left: 10px;
+            }
+        }
+
+        .content-right {
+            width: 40%;
+
+            .customer {
+                display: flex;
+                gap: 20px;
+                height: 300px;
+
+                .btn-add-new-customer {
+                    margin-top: 20px;
+                }
+
+            }
+
+            .payment {
+                height: 300px;
+
+                .title-payment {
+                    margin-bottom: 30px;
+
+                    span {
+                        font-size: 15px;
+                        font-weight: 600;
+                    }
+                }
+
+                .payment-methods {
+
+                    span {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}

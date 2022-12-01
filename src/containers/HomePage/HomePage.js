@@ -11,10 +11,21 @@ import { withRouter } from 'react-router';
 import { paymentVnpaySuccess, minusQuantity } from '../../services/userServices'
 import { toast } from 'react-toastify';
 import Widget from 'rasa-webchat';
+import { Lightbox } from "react-modal-image";
+import img from "../../assets/movie/banner.jpg";
 
 
 
 class HomePage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+            open: true,
+
+        }
+    }
 
     async componentDidMount() {
         const params = new URLSearchParams(window.location.href);
@@ -38,7 +49,6 @@ class HomePage extends Component {
     CustomWidget = () => {
         return (
             <Widget
-                initPayload={"/get_started"}
                 socketUrl={"http://localhost:5500"}
                 socketPath={"/socket.io/"}
                 customData={{ "language": "en" }} // arbitrary custom data. Stay minimal as this will be added to the socket
@@ -47,7 +57,13 @@ class HomePage extends Component {
         )
     }
 
+    closeLightbox = () => {
+        this.setState({ open: false });
+    };
+
+
     render() {
+
         let settings = {
             dots: true,
             infinite: true,
@@ -60,6 +76,18 @@ class HomePage extends Component {
         return (
             <div style={{ 'scrollBehavior': 'smooth' }}>
                 <HomeHeader isShowBanner={true} />
+                {
+                    this.state.open && ( // ủa r link image đâu ?
+                        <Lightbox
+                            medium={img}
+                            large={img}
+                            onClose={this.closeLightbox}
+                            hideZoom='true'
+                            hideDownload='true'
+                        // showRotate='true'
+                        />
+                    )
+                }
                 <Movie settings={settings}
                 // isLoggedIn={isLoggedIn}
                 />

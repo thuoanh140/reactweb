@@ -4,14 +4,14 @@ import { connectedRouterRedirect } from "redux-auth-wrapper/history4/redirect";
 const locationHelper = locationHelperBuilder({});
 
 export const userIsAuthenticated = connectedRouterRedirect({
-    authenticatedSelector: state => state.user.isLoggedIn,
+    authenticatedSelector: state => state.admin.isLoggedInAdmin,
     wrapperDisplayName: 'UserIsAuthenticated',
     redirectPath: '/login'
 });
 
 export const userIsNotAuthenticated = connectedRouterRedirect({
     // Want to redirect the user when they are authenticated
-    authenticatedSelector: state => !state.user.isLoggedIn,
+    authenticatedSelector: state => !state.admin.isLoggedInAdmin,
     wrapperDisplayName: 'UserIsNotAuthenticated',
     redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/',
     allowRedirectBack: false

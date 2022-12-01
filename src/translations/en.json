@@ -65,6 +65,11 @@
             "cast": "Cast",
             "poster": "Poster",
             "btn": "Add"
+        },
+        "staff": {
+            "sell": "Sell",
+            "sell-ticket": "Sell Tickets",
+            "sell-food": "Sell Food"
         }
     }
 }

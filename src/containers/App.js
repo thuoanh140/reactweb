@@ -28,6 +28,8 @@ import Food from './HomePage/Section/Food';
 import MyTickets from './Membership/NowShowing/MyTickets';
 import ComingSoon from './Membership/NowShowing/ComingSoon';
 import DetailComingSoon from './Membership/NowShowing/DetailComingSoon';
+import Staff from '../routes/Staff';
+import PickSeat from './System/Admin/PickSeat';
 
 class App extends Component {
 
@@ -63,6 +65,7 @@ class App extends Component {
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
+                                    <Route path={'/staff'} component={userIsAuthenticated(Staff)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_MOVIE} component={DetailMovie} />
                                     <Route path={path.SEAT} component={Seat} />
@@ -72,6 +75,7 @@ class App extends Component {
                                     <Route path={path.MY_TICKET} component={MyTickets} />
                                     <Route exact path={path.COMING_SOON} component={ComingSoon} />
                                     <Route path={path.DETAIL_COMING_SOON} component={DetailComingSoon} />
+                                    <Route path={path.PICK_SEAT} component={PickSeat} />
 
 
                                 </Switch>

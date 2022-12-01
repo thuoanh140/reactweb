@@ -4,6 +4,10 @@ const handleLoginApi = (userTen_tk, userMat_khau) => {
     return axios.post('/api/login', { ten_tk: userTen_tk, mat_khau: userMat_khau });
 }
 
+const handleLoginAdminApi = (userTen_tk, userMat_khau) => {
+    return axios.post('/api/login-admin', { ten_tk: userTen_tk, mat_khau: userMat_khau });
+}
+
 const getAllStaff = (inputId) => {
     return axios.get(`/api/get-all-staff?id=${inputId}`)
 }
@@ -316,6 +320,6 @@ export {
     getRevenueByDate, getAllMembershipService, getTicketUnPaidByIdTVService,
     paymentVnpaySuccess, compareVoucherService, minusQuantity, getRevenueFoodByDate,
     getRevenueMovieService, getRevenueTheaterService, getRevenueTheaterByDate,
-    getRevenueFoodByTheaterService, getRevenueFoodTheaterByDate
+    getRevenueFoodByTheaterService, getRevenueFoodTheaterByDate, handleLoginAdminApi
     // getNationService, getDirectorService, getCastService
 }

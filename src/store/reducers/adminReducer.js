@@ -15,7 +15,9 @@ const initialState = {
     theaterById: [],
     eventData: [],
     foodData: [],
-    reportData: []
+    reportData: [],
+    isLoggedInAdmin: false,
+    adminInfo: null
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -209,6 +211,25 @@ const adminReducer = (state = initialState, action) => {
             state.theaterById = [];
             return {
                 ...state
+            }
+
+        case actionTypes.ADMIN_LOGIN_SUCCESS:
+            return {
+                ...state,
+                isLoggedInAdmin: true,
+                adminInfo: action.adminInfo
+            }
+        case actionTypes.ADMIN_LOGIN_FAIL:
+            return {
+                ...state,
+                isLoggedInAdmin: false,
+                adminInfo: null
+            }
+        case actionTypes.ADMIN_PROCESS_LOGOUT:
+            return {
+                ...state,
+                isLoggedInAdmin: false,
+                adminInfo: null
             }
 
 

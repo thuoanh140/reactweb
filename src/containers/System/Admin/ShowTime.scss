@@ -1,0 +1,136 @@
+.movie-showtime-container {
+    // border: 1px solid green;
+    height: 100%;
+
+    .all-showtime {
+        .not-showtime {
+            font-size: 15px;
+            color: white;
+        }
+
+        select {
+            border-bottom: 1px solid #ddd;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 0;
+            color: #337ab7;
+            font-weight: 600;
+        }
+
+        label {
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .pickdate {
+            // margin-left: 900px;
+            // margin-top: -40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+
+        .all-avaiable-showtime {
+
+            .booking-showtime {
+                margin-top: 20px;
+
+                button {
+                    background-color: #4CAF50;
+                    /* Green */
+                    border: none;
+                    color: white;
+                    padding: 15px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+
+                    &:disabled {
+                        background-color: rgba(#4CAF50, 0.7);
+                        cursor: not-allowed;
+                    }
+                }
+            }
+
+            .text-calendar {
+                color: orange;
+                margin: 10px 0;
+
+                span {
+                    text-transform: uppercase;
+                    margin-left: 5px;
+
+                }
+            }
+
+            .theater-name {
+                color: rgb(243, 220, 220);
+                margin: 10px 0;
+
+                span {
+                    font-size: 20px;
+                    text-transform: uppercase;
+                    margin-left: 5px;
+
+                }
+
+            }
+
+            .movieFormat-name {
+                color: white;
+                margin: 10px 0;
+
+                span {
+                    // text-transform: uppercase;
+                    margin-left: 5px;
+
+                }
+            }
+
+            .time-content {
+
+                .time-content-btns {
+                    display: flex;
+                    gap: 15px;
+                    flex-wrap: wrap;
+                    cursor: pointer;
+
+                    .time-content-btns--active {
+                        background-color: olive;
+                    }
+
+
+
+                    button {
+                        padding: 5 10px;
+                        border: none;
+                        outline: none;
+                        background-color: white;
+                        min-width: 120px;
+                        border-radius: 3px;
+
+                        &:hover {
+                            background-color: #45c3d2;
+                        }
+                    }
+
+                    // button:active {
+                    //     background: olive;
+                    // }
+
+                    // button:focus {
+                    //     background: olive;
+                    // }
+                }
+
+
+
+            }
+        }
+    }
+}

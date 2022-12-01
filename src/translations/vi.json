@@ -65,6 +65,11 @@
             "cast": "Diễn viên",
             "poster": "Poster",
             "btn": "Thêm"
+        },
+        "staff": {
+            "sell": "Bán hàng",
+            "sell-ticket": "Bán vé",
+            "sell-food": "Bán món ăn"
         }
     }
 }
