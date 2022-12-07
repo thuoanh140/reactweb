@@ -102,7 +102,7 @@ class ManageTicket extends Component {
 
     render() {
         let { ticketFilterList, allTicket } = this.state;
-        console.log('check all-ticket', allTicket)
+        console.log('check ticketFilterList', ticketFilterList)
         return (
             <div className='managhe-ticket-container'>
                 <div className='title text-center'>QUẢN LÝ VÉ BÁN</div>
@@ -130,7 +130,7 @@ class ManageTicket extends Component {
                                 return (
                                     <tr key={index}>
                                         <td>{item.id}</td>
-                                        {/* <td>{item.ticketData.sdtData.sdt}</td> */}
+                                        <td>{item.ticketData.sdtData.sdt}</td>
                                         <td>{item.seatId.ten_ghe}</td>
                                         <td>{item.suatChieuId.showTime}</td>
                                         <td>{item.seatId.cinemaRoomData.rapData.ten_rap}</td>

@@ -114,7 +114,7 @@ class Login extends Component {
                             <button className='btn-login' onClick={() => { this.handleLogin() }}>Đăng nhập</button>
                         </div>
 
-                        <div className='col-12'>
+                        {/* <div className='col-12'>
                             <span className='forgot-password'>Quên mật khẩu?</span>
                         </div>
                         <div className='col-12 text-center mt-3'>
@@ -127,7 +127,7 @@ class Login extends Component {
 
                         <div class="text-center">
                             <p>Bạn không phải thành viên? <a href="#!">Đăng ký ngay</a></p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 

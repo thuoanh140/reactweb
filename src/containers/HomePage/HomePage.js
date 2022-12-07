@@ -49,7 +49,7 @@ class HomePage extends Component {
     CustomWidget = () => {
         return (
             <Widget
-                socketUrl={"http://localhost:5500"}
+                socketUrl={"http://localhost:5005"}
                 socketPath={"/socket.io/"}
                 customData={{ "language": "en" }} // arbitrary custom data. Stay minimal as this will be added to the socket
                 title={"Title"}
@@ -77,7 +77,7 @@ class HomePage extends Component {
             <div style={{ 'scrollBehavior': 'smooth' }}>
                 <HomeHeader isShowBanner={true} />
                 {
-                    this.state.open && ( // ủa r link image đâu ?
+                    this.state.open && (
                         <Lightbox
                             medium={img}
                             large={img}
