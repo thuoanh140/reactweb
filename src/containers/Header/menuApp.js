@@ -1,4 +1,38 @@
 export const adminMenu = [
+    { //Xác nhận vé
+        name: 'menu.admin.confirm',
+        menus: [
+            {
+                name: 'menu.admin.confirm-ticket', link: '/system/ticket-confirmation'
+                // subMenus: [
+                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+                // ]
+            },
+            {
+                name: 'menu.staff.food-confirmation', link: '/system/food-confirmation'
+                // subMenus: [
+                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+                // ]
+            }
+        ]
+    },
+    { //Quản lý vé
+        name: 'menu.admin.ticket',
+        menus: [
+            {
+                name: 'menu.admin.manage-ticket', link: '/system/manage-ticket'
+                // subMenus: [
+                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+                // ]
+            }
+        ]
+    },
     { //Quản lý người dùng
         name: 'menu.admin.manage-user',
         menus: [
@@ -44,34 +78,34 @@ export const adminMenu = [
             },
         ]
     },
-    { //Quản lý vé
-        name: 'menu.admin.ticket',
-        menus: [
-            {
-                name: 'menu.admin.manage-ticket', link: '/system/manage-ticket'
-                // subMenus: [
-                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+    // { //Quản lý vé
+    //     name: 'menu.admin.ticket',
+    //     menus: [
+    //         {
+    //             name: 'menu.admin.manage-ticket', link: '/system/manage-ticket'
+    //             // subMenus: [
+    //             //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+    //             //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
 
-                // ]
-            }
-        ]
-    },
-    { //Quản lý rạp
-        name: 'menu.admin.cinema-room',
-        menus: [
+    //             // ]
+    //         }
+    //     ]
+    // },
+    // { //Quản lý rạp
+    //     name: 'menu.admin.cinema-room',
+    //     menus: [
 
-            {
-                name: 'menu.admin.manage-room', link: '/system/manage-room'
-                // subMenus: [
-                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+    //         {
+    //             name: 'menu.admin.manage-room', link: '/system/manage-room'
+    //             // subMenus: [
+    //             //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+    //             //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
 
-                // ]
-            }
+    //             // ]
+    //         }
 
-        ]
-    },
+    //     ]
+    // },
     { //Quản lý thức ăn
         name: 'menu.admin.food',
         menus: [
@@ -140,12 +174,28 @@ export const adminMenu = [
 
 export const staffMenu = [
     { //Bán vé
-        name: 'menu.staff.sell',
+        name: 'menu.staff.confirm',
         menus: [
 
 
+            // {
+            //     name: 'menu.staff.sell-ticket', link: '/system/sell-ticket'
+            //     // subMenus: [
+            //     //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+            //     //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+            //     // ]
+            // },
+            // {
+            //     name: 'menu.staff.sell-food', link: '/system/sell-food'
+            //     // subMenus: [
+            //     //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+            //     //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+
+            //     // ]
+            // },
             {
-                name: 'menu.staff.sell-ticket', link: '/system/sell-ticket'
+                name: 'menu.staff.ticket-confirmation', link: '/system/ticket-confirmation'
                 // subMenus: [
                 //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
                 //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
@@ -153,7 +203,7 @@ export const staffMenu = [
                 // ]
             },
             {
-                name: 'menu.staff.sell-food', link: '/system/sell-food'
+                name: 'menu.staff.food-confirmation', link: '/system/food-confirmation'
                 // subMenus: [
                 //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
                 //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },

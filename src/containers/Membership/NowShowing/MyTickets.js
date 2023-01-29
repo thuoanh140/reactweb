@@ -7,12 +7,13 @@ import * as actions from '../../../store/actions';
 import moment from 'moment';
 import NumberFormat from 'react-number-format';
 import { withRouter } from 'react-router';
-import { getTicketByIdTVService, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService, editMemberService, getTicketUnPaidByIdTVService } from '../../../services/userServices'
+import { deleteTicketService, getTicketByIdTVService, getDetailTicketByIdTicketService, cancelTicket, getMemberByIdTKService, editMemberService, getTicketUnPaidByIdTVService } from '../../../services/userServices'
 import { createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import HomeFooter from '../../HomePage/HomeFooter';
 import ModalUpdateMember from './ModalUpdateMember';
+import { toast } from 'react-toastify';
 
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
@@ -126,11 +127,20 @@ class MyTickets extends Component {
 
     btnCancelTicket = async (ticket) => {
 
-        let id = ticket.data[0].id;
+        let id = ticket.id;
         console.log('check id:', id)
         await cancelTicket(id);
+        let res = await deleteTicketService(id)
+        if (res.errCode === 0) {
+            toast.success("Hủy vé thành công")
+            await this.getTicket()
+            await this.getTicketUnPaid()
+        }
+        else {
+            toast.warn('Hủy vé thất bại')
+        }
 
-        await this.getTicket()
+
     }
 
 
@@ -154,6 +164,7 @@ class MyTickets extends Component {
         console.log('checl futureTicket: ', futureTicket)
         console.log('checl allDetailTicket: ', allDetailTicket)
         console.log('checl allDetailTicketUnpaid: ', allDetailTicketUnpaid)
+        console.log('allDetailTicketUnpaid', allDetailTicketUnpaid)
         return (
             <>
                 <HomeHeader isShowBanner={false} />
@@ -215,34 +226,38 @@ class MyTickets extends Component {
                                                 <th>Suất chiếu</th>
                                                 <th>Giá vé</th>
                                                 <th>Số lượng</th>
+                                                <th>Ghế</th>
                                                 <th>PTTT</th>
                                                 <th>Rạp</th>
                                                 <th>Hủy vé</th>
                                             </tr>
 
-                                            {futureTicket && futureTicket.map((item, index) => {
-                                                return (
-                                                    <tr key={index}>
-                                                        <td>{item.data[0].suatChieuId.movieData.ten_phim}</td>
-                                                        <td>{moment(new Date(Number(item.data[0].ticketData.ngay_ban))).format("DD/MM/YYYY")}</td>
-                                                        <td>{item.data[0].suatChieuId.showTime}</td>
-                                                        <td> <NumberFormat
-                                                            value={item.data[0].don_gia_ve}
-                                                            displayType={'text'}
-                                                            thousandSeparator={true}
-                                                            suffix={'VND'}
-                                                        /></td>
-                                                        <td>{item.data[0].so_luong_ve}</td>
-                                                        <td>{item.data[0].ticketData.paymentData.ten_pttt}</td>
-                                                        <td>{item.data[0].suatChieuId.theaterData.ten_rap}</td>
-                                                        <td>
-                                                            <button className='btn-cancel'
-                                                                onClick={() => this.btnCancelTicket(item)}
-                                                            ><i class="fas fa-window-close"></i></button>
+                                            {futureTicket && futureTicket.map(i => {
+                                                return i.data.map((item, index) => {
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>{item.suatChieuId.movieData.ten_phim}</td>
+                                                            <td>{moment(new Date(Number(item.ticketData.ngay_ban))).format("DD/MM/YYYY")}</td>
+                                                            <td>{item.suatChieuId.showTime}</td>
+                                                            <td> <NumberFormat
+                                                                value={item.don_gia_ve}
+                                                                displayType={'text'}
+                                                                thousandSeparator={true}
+                                                                suffix={'VND'}
+                                                            /></td>
+                                                            <td>{item.so_luong_ve}</td>
+                                                            <td>{item.seatId.ten_ghe}</td>
+                                                            <td>{item.ticketData.paymentData.ten_pttt}</td>
+                                                            <td>{item.suatChieuId.theaterData.ten_rap}</td>
+                                                            <td>
+                                                                <button className='btn-cancel'
+                                                                    onClick={() => this.btnCancelTicket(item)}
+                                                                ><i class="fas fa-window-close"></i></button>
 
-                                                        </td>
-                                                    </tr>
-                                                )
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
                                             })
                                             }
                                         </tbody>
@@ -268,34 +283,40 @@ class MyTickets extends Component {
                                                 <th>Suất chiếu</th>
                                                 <th>Giá vé</th>
                                                 <th>Số lượng</th>
+                                                <th>Tên ghế</th>
+                                                <th>Số phòng</th>
                                                 <th>PTTT</th>
                                                 <th>Rạp</th>
                                                 <th>Hủy vé</th>
                                             </tr>
 
-                                            {futureTicketUnpaid && futureTicketUnpaid.map((item, index) => {
-                                                return (
-                                                    <tr key={index}>
-                                                        <td>{item.data[0].suatChieuId.movieData.ten_phim}</td>
-                                                        <td>{moment(new Date(Number(item.data[0].ticketData.ngay_ban))).format("DD/MM/YYYY")}</td>
-                                                        <td>{item.data[0].suatChieuId.showTime}</td>
-                                                        <td> <NumberFormat
-                                                            value={item.data[0].don_gia_ve}
-                                                            displayType={'text'}
-                                                            thousandSeparator={true}
-                                                            suffix={'VND'}
-                                                        /></td>
-                                                        <td>{item.data[0].so_luong_ve}</td>
-                                                        <td>{item.data[0].ticketData.paymentData.ten_pttt}</td>
-                                                        <td>{item.data[0].suatChieuId.theaterData.ten_rap}</td>
-                                                        <td>
-                                                            <button className='btn-cancel'
-                                                                onClick={() => this.btnCancelTicket(item)}
-                                                            ><i class="fas fa-window-close"></i></button>
+                                            {futureTicketUnpaid && futureTicketUnpaid.map((item) => {
+                                                return item.data.map((i, index) => {
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>{i.suatChieuId.movieData.ten_phim}</td>
+                                                            <td>{moment(new Date(Number(i.ticketData.ngay_ban))).format("DD/MM/YYYY")}</td>
+                                                            <td>{i.suatChieuId.showTime}</td>
+                                                            <td> <NumberFormat
+                                                                value={i.don_gia_ve}
+                                                                displayType={'text'}
+                                                                thousandSeparator={true}
+                                                                suffix={'VND'}
+                                                            /></td>
+                                                            <td>{i.so_luong_ve}</td>
+                                                            <td>{i.seatId.ten_ghe}</td>
+                                                            <td>{i.seatId.cinemaRoomData.so_phong}</td>
+                                                            <td>{i.ticketData.paymentData.ten_pttt}</td>
+                                                            <td>{i.suatChieuId.theaterData.ten_rap}</td>
+                                                            <td>
+                                                                <button className='btn-cancel'
+                                                                    onClick={() => this.btnCancelTicket(item)}
+                                                                ><i class="fas fa-check-circle"></i></button>
 
-                                                        </td>
-                                                    </tr>
-                                                )
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
                                             })
                                             }
                                         </tbody>

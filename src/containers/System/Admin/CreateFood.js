@@ -6,6 +6,7 @@ import * as actions from '../../../store/actions'
 import './CreateFood.scss';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import TableManageFood from './TableManageFood';
 
 class CreateFood extends Component {
 
@@ -97,7 +98,7 @@ class CreateFood extends Component {
 
         return (
             <div className='user-redux-container'>
-                <div className='title'>QUẢN LÝ THỨC ĂN</div>
+                <div className='title'>QUẢN LÝ MÓN</div>
                 <div className="user-redux-body" >
                     <div className='container'>
                         <div className='col-12'>Thêm thức ăn</div>
@@ -172,6 +173,9 @@ class CreateFood extends Component {
 
                     }
 
+                </div>
+                <div>
+                    <TableManageFood />
                 </div>
             </div>
         )

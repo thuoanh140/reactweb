@@ -47,8 +47,10 @@
             "report": "Báo xấu",
             "manage-report": "Quản lý báo xấu",
             "revenue": "Doanh thu",
-            "ticket-revenue": "Doanh thu theo ngày",
-            "food-revenue": "Doanh thu theo phim"
+            "ticket-revenue": "Doanh thu",
+            "food-revenue": "Doanh thu rạp",
+            "confirm-ticket": "Xác nhận vé",
+            "confirm": "Xác nhận"
         },
         "movie": {
             "title": "QUẢN LÝ PHIM",
@@ -69,7 +71,10 @@
         "staff": {
             "sell": "Bán hàng",
             "sell-ticket": "Bán vé",
-            "sell-food": "Bán món ăn"
+            "sell-food": "Bán món ăn",
+            "ticket-confirmation": "Xác nhận vé",
+            "confirm": "Xác nhận đơn",
+            "food-confirmation": "Xác nhận món"
         }
     }
 }

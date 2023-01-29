@@ -154,6 +154,10 @@ const getDetailTicketByIdTicketService = (inputId) => {
     return axios.get(`/api/get-DetailTicket-by-IdTicket?id=${inputId}`)
 }
 
+const getDetailBillFoodByIdBillFoodService = (inputId) => {
+    return axios.get(`/api/get-DetailBillFood-by-IdBillFood?id=${inputId}`)
+}
+
 const getPaymentByIdService = (inputId) => {
     return axios.get(`/api/get-payment-by-Id?id=${inputId}`)
 }
@@ -219,6 +223,16 @@ const getRevenueTheaterService = () => {
 const getRevenueFoodByTheaterService = () => {
     return axios.get(`/api/get-revenue-food-by-theater`)
 }
+
+const getTicketUnpaidService = () => {
+    return axios.get(`/api/get-ticket-unpaid`)
+}
+
+const getBillFoodUnpaidService = () => {
+    return axios.get(`/api/get-bill-food-unpaid`)
+}
+
+
 
 const getLimitTicketService = (params) => {
     return axios.get(`/api/get-ticket-limit`, { params })
@@ -292,6 +306,14 @@ const cancelTicket = (inputId) => {
     return axios.put(`/api/cancel-ticket?id=${inputId}`)
 }
 
+const confirmTicket = (inputId) => {
+    return axios.put(`/api/confirm-ticket?id=${inputId}`)
+}
+
+const confirmBillFood = (inputId) => {
+    return axios.put(`/api/confirm-bill-food?id=${inputId}`)
+}
+
 const paymentVnpaySuccess = (inputId) => {
     return axios.put(`/api/payment-vnpay-success?id=${inputId}`)
 }
@@ -320,6 +342,8 @@ export {
     getRevenueByDate, getAllMembershipService, getTicketUnPaidByIdTVService,
     paymentVnpaySuccess, compareVoucherService, minusQuantity, getRevenueFoodByDate,
     getRevenueMovieService, getRevenueTheaterService, getRevenueTheaterByDate,
-    getRevenueFoodByTheaterService, getRevenueFoodTheaterByDate, handleLoginAdminApi
+    getRevenueFoodByTheaterService, getRevenueFoodTheaterByDate, handleLoginAdminApi,
+    getTicketUnpaidService, confirmTicket, getBillFoodUnpaidService, getDetailBillFoodByIdBillFoodService,
+    confirmBillFood
     // getNationService, getDirectorService, getCastService
 }

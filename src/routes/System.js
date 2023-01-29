@@ -16,6 +16,8 @@ import ManageRevenueFood from '../containers/System/Admin/ManageRevenueFood';
 import MembershipManage from '../containers/System/MembershipManage';
 import SellTicket from '../containers/System/Admin/Sell-Ticket';
 import SellFood from '../containers/System/Admin/Sell-Food';
+import TicketConfirmation from '../containers/System/Admin/TicketConfirmation';
+import FoodConfirmation from '../containers/System/Admin/FoodConfirmation';
 
 class System extends Component {
     render() {
@@ -39,8 +41,11 @@ class System extends Component {
                             <Route path="/system/user-membership" component={MembershipManage} />
                             <Route path="/system/sell-ticket" component={SellTicket} />
                             <Route path="/system/sell-food" component={SellFood} />
+                            <Route path="/system/ticket-confirmation" component={TicketConfirmation} />
+                            <Route path="/system/food-confirmation" component={FoodConfirmation} />
 
-                            <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
+
+                            {/* <Route component={() => { return (<Redirect to={systemMenuPath} />) }} /> */}
                         </Switch>
                     </div>
                 </div>

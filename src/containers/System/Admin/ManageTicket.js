@@ -103,6 +103,7 @@ class ManageTicket extends Component {
     render() {
         let { ticketFilterList, allTicket } = this.state;
         console.log('check ticketFilterList', ticketFilterList)
+        console.log('allTicket', allTicket)
         return (
             <div className='managhe-ticket-container'>
                 <div className='title text-center'>QUẢN LÝ VÉ BÁN</div>
@@ -123,7 +124,7 @@ class ManageTicket extends Component {
                                 <th>Giảm giá vé</th>
                                 <th>Đơn giá vé</th>
                                 <th>PTTT</th>
-                                <th>Hành động</th>
+                                {/* <th>Hành động</th> */}
                             </tr>
 
                             {ticketFilterList && ticketFilterList.slice((this.state.page - 1) * this.state.limit, this.state.page * this.state.limit).map((item, index) => {
@@ -146,10 +147,10 @@ class ManageTicket extends Component {
                                             suffix={'VND'}
                                         /></td>
                                         <td>{item.ticketData.paymentData.ten_pttt}</td>
-                                        <td>
-                                            {/* <button className='btn-edit' onClick={() => this.handleEditStaff(item)}><i className='fas fa-pencil-alt'></i></button> */}
+                                        {/* <td>
+                                            <button className='btn-edit' onClick={() => this.handleEditStaff(item)}><i className='fas fa-pencil-alt'></i></button>
                                             <button className='btn-delete' onClick={() => this.handleDeleteTicket(item)}><i className="fas fa-trash"></i></button>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 )
                             })

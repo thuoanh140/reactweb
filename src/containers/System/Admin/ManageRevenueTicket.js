@@ -14,6 +14,7 @@ import { Pie } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
 import _ from 'lodash';
 import NumberFormat from 'react-number-format';
+import { exportToCSV, CSV } from './export';
 
 
 class ManageRevenueTicket extends Component {
@@ -121,12 +122,43 @@ class ManageRevenueTicket extends Component {
     }
 
 
+    handleExport = () => {
+        let { revenueMovie } = this.state;
+        const csv = new CSV()
+
+        // if (revenueMovie && revenueMovie.length > 0) {
+        //     csv.add([{
+        //         Phim: revenueMovie.map(item => {
+        //             return item.ticketData.map(movie => movie.suatChieuId.movieData.ten_phim)
+        //         })
+        //     }, { DoanhThu: revenueMovie.map(item => item.total) }], "DoanhThuPhim")
+        //     csv.save("doanh thu")
+        // }
+
+        if (revenueMovie && revenueMovie.length > 0) {
+            csv.add([{
+                Phim: revenueMovie.map(item => {
+                    return item.ticketData.map(movie => movie.suatChieuId.movieData.ten_phim)
+                })
+            }, { DoanhThu: revenueMovie.map(item => item.total) }], "DoanhThuPhim")
+            csv.save("doanh thu")
+        }
+
+
+
+        // csv.add([{ test: "test sheet 1" }], "Sheet1")
+        // csv.add([{ test: "test sheet 2" }], "Sheet2")
+        // csv.save("doanh thu")
+    }
+
+
 
     render() {
         let { revenueDate, last7, timeStart, timeEnd, listDay, revenueFood, revenueMovie } = this.state;
+        console.log("listDay:", listDay)
 
         let revenue = revenueDate.reduce((total, item) => total + Number(item.ticketData[0].so_luong_ve) * Number(item.ticketData[0].don_gia_ve), 0);
-
+        console.log('log', this.state)
         let arr = last7.filter(item => {
             return item.data.length > 0
         })
@@ -144,6 +176,7 @@ class ManageRevenueTicket extends Component {
 
         return (
             <div className='manage-revenue-container'>
+                {/* <div className='btn btn-primary' onClick={this.handleExport}>export</div> */}
                 {/* <div className='title'>QUẢN LÝ DOANH THU</div> */}
                 <div className='manage-revenue-content'>
 

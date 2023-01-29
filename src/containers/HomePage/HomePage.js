@@ -42,28 +42,24 @@ class HomePage extends Component {
                 toast.error('Thanh toán thất bại!')
             )
         }
-
-        this.CustomWidget()
-    }
-
-    CustomWidget = () => {
-        return (
-            <Widget
-                socketUrl={"http://localhost:5005"}
-                socketPath={"/socket.io/"}
-                customData={{ "language": "en" }} // arbitrary custom data. Stay minimal as this will be added to the socket
-                title={"Title"}
-            />
-        )
     }
 
     closeLightbox = () => {
         this.setState({ open: false });
     };
 
+    handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            try {
+                document.querySelector(".rw-send").click();
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+
 
     render() {
-
         let settings = {
             dots: true,
             infinite: true,
@@ -93,6 +89,19 @@ class HomePage extends Component {
                 />
                 <Event settings={settings} />
                 <HomeFooter />
+                <div onKeyDown={this.handleKeyDown}>
+                    <Widget
+                        initPayload={"/greet"}
+                        socketUrl={"http://localhost:5005"}
+                        socketPath={"/socket.io/"}
+                        customData={{ "language": "vi" }} // arbitrary custom data. Stay minimal as this will be added to the socket
+                        title={"Cinema Chatbot"}
+                        params={
+                            { storage: 'session' }
+                        }
+                    />
+                </div>
+
             </div>
         );
     }

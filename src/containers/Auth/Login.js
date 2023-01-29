@@ -49,6 +49,11 @@ class Login extends Component {
             if (data && data.errCode === 0) {
                 this.props.adminLoginSuccess(data.user)
                 console.log('Đăng nhập thành công!')
+                // let { isLoggedIn } = this.state;
+                this.props.history.push({
+                    pathname: "/system/ticket-confirmation",
+                    // state: { isLoggedIn }
+                });
             }
 
         } catch (error) {
@@ -59,7 +64,6 @@ class Login extends Component {
                     })
                 }
             }
-            console.log('thuoanh', error.response);
         }
     }
 

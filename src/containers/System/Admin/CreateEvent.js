@@ -6,6 +6,7 @@ import * as actions from '../../../store/actions'
 import './CreateEvent.scss';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import TableManageEvent from './TableManageEvent';
 
 class CreateEvent extends Component {
 
@@ -160,6 +161,9 @@ class CreateEvent extends Component {
 
                     }
 
+                </div>
+                <div>
+                    <TableManageEvent />
                 </div>
             </div>
         )

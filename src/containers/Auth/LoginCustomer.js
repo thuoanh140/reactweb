@@ -129,7 +129,7 @@ class Login extends Component {
                         <div className='col-12'>
                             <span className='forgot-password'>Quên mật khẩu?</span>
                         </div>
-                        <div className='col-12 text-center mt-3'>
+                        {/* <div className='col-12 text-center mt-3'>
                             <span className='text-other-login'>Hoặc đăng nhập với:</span>
                         </div>
                         <div className='col-12 social-login'>
@@ -139,7 +139,7 @@ class Login extends Component {
 
                         <div class="text-center">
                             <p>Bạn không phải thành viên? <a href="#!">Đăng ký ngay</a></p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
